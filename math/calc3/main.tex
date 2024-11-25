@@ -1,0 +1,510 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}                       % custom enum labels
+\usepackage{parskip}          
+\usepackage{physics}
+\usepackage{geometry} 
+\usepackage{esint}
+\geometry{
+  paperwidth=18cm,
+  left=8mm,
+  right=8mm,
+  top=8mm,
+  bottom=8mm,
+}
+\usepackage[framemethod=TikZ]{mdframed}     % graphics and framed envs
+
+\renewcommand{\familydefault}{\sfdefault}      % sans serifs text
+\setlength{\parindent}{0pt}                    % no paragraph indentation
+
+% region TITLE CONSTRUCTION
+\newlength\mywidth
+\mywidth=\wd0
+\renewcommand{\contentsname}{\hangindent=\mywidth \courseid: \coursetitle \\ \medskip \LARGE{[MY NAME HERE], \semester}}
+% endregion
+
+% region FRAMED ENVIRONMENTS
+\newcounter{chapter}\setcounter{chapter}{1}
+\newcounter{theo}[chapter]\setcounter{theo}{0}
+\newcommand{\numTheo}{\arabic{chapter}.\arabic{theo}}
+\newcommand{\mdftheo}[3]{
+    \mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=#3]
+            {\ifstrempty{#2}{\strut #1~\numTheo}{\strut #1~\numTheo:~#2}};
+        },
+        innertopmargin=4pt,linecolor=#3,linewidth=2pt,
+        frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+        skipabove=11pt,skipbelow=0pt
+    }
+}
+\newcommand{\mdfnontheo}[3]{
+    \mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=#3]
+            {\ifstrempty{#2}{\strut #1}{\strut #1:~#2}};
+        },
+        innertopmargin=4pt,linecolor=#3,linewidth=2pt,
+        frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+        skipabove=11pt,skipbelow=0pt
+    }
+}
+\newcommand{\mdfproof}[1]{
+    \mdfsetup{
+        skipabove=11pt,skipbelow=0pt,
+        innertopmargin=4pt,innerbottommargin=4pt,
+        topline=false,rightline=false,
+        linecolor=#1,linewidth=2pt
+    }
+}
+\newenvironment{theorem}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Theorem}{#1}{red!25}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{lemma}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Lemma}{#1}{red!15}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{corollary}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Corollary}{#1}{red!15}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{definition}[1][]{
+    \mdfnontheo{Definition}{#1}{blue!20}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{example}[1][]{
+    \mdfnontheo{Example}{#1}{yellow!40}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{proof}[1][]{
+    \mdfproof{black!15}
+    \begin{mdframed}[]\relax
+\textit{Proof. }}{\end{mdframed}}
+% endregion
+
+% region NEW COMMANDS
+\newcommand{\ds}{\displaystyle}
+\newcommand{\pfn}[1]{\textrm{#1}}  % enables new functions
+\newcommand{\mbf}[1]{\mathbf{#1}}  % mathbf
+\newcommand{\C}{\mathbb{C}}        % fancy C
+\newcommand{\R}{\mathbb{R}}        % fancy R
+\newcommand{\Q}{\mathbb{Q}}        % fancy Q
+\newcommand{\Z}{\mathbb{Z}}        % fancy Z
+\newcommand{\N}{\mathbb{N}}   
+\newcommand{\K}{\mathbb{K}}  % fancy N
+\newcommand{\V}{\mathbf{V}} %vector space 
+\newcommand{\0}{\mathbf{0}} %zero vector 
+\newcommand{\from}{\leftarrow}
+\renewcommand{\i}[1]{\textit{#1}}
+\renewcommand{\b}[1]{\textbf{#1}}
+\newcommand{\qed}{$\square$}
+
+% endregion
+
+\title{Calculus III}
+\author{lonelyneutrino}
+\date{March 2024}
+\begin{document}
+\maketitle
+\section{Multivariable Functions}
+Multivariable functions take multiple independent variables and map to a dependent variable. 
+\begin{definition}[Function of two variables]
+    A function $f$ of two variables is a rule that assigns each ordered pair $(x,y)$ of the \textbf{domain} to a number in the co-domain. The set of all images is known as the \textbf{range}. 
+    $$f: \mathbb{R} \times \mathbb{R} \mapsto \mathbb{R}$$
+\end{definition}
+The input and output spaces are called the \textbf{domain} and \textbf{codomain} respectively. The subset of the codomain with preimages in the domain is called the \textbf{range}. 
+\begin{definition}[Graphs]
+If f is a function of two variables with domain $D$, then the graph of f is the set of all points $(x,y,z)$ in $\mathbb R^3$ such that $z = f(x,y)$ and $(x,y)$ is in $D$.
+\end{definition}
+Hence, the graph of a 3-dimensional function is the set of all points in Cartesian space which follow the function definition. 
+\begin{definition}[Openness]
+    The concept of an open and closed region is extended to higher dimensional real space. A point in the graph of a function is called an \textbf{interior point} if the disc constructed with that point as the center only contains points in the graph of the function. A point is called a \textbf{boundary point} if the disc constructed with that point as the center contains points within the graph and outside the graph. 
+    \\A region is called closed if it contains all of its boundary points. Otherwise, it's called an open region.
+\end{definition}
+\begin{definition}[Level Curves]
+The set of all points defined by $(x,y,k)$ where $f(x,y) = k$, $k$ being a constant form a level curve.
+\end{definition}
+A level curve is also called a \textbf{contour} of the function. 
+\begin{definition}[Alternate Definitions of f]
+ We can define functions in terms of n input variables, a single point variable which is an n-tuple, or an n dimensional vector.
+     $$f(x_1, x_2, x_3 \cdots x_n) = f(\mathbf x); \mathbf x = (x_1, x_2, x_3 \cdots x_n)$$
+     In set notation, this is written as $$f: \mathbb R^n \mapsto \mathbb R$$
+\end{definition}
+\newpage
+\section{Limits and Continuity}
+Limits in higher dimensions can be defined analogously to limits in 2 dimensions, through the \textbf{epsilon-delta} definition of a limit. 
+\begin{definition}[Epsilon-delta Limits]
+    Consider a function $f$ which takes two independent variables. If $$\lim_{(x,y) \to (a,b)}f(x,y) = L$$ $$0 < \sqrt{(x-a)^2 + (y-b)^2} < \delta,\exists \epsilon : 0 \leq \abs{f(x,y) - L} \leq \epsilon$$
+\end{definition}
+The geometric intepretation of the epsilon-delta definition is that in a small disc around the point $(a,b)$, the function approaches the value $L$. The definiton below provides a method of proving the nonexistence of a limit, by showing that if the function approaches two different values at the same point, the limit does not exist at that point. 
+
+\begin{definition}[Two Path Test]
+    If $f(x,y) \to L_1$ as $(x,y) \to (a,b)$ along the path $C_1$, and $f(x,y) \to L_2$ as $(x,y) \to (a,b)$ along the path $C_2$ such that $C_1 \neq C_2$, then the limit does not exist.
+\end{definition}
+\begin{example}
+    Consider the function $$f(x,y) = \frac{x^2}{x^2+y^2}$$
+    If we wish to determine the existence of the limit at the origin, we employ the two path test. Let's consider the family of paths $y = kx$. 
+    $$\lim_{x\mapsto 0} f(x,kx) = \lim_{x \mapsto 0}\frac{x^2}{x^2+(kx)^2}= \frac{1}{1+k^2}$$
+    As we change the path of approach (by varying k), the value of the limit changes. Hence, the limit does not exist at $(0,0)$.
+\end{example}
+The concept of continuity can be extended to multivariable functions as well. 
+\begin{definition}[Continuity]
+A function is said to be continuous at a point $(a,b)$ if $$\lim_{(x,y) \mapsto (a,b)} f(x,y) = f(a,b)$$
+A function is called continuous if it is continuous at every point in its domain. 
+\end{definition}
+\pagebreak
+\begin{definition}[Generalization to $\mathbb R_n$]
+Assume a function $f: \mathbb R_n \to \mathbb R$. If we consider the n-tuple input vector $\mathbf x = (x_1, x_2, x_3, x_4 \cdots x_n)$ and a point in n-dimensional space $\mathbf a = (a_1, a_2, a_3 \cdots a_n)$, then if $\lim_{\mathbf x \to \mathbf a} f(\mathbf x) = L$ For every $$0 < \sqrt{(x_1 - a_1)^2 + (x_2 - a_2)^2 + (x_3 - a_3)^2 \cdots (x_n - a_n)^2} < \delta, \exists \abs{f(\mathbf x) - L} < \epsilon$$
+The function is said to be continuous if for all $\mathbf k \in D_f$, $\lim_{\mathbf x \to \mathbf k} f(\mathbf x) = f(\mathbf k)$
+\end{definition}
+\section{Partial Derivatives}
+\begin{definition}[Partial Derivative]
+Consider a function f(x,y). Then the partial derivative of f wrt x is given by $$\pdv{f}{x} = \lim_{h \to 0} \frac{f(x+h, y) - f(x,y)}{h}$$
+At a given point $(x_0, y_0)$ $$ \left. \pdv{f}{x}\right |_{(x_0, y_0)} = \lim_{h \mapsto 0}\frac{f(x_0 +h, y_0) - f(x_0, y_0)}{h}$$
+Similarly, $$\left . \pdv{f}{y}\right |_{(x_0, y_0)} = \lim_{h \to 0} \frac{f(x_0, y_0 + h) - f(x_0, y_0)}{h}$$
+\end{definition}
+\begin{theorem}[Clairaut's Theorem]
+If a function $f(x,y)$ is defined on a disk D containing a point $(a,b)$. If the functions $f_{xy}$ and $f_{yx}$ are both continuous, then $$f_{xy}(a,b) = f_{yx}(a,b)$$
+\end{theorem}
+\begin{definition}[Tangent Planes and Approximation]
+    The linear approximation of $z=f(x,y)$ at $(x_0, y_0)$ is given as $$f(x,y) \approx \left . \pdv{f}{x} \right |_{(x_0, y_0)}(x-x_0) + \left . \pdv{f}{y} \right |_{(x_0, y_0)}(y-y_0) + z_0$$
+    The equation of the tangent plane is given by $$f_x(x_0, y_0)(x-x_0) + f_y(x_0, y_0)(y-y_0) = (z-z_0)$$
+\end{definition}
+\begin{definition}[Differentiability]
+    For a function z = f(x,y), f is said to be differentiable if $$\Delta z = \pdv{f}{x}\Delta x + \pdv{f}{y} \Delta y + \epsilon_1 \Delta x + \epsilon_2 \Delta y$$ if $\epsilon_1, \epsilon_2 \to 0$ as $\Delta x, \Delta y \to 0$ at all points $(x_0, y_0) \in D_f$
+\end{definition}
+\begin{theorem}[Differentiability near a point]
+    If $f_x$ and $f_y$ are defined near $(a,b)$ and are continuous at $(a,b)$, then f is differentiable at $(a,b)$
+\end{theorem}
+\newpage
+\begin{definition}[Differentials]
+    $$\dd y = f'(x) \dd x$$
+    Similarly, for a function z = f(x,y) $$ \dd z = \pdv{f}{x}\dd x + \pdv{f}{y}\dd y$$
+\end{definition}
+\begin{abstract}
+    If we generalize this to $z = f: \mathbb R_n \to \mathbb R$, then $$\dd z = \pdv{f}{x_1} \dd x_1 + \pdv{f}{x_2}\dd x_2 \cdots \pdv{f}{x_n}\dd x_n$$ 
+\end{abstract}
+$$f(x,y) \approx f(a,b) + \dd z$$
+\section{Chain Rule}
+\begin{definition}[Case 1]
+If $z=f(x,y)$ is defined such that $x = g(t), y = h(t)$ then $$\dv{z}{t} = \pdv{f}{x}\dv{x}{t} + \pdv{f}{y}\dv{y}{t}$$ 
+\end{definition}
+\begin{proof}
+    We know that $$\Delta z = \pdv{f}{x}\Delta x + \pdv{f}{y}\Delta y + \epsilon_1\Delta x + \epsilon_2\Delta y$$
+    $$\frac{\Delta z}{\Delta t} = \pdv{f}{x}\frac{\Delta x}{\Delta t} + \pdv{f}{y}\frac{\Delta y}{\Delta t} + \epsilon_1\frac{\Delta x}{\Delta t} + \epsilon_2\frac{\Delta y}{\Delta t}$$ Now as $(\Delta x, \Delta y) \to 0$ $\epsilon_1, \epsilon_2 \to 0$ $$\dv{z}{t} = \pdv{f}{x}\dv{x}{t} + \pdv{f}{y}\dv{y}{t}$$
+\end{proof}
+\begin{definition}[Case 2]
+    If $z = f(x,y)$ and $x = g(s,t)$ and $y = h(s,t)$ then $$\pdv{z}{s} = \pdv{f}{x}\pdv{x}{s} + \pdv{f}{y}\pdv{y}{s}$$
+\end{definition}
+\begin{proof}
+    $$\Delta z = \pdv{f}{x}\Delta x + \pdv{f}{y}\Delta y + \epsilon_1\Delta x + \epsilon_2 \Delta y$$ 
+    $$\Delta x = \pdv{x}{s}\Delta s + \pdv{x}{t}\Delta t + \epsilon_3\Delta s + \epsilon_4\Delta t$$
+    $$\Delta y = \pdv{y}{s}\Delta s + \pdv{y}{t}\Delta t + \epsilon_5\Delta s + \epsilon_6\Delta t$$
+    $$\Delta z = \pdv{f}{x}\pdv{x}{s}\Delta s + \pdv{f}{x}\pdv{x}{t}\Delta t + \pdv{f}{x}\epsilon_3\Delta s + \pdv{f}{x}\epsilon_4\Delta t + \pdv{f}{y}\pdv{y}{s}\Delta s + \pdv{f}{y}\pdv{y}{t}\Delta t+ \pdv{f}{y}\epsilon_5\Delta s + \pdv{f}{y}\epsilon_6\Delta t + \epsilon_1\pdv{x}{s}\Delta s $$$$+ \epsilon_1\pdv{x}{t}\Delta t + \epsilon_1\epsilon_3\Delta s + \epsilon_1\epsilon_4\Delta t + \epsilon_2\pdv{y}{s}\Delta s + \epsilon_2\pdv{y}{t}\Delta t + \epsilon_2\epsilon_3\Delta s + \epsilon_2\epsilon_4\Delta t$$
+    As we are differentiating partially, $\Delta t = 0$. As $\epsilon_1, \epsilon_2, \epsilon_3, \epsilon_4 \epsilon_5, \epsilon_6 \to 0$, 
+    $$\Delta z = \pdv{f}{x}\pdv{x}{s}\Delta s + \pdv{f}{y}\pdv{y}{s}\Delta s$$
+    $$\pdv{z}{s} = \pdv{f}{x}\pdv{x}{s} + \pdv{f}{y}\pdv{y}{s}$$
+\end{proof}
+\begin{definition}[Generalized Chain Rule]
+    If $u$ is a differentiable function with input variables $x_1, x_2, x_3 \cdots x_n$ such that they are each functions of $t_1, t_2 \cdots t_m$ Then
+    $$\pdv{u}{t_i} = \sum_{i = 0}^n{\pdv{u}{x_j}\dv{x_j}{t_i}}$$
+\end{definition}
+Chain rule becomes more complicated if we are to differentiate a function subject to constraints. It becomes necessary to define which variable we are holding constant during the differentiation. Due to the nature of the constraint, it is not possible to hold all variables constant except one. This becomes particularly important in thermodynamics. 
+\begin{example}
+Consider the function $$f(x,y,z) = x+y+z^2$$
+subject to the constraint $$x^2+y^2+z^2 = 16$$ The domain of the function is the intersection of the domain of $f$ and the points lying on a sphere of radius 4 centered at the origin. One can notice that there is a complicated relation between variables. We will take the partial derivative wrt x holding y constant-
+$$\pqty{\pdv{f}{x}}_y = 1+0+2z\dv{z}{x}$$
+The total derivative $\dv{z}{x}$ can be calculated by totally differentiating the constraint function wrt x.
+All of the partial derivatives are computed below. 
+$$\pqty{\pdv{f}{x}}_z = 1+\dv{y}{x}$$
+$$\pqty{\pdv{f}{y}}_x = 1+2z\dv{z}{y}$$
+$$\pqty{\pdv{f}{y}}_z = \dv{x}{y} + 1$$
+$$\pqty{\pdv{f}{z}}_x = \dv{y}{z} + 2z$$ 
+$$\pqty{\pdv{f}{z}}_y = \dv{x}{z} + 2z$$
+
+\end{example}
+\begin{corollary}[Implicit Differentiation]
+    Consider f(x,y) = c, where c is a constant. If y is a function of x $$\pdv{f}{x} + \dv{f}{y}\dv{y}{x} = 0$$
+    $$\dv{y}{x} = -\frac{\pdv{f}{x}}{\pdv{f}{y}}$$
+\end{corollary}
+\begin{definition}[Directional Derivatives]
+Consider a unit vector $u = \langle a,b \rangle$. The directional derivative of z = f(x,y) at $(x_0, y_0)$ in the direction of u is given by $$\mathbf D_u (x_0, y_0) = \lim_{h \to 0} \frac{f(x_0 + ah, y_0 + bh) - f(x_0, y_0)}{h}$$
+\end{definition}
+\begin{theorem}[Directional Derivatives]
+For a function f and a unit vector $u = \langle a, b \rangle$
+    $$\mathbf D_u(x_0, y_0) = f_x(x_0,y_0)a + f_y(x_0,y_0)b$$
+\end{theorem}
+\begin{proof}
+    For a function f(x,y) we define a single variable function $g(h) = f(x_0 + ah, y_0 + bh)$. Differentiating with respect to h, 
+    $$g'(h) = \lim_{h \to 0} \frac{f(x_0 + ah, y_0 + bh)-f(x_0,y_0)}{h} = \mathbf D_u(x_0,y_0) = \pdv{f}{x}a + \pdv{f}{y}b$$
+\end{proof}
+\begin{corollary}[Angle definition]
+    If a unit vector u makes an angle $\theta$ with the positive direction of the x-axis, then we can write the directional derivative of a function f as $$\mathbf D_u (x_0, y_0) =  \pdv{f}{x} \cos \theta  + \pdv{f}{y} \sin \theta$$
+\end{corollary}
+\begin{definition}[Gradient Vector]
+    $$\mathbf D_u  = \pdv{f}{x}a + \pdv{f}{y}b = \langle \pdv{f}{x}, \pdv{f}{y} \rangle \cdot \langle a,b\rangle = \nabla f \cdot u$$
+\end{definition}
+\begin{proof} The gradient vector is normal to the curve. \\ 
+    Consider f(x,y) = c where x = x(t) and y = y(t). $$ 0 = \pdv{f}{x}\dv{x}{t} + \pdv{f}{y}\dv{y}{t} = \langle \pdv{f}{x}, \pdv{f}{y}\rangle \cdot \langle \dv{x}{t}, \dv{y}{t} \rangle$$ Hence, these vectors are normal to each other, and the gradient vector is normal to the plane of the curve. 
+\end{proof}
+\section{Maximum and Minimum Values}
+\begin{definition}[Local Extrema]
+    A function f is said to have a local maximum at (a,b) if f(a,b) $>$ f(x,y) for all (x,y) near (a,b). \\ 
+    A function f is said to have a local minimum at (a,b) if f(a,b) $<$ f(x,y) for all (x,y) near (a,b).
+\end{definition}
+\begin{theorem}[Partial Derivatives at extrema]
+    At a local maxima or minima, the first partial derivatives $f_x$ and $f_y$ are zero. \\ 
+    A point (a,b) is known as a critical point if $f_x(a,b)$ and $f_y(a,b)$ are equal to zero, or do not exist. 
+\end{theorem}
+\begin{definition}[Nature of 2nd Derivative test]
+Let D = $f_{xx}f_{yy} - f_{xy}^2$ \\ At (a,b) \\
+If $D > 0$ and $f_{xx} < 0$, then the point is a local maximum. \\ 
+If $D > 0$ and $f_{xx} > 0$, then the point is a local minimum. \\ 
+If $D < 0$, then f has a saddle point at (a,b).
+\end{definition}
+If D = 0, then the test is inconclusive. 
+\begin{theorem}[Extreme Value Theorem]
+    If f is continuous on a bounded set D in $\mathbb R^2$, then it attains an absolute maximum and an absolute minimum at some point in the set. 
+\end{theorem}
+\section{Lagrange Multipliers}
+\begin{definition}[Lagrange Multipliers]
+    Consider a function z = f(x,y) constrained by the level curve g(x,y) = c. We can determine the extrema based on the property that the gradient vectors of the constraint and the function are parallel at extrema. They are scalar multiples, and this scalar is called the lagrange multiplier. $$\nabla f = \lambda \nabla g$$ Then do some wizard magic and solve for x, y, z and $\lambda$
+\end{definition}\newpage
+\section{Multiple Integrals}
+The Riemann sum for a two dimensional function can be written as
+$$A \approx \sum_{k=1}^n f(x_k, y_k)\Delta A_k$$ If we define the region as a mesh, with length and width $\Delta x$ and $\Delta y$. As those tend to zero, we see that the discrete sum transforms into a continuous integral. 
+$$\iint_R {f(x,y) \dd A} = \lim_{\Delta A \mapsto 0}\sum_{k=1}^n f(x_k, y_k)\Delta A_k$$
+$$A = \iint_D {f(x,y)\dd A} = \int_a^b\int_c^d{f(x,y)\dd x \dd y}$$
+
+\begin{theorem}[Fubini's Theorem]
+    If f(x,y) is continuous on a region $D: a \leq x \leq b, c \leq y \leq d$ then 
+    $$\iint_R f(x,y)\dd A = \int_c^d\int_a^b f(x,y)\dd x \dd y = \int_a^b\int_c^d f(x,y) \dd y \dd x$$
+\end{theorem}
+Fubini's theorem tells us that we can integrate in either order. This is similar to integrating wrt y or x in single-variable integrals.
+
+\begin{theorem}[Fubini's Theorem (Stronger Form)]
+    If f(x,y) is continuous over a region R, that can be defined as
+    $$a \leq x \leq b, g_1(x) \leq y \leq g_2(x)$$ 
+    $$c \leq y \leq d, h_1(y) \leq x \leq h_2(y)$$
+    then 
+    $$\iint_R f(x,y)\dd A = \int_a^b\int_{g_1(x)}^{g_2(x)} f(x,y)\dd y \dd x = \int_c^d\int_{h_1(y)}^{h_2(y)}f(x,y)\dd x \dd y $$
+\end{theorem}
+The area of a region $R$ can be calculated using integrals as follows: 
+For the region $R: a \leq x \leq b, g(x) \leq y \leq h(x)$, the area can be computed as 
+$$A = \int_a^b\int_{g(x)}^{h(x)} \dd A$$
+The solution of the inner integral resembles the area integral from single-variable calculus. 
+
+\begin{definition}
+    The average value of f over the region R can be calculated as follows: 
+    $$\pqty{\iint_R{\dd A}}^{-1} \iint_R{f(x,y) \dd A}$$
+\end{definition}
+\newpage
+\begin{definition}[Cylindrical Coordinates]
+    The cylindrical coordinate system is defined as follows-
+    $$(x,y,z) \mapsto (r, \theta, z)$$ is defined by the following transformations-
+    $$x = r\cos \theta$$
+    $$y = r\sin \theta$$
+    $$z=z$$
+\end{definition}
+\begin{definition}[Spherical Coordinates]
+    The spherical coordinate system is defined as follows- 
+    $$(x,y,z) \mapsto (\rho, \theta, \phi)$$
+    $$x = \rho \cos \theta \sin \phi$$
+    $$y = \rho \sin \theta \sin \phi$$
+    $$z = \rho \cos \phi$$
+\end{definition}
+\textbf{The same theorems and definitions apply to triple, and n-iterated integrals.}
+\section{Jacobians}
+Jacobians are multidimensional u-substitutions to integrate in other coordinate systems. 
+\begin{definition}[Polar Jacobian]
+    The polar Jacobian is used to transform integrals from Cartesian to polar integrals. 
+    $$\pdv{(x,y)}{(r, \theta)} = \left | \begin{matrix}
+        \pdv{x}{r} & \pdv{x}{\theta} \\ 
+        \pdv{y}{r} & \pdv{y}{\theta}
+    \end{matrix}\right | = \cos \theta (r\cos \theta) - r\sin\theta(-\sin \theta) = r$$
+    $$\iint_R f(x,y)\dd A = \iint_R{f(r, \theta)\abs{\pdv{(x,y)}{(r, \theta)}}\dd A}$$
+\end{definition}
+The Jacobians for some other coordinate systems are mentioned below. 
+$$\text{Cylindrical Coordinate System: } r$$
+$$\text{Spherical Coordinate System: } \rho^2 \sin \phi$$
+Generally, the Jacobian for an arbitrary transformation $(x,y) \mapsto (u,v)$ and can be defined analogously to the polar example. 
+\newpage
+\begin{definition}[Jacobian Orientability]
+    If the Jacobian is negative, this implies the transformation inverts the orientation of the space. From differential geometry, we know that 
+    $$\iint_R f\dd A = \iint_{-R}{-f\dd A}$$
+    Now, considering a Jacobian for the transformation $(x,y) \mapsto (u,v)$, the integral transformation is represented as follows: 
+    $$\iint_R{f(x,y) \dd A} = \iint_{-R}(-f(u, v))(-J) \dd  A = \iint_{-R}f(u,v) J \dd A$$
+    This is why the absolute value is used for the Jacobian-inverting the orientability of the region does not affect the sign of the integral value. 
+\end{definition}
+\section{Vector Fields} 
+\begin{definition}[Vector Field]
+    A vector field is a mapping from one vector field to another. It can be generalized as
+    $$f: \mathbb R^n \mapsto \mathbb R^m$$ Note that scalar fields are a specific instance of vector fields where $m=1$. 
+\end{definition}
+\begin{corollary}[Gradient Fields]
+    A gradient field is a vector field mapping a point in space to a vector where each component is a partial derivative. 
+    $$ \nabla f : \mathbb R^3 \mapsto \mathbb R^3  = \langle \pdv{f}{x}, \pdv{f}{y}, \pdv{f}{z} \rangle $$
+\end{corollary}
+\begin{example}
+    Take the example of $$F(x,y,z) = \langle z, y, x \rangle$$
+    This vector field maps the vector $\langle x,y,z \rangle \mapsto \langle z,y,x \rangle$
+\end{example}
+\begin{definition}[Line Integrals]
+    Consider the curve $r(t) = \langle x(t), y(t), z(t) \rangle$. It must be smooth over the domain $a \leq t \leq b$.
+    A vector field $F(x,y,z)$ can be integrated over this curve.
+    $$\text{The line integral of F over C is } \int_C F(x(t), y(t), z(t)) \dd r = \int_a^b{F(x(t), y(t), z(t)) \cdot \dv{r}{t} \dd t}$$
+\end{definition}
+
+\begin{corollary}[Scalar Fields]
+    For scalar fields, the value of $f$ is a scalar. Hence, the magnitude of $\dv{r}{t}$ is taken instead of a dot product. 
+    $$\int_C f(x,y,z)\dd r = \int_a^b f(x,y,z) \abs{\dv{r}{t}} \dd t$$
+\end{corollary}
+
+Line integrals over multiple joint curves can be added together, so long as the curves are smooth.
+For $C = C_1 \cup C_2 \cup C_3 \cdots C_n$ 
+$$\int_C f \dd r = \int_{C_1} f \dd r + \int_{C_2} f\dd r + \cdots \int_{C_n} f \dd r$$ 
+
+\begin{definition}[Work Integral]
+    If $F(x,y,z) = \langle M(x,y,z), N(x,y,z), P(x,y,z) \rangle$ is a force field, then the line integral along a path gives the work done.
+    $$W = \int_C F \cdot \dd r = \int_a^b M \dd x + N \dd y + P \dd z$$
+\end{definition}
+\begin{corollary}[Flow Integrals]
+    If the field instead maps each point to the velocity of a fluid, then its line integral is called a \textbf{flow integral}. If the path is closed, then the integral evaluates to the \textbf{circulation}. The corresponding integral is called a \textbf{circulation integral}. 
+\end{corollary}
+osed, the integral is written as $$\ointctrclockwise \mathbf F \cdot \mathbf T \dd s$$. The arrow indicates that integration occurs counterclockwise by convention.Note that when the path is cl
+\begin{definition}[Flux Integrals]
+    The flux of a field through a path is written as
+    $$\Phi = \int_C \mathbf F \cdot \mathbf n \dd s$$
+    By convention the normal vector is taken outwards and is given by 
+    $$(\mathbf T \times \hat k) = \left < \pdv{x}{s}, \pdv{y}{s} \right > \times \hat k = \left < \pdv{y}{s}, -\pdv{x}{s} \right >$$
+    Hence, the \textbf{flux integral} is written as 
+    $$\Phi = \int_C \mathbf F \cdot \mathbf n \dd s = \int_C M\dd y - N \dd x \text{ (Compact differential form)}$$
+    Across a smooth closed curve, it's written as 
+    $$\Phi = \ointctrclockwise_C M\dd y - N \dd x$$
+\end{definition}
+
+\begin{definition}[Conservative Field]
+    Conservative fields have many definitions which we will cover. The first definition of a conservative field is that any circulation integral evaluates to zero. 
+    $$\ointctrclockwise_C M \dd x + N \dd y = 0 $$
+\end{definition}
+
+\begin{theorem}[Gradient Field Interpretation]
+    A field $\mathbf F$ is called a conservative field if it is a gradient field of a scalar function $f$: 
+    $$F = \nabla f$$ The function $f$ is known as a \textbf{potential function}. 
+\end{theorem}
+
+The advantage of conservative fields is their simplification of line integrals.
+$$\int_C F \cdot \dd r = \int_C \nabla f \cdot \dd r = f(r(b)) - f(r(a))$$
+This is akin to the fundamental theorem of calculus for single variable integrals. 
+
+\begin{definition}[Exact Differentials]
+    Consider a conservative vector field $\mathbf F$. The work integral along a path $C$ is 
+    $$\int_C M \dd x + N \dd y + P \dd z = \int_C {\pdv{f}{x} \dd x + \pdv{f}{y} \dd y + \pdv{f}{z}\dd z} = \int_C \nabla f \cdot \dd r = \int_C \dd f$$
+    Hence, a function has an exact differential form if and only if it's conservative. 
+\end{definition}
+
+\begin{definition}[Divergence]
+    The \textbf{divergence} or \textbf{flux density} is defined as 
+    $$ \text{div } \mathbf F = \pdv{M}{x} + \pdv{N}{y}$$ 
+    Written more compactly, it is 
+    $$\text{div } \mathbf F = \nabla \cdot \mathbf F$$ where $\nabla$ is the \textbf{vector differential operator}. 
+\end{definition}
+The physical interpretation of divergence can be understood taking the example of a fluid field. A positive divergence means the fluid is flowing outwards from that point, and a negative divergence means the fluid is converging on that point. 
+
+\begin{definition}[Curl]
+    \textbf{Curl} or \textbf{circulation density} is defined as the tendency of a field to circulate about a given point.
+    $$\text{curl } \mathbf F  = \pdv{M}{y} - \pdv{N}{x}$$ 
+    Written more compactly, it is 
+    $$\text{curl } \mathbf F = \nabla \times \mathbf F$$
+\end{definition}
+The physical interpretation of curl is the direction in which the field tends to circulate. Positive curl means it rotates in the counterclockwise direction, whereas negative curl means it rotates in the clockwise direction.
+
+\begin{definition}[Green's theorem]
+    Green's theorem links the ideas of flux and divergence, and circulation and curl.
+
+    Consider a simple, closed loop $C$. The outward flux of a field $\mathbf F$ can be computed using the corresponding flux integral- 
+    $$\ointctrclockwise_C \mathbf F\cdot \mathbf n \dd s  = \ointctrclockwise_C{M \dd y - N \dd x} = \iint_D{\nabla \cdot \mathbf F\dd A = \iint_D{\pdv{M}{x} + \pdv{N}{y} \dd A}}$$
+    
+    The circulation of the field can be computed using a circulation integral- 
+    $$\ointctrclockwise_C \mathbf F \cdot \mathbf T \dd s = \ointctrclockwise_C {M \dd x + N \dd y} = \iint_D{\nabla \times \mathbf F \cdot \mathbf k\dd A} = \iint_D{\pdv{N}{x} - \pdv{M}{y} \dd A}$$
+    The two forms are called the \textbf{normal} and \textbf{tangential} forms of Green's theorem. 
+\end{definition}
+The motivation behind these relations can be understood from the density definition of curl and divergence. They represent areal densities of circulation and flux respectively. Hence, double integrals over the appropriate region 
+will yield the circulation and flux. 
+\\ The fundamental property of Green's theorem and, later generalized Stoke's theorem is that region behavior can be defined using boundary behavior and vice versa. 
+\newpage
+\section{Surfaces}
+\begin{definition}[Surface Forms]
+    A surface can be defined explicitly, implicitly, or parametrically- 
+    $$\text{Explicit form: } z = f(x,y)$$ 
+    $$\text{Implicit form: } F(x,y,z) = 0$$
+    $$\text{Parametric Form: } \mathbf{r}(u,v) = \langle f(u,v), g(u,v), h(u,v) \rangle$$ 
+\end{definition}
+\begin{definition}[Surface Area]
+    A surface can be defined as the contour of a function $f(x,y,z)$. The surface area can be represented as 
+    $$\iint_R \frac{\abs{\nabla f}}{\abs{\nabla f \cdot p}}\dd A$$
+    If our function can be written as $z = f(x,y)$, the integral simplifies greatly. 
+    $$\iint_R \sqrt{\pqty{\pdv{f}{x}}^2 + \pqty{\pdv{f}{y}}^2 + 1} \dd A$$
+\end{definition}
+For simplicity, we will substitute the surface differential as 
+$$ \dd \sigma = \frac{\abs{\nabla f}}{\abs{\nabla f \cdot \mathbf p}} \dd A$$
+\begin{definition}[Orientability]
+    A smooth surface S is called orientable if it is possible to define a \textbf{continuous normal field} at each point on the surface. A popular example of a non-orientable surface is the Mobius strip. 
+\end{definition}
+
+\section{Surface Integrals}
+\begin{definition}[Surface Flux]
+    The flux over a surface is defined analogously to flux over a boundary- 
+    $$\iint_S \mathbf F \cdot \mathbf n \dd \sigma$$
+The normal vector can be taken in either direction $$\mathbf n = \pm \frac{\nabla g}{\abs{\nabla g}}$$
+\end{definition}
+\newpage
+\section{Parametric Surface Area}
+\begin{definition}[Smoothness]
+    Consider a surface parameterized as follows: 
+    $$\mathbf r(u,v) = \langle f(u,v), g(u,v), h(u,v) \rangle$$
+    The partial derivatives are calculated as follows- 
+    $$\mathbf r_u = \pdv{r}{u} = \langle \pdv{f}{u}, \pdv{g}{u}, \pdv{h}{u}\rangle$$
+    $$\mathbf r_v = \pdv{r}{v} = \langle \pdv{f}{v}, \pdv{g}{v}, \pdv{h}{v}\rangle$$
+    A surface is said to be smooth if $\mathbf r_u$ and $\mathbf r_v$ are continuous and $\mathbf r_u \times \mathbf r_v$ is nonzero across the parameter domain. 
+\end{definition}
+
+\begin{definition}[Parametric surface differential]
+The surface differential for a parametric surface is defined as $$\dd \sigma = \abs{\mathbf r_u \times \mathbf r_v} \dd u \dd v$$
+\end{definition}
+
+\begin{definition}[Stokes theorem]
+    Stokes theorem generalizes Green's theorem to surfaces. It states that the circulation around the boundary of a surface is equal to the surface integral of the normal component of curl over the surface.
+    $$\ointctrclockwise_{\partial R}{Mdx + N dy} = \iint_R{\nabla \times \mathbf F \cdot \mathbf n \dd \sigma}$$  
+    The flux-divergence form of Green's theorem requires no generalization- because divergence is a scalar, there is no need to redefine the normal vector wrt the surface.
+    Hence, it can be written as is-
+    $$\ointctrclockwise_{\partial R}{M\dd y - N \dd x} = \iint_R{\nabla \cdot F \dd \sigma}$$
+\end{definition}
+\begin{corollary}[Important results]
+    $$\nabla \times \nabla f = 0 \text{ or curl grad }f = 0$$
+    $$\nabla \cdot \nabla \times f = 0 \text{ or div curl }f = 0$$
+    The intuition behind the first result is that a gradient field at any point always lies in the direction of maximum increase- hence it is fundamentally irrotational. 
+    \\ The intuition behind the second result is that the curl of a system has no source or sink- this implies that rotations are local in nature.
+\end{corollary}
+\begin{definition}[Divergence Theorem]
+    The flux through a surface can be defined as the sum of the divergence throughout the volume enclosed by the solid. 
+    Geometrically, this computes the sum of all the sources and sinks of flux.
+    $$\iint \mathbf F \cdot \mathbf n \dd \sigma = \iiint_V \nabla \cdot \mathbf F \dd V$$
+\end{definition}
+\end{document}
+
