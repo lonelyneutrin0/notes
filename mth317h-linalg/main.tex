@@ -1,0 +1,224 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}                       % custom enum labels
+\usepackage{parskip}          
+\usepackage{physics}
+\usepackage{geometry} 
+\usepackage{esint}
+\geometry{
+  paperwidth=18cm,
+  left=8mm,
+  right=8mm,
+  top=8mm,
+  bottom=8mm,
+}
+\usepackage[framemethod=TikZ]{mdframed}     % graphics and framed envs
+
+\renewcommand{\familydefault}{\sfdefault}      % sans serifs text
+\setlength{\parindent}{0pt}                    % no paragraph indentation
+
+% region TITLE CONSTRUCTION
+\newlength\mywidth
+\mywidth=\wd0
+\renewcommand{\contentsname}{\hangindent=\mywidth \courseid: \coursetitle \\ \medskip \LARGE{[MY NAME HERE], \semester}}
+% endregion
+
+% region FRAMED ENVIRONMENTS
+\newcounter{chapter}\setcounter{chapter}{1}
+\newcounter{theo}[chapter]\setcounter{theo}{0}
+\newcommand{\numTheo}{\arabic{chapter}.\arabic{theo}}
+\newcommand{\mdftheo}[3]{
+    \mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=#3]
+            {\ifstrempty{#2}{\strut #1~\numTheo}{\strut #1~\numTheo:~#2}};
+        },
+        innertopmargin=4pt,linecolor=#3,linewidth=2pt,
+        frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+        skipabove=11pt,skipbelow=0pt
+    }
+}
+\newcommand{\mdfnontheo}[3]{
+    \mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=#3]
+            {\ifstrempty{#2}{\strut #1}{\strut #1:~#2}};
+        },
+        innertopmargin=4pt,linecolor=#3,linewidth=2pt,
+        frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+        skipabove=11pt,skipbelow=0pt
+    }
+}
+\newcommand{\mdfproof}[1]{
+    \mdfsetup{
+        skipabove=11pt,skipbelow=0pt,
+        innertopmargin=4pt,innerbottommargin=4pt,
+        topline=false,rightline=false,
+        linecolor=#1,linewidth=2pt
+    }
+}
+\newenvironment{theorem}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Theorem}{#1}{red!25}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{lemma}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Lemma}{#1}{red!15}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{corollary}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Corollary}{#1}{red!15}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{definition}[1][]{
+    \mdfnontheo{Definition}{#1}{blue!20}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{example}[1][]{
+    \mdfnontheo{Example}{#1}{yellow!40}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{proof}[1][]{
+    \mdfproof{black!15}
+    \begin{mdframed}[]\relax
+\textit{Proof. }}{\end{mdframed}}
+% endregion
+
+% region NEW COMMANDS
+\newcommand{\ds}{\displaystyle}
+\newcommand{\pfn}[1]{\textrm{#1}}  % enables new functions
+\newcommand{\mbf}[1]{\mathbf{#1}}  % mathbf
+\newcommand{\C}{\mathbb{C}}        % fancy C
+\newcommand{\R}{\mathbb{R}}        % fancy R
+\newcommand{\Q}{\mathbb{Q}}        % fancy Q
+\newcommand{\Z}{\mathbb{Z}}        % fancy Z
+\newcommand{\N}{\mathbb{N}}   
+\newcommand{\K}{\mathbb{K}}  % fancy N
+\newcommand{\V}{\mathbf{V}} %vector space 
+\newcommand{\0}{\mathbf{0}} %zero vector 
+\newcommand{\from}{\leftarrow}
+\renewcommand{\i}[1]{\textit{#1}}
+\renewcommand{\b}[1]{\textbf{#1}}
+\newcommand{\qed}{$\square$}
+
+% endregion
+
+\title{Linear Algebra}
+\author{lonelyneutrino}
+\date{December 2024}
+\begin{document}
+\maketitle
+\section{Vector Spaces}
+\subsection{$\mathbb R^n$ and $\mathbb C^n$}
+\vspace{5pt}
+\begin{definition}[Complex Numbers]
+    A complex number is an ordered pair of the form $(a,b)$ denoted as $a + bi$. $i = \sqrt{-1}$  
+    $$\mathbb C = \{(a,b) : a,b \in \mathbb R\}$$ 
+    $(+, \cdot)$ are defined on complex numbers as follows-
+    $$(a+bi) + (c+di) = (a+c) + (b+d)i$$
+    $$(a+bi)(c+di) = (ac - bd) + (ad + bc)i$$
+    Any real number $a \in \mathbb R$ can be defined as a complex number of the form 
+    $a+0i$. Hence, it is clear that $\mathbb R \subset \mathbb C$.
+\end{definition}
+
+The operators of complex numbers are well-defined. \\
+For $\lambda, \alpha, \beta \in \mathbb C$,\\  \\
+\textbf{commutativity}
+$$\alpha + \beta = \beta + \alpha$$ 
+\textbf{associativity}
+$$(\alpha + \beta) + \lambda = \alpha + (\beta + \lambda)$$
+\textbf{identities}
+$$\lambda + 0 = \lambda \text{ and } \lambda * (1) = \lambda$$ 
+\textbf{additive inverse}
+$$\text{For every } \alpha \in \mathbb C, \text{ there exists a unique } \beta : \alpha + \beta = 0$$
+\textbf{multiplicative inverse}
+$$\text{For every } \alpha \in \mathbb C, \text{ there exists a unqiue } \beta : \alpha\cdot\beta = 1$$
+\textbf{distributivity}
+$$\lambda(\alpha + \beta) = \lambda \cdot \alpha + \lambda \cdot \beta$$
+
+\begin{example}[Proof of commutativity]
+    To show that $\alpha\beta = \beta \alpha$ for all $\alpha, \beta \in \mathbb C$
+    Let $\alpha = a+bi$ and $\beta  = c + di$, $a, b, c, d \in \mathbb R$
+    $$\alpha\beta = ac - bd + (ad + bc)i$$ 
+    $$\beta\alpha = ca - db + (da + cb)i$$
+    We know that multiplication is commutative over real numbers.
+    $$\therefore \alpha\beta = ca-db+(da+cb)i = ac - bd + (ad + bc) i = \beta\alpha$$
+    Hence, the commutativity of complex number multiplication is proven.  
+\end{example}
+
+Additive and multiplicative inverses of complex numbers can be defined. By doing so, we can define subtraction and division. \\\\
+\textbf{additive inverse}
+$$\text{For every } \alpha \in \mathbb C, \text{ there exists an additive inverse } \beta : \alpha + \beta = 0$$
+It can be proven that $\beta = -\alpha$ $$\alpha + (-\alpha) = (1-1)\alpha = 0\cdot \alpha = 0$$
+\textbf{subtraction}\\
+Hence, the subtraction of two complex numbers $\alpha$ and $\beta$ is defined as the addition of $\alpha$ and the additive inverse of $\beta$. 
+$$\alpha - \beta = \alpha + (-\beta)$$
+\textbf{multiplicative inverse}
+$$\text{For every } \alpha \neq 0 \in \mathbb C, \text{ there exists a unique multiplicative inverse } \beta : \alpha\beta = 1$$
+It can be proven that $\beta = \frac{1}{\alpha}$. 
+$$\alpha\beta = \alpha\frac{1}{\alpha} = 1$$
+\textbf{division}\\ 
+Hence, the division of two complex numbers $\alpha$ and $\beta$ is defined as the multiplication of $\alpha$ and the multiplicative inverse of $\beta$.
+\begin{definition}[Lists]
+    A list (also called an \textbf{n-tuple}) is a collection of objects in a particular order. Two lists are equal if and only if they have the same size and the same elements in the same order. Lists are commonly written in the following manner-
+    $$\mathbf v = \pqty{v_1, v_2, v_3 \cdots v_n}$$ 
+\end{definition}
+
+\begin{definition}[$\mathbb F^n$]
+    $\mathbb F^n$ is defined as follows- 
+    $$\mathbb F^n = \{(x_1, x_2, x_3 \cdots x_n): x_k \in \mathbb F \text{ for } k = 1,\cdots n\}$$
+\end{definition}
+\begin{definition}[commutativity of $\mathbb F^n$ addition]
+    Addition is defined by element-wise addition in $\mathbb F^n$. Consider $x,y \in \mathbb F^n$ 
+   \begin{align} 
+        x+y &= (x_1, x_2, x_3, \cdots x_n) + (y_1, y_2, y_3 \cdots y_n) \\ 
+        &= (x_1 + y_1, x_2 + y_2, x_3 + y_3, \cdots x_n +  y_n) \\
+        &= (y_1 + x_1, y_2 + x_2, y_3 + x_3 \cdots y_n + x_n) \\ 
+        &= y + x
+        \intertext{Hence, addition of vectors in n-dimensional vector spaces is commutative.}
+    \end{align}
+\end{definition}
+
+\section{Invertibility and Isomorphisms}
+\begin{definition}[inverse, invertible]
+    A linear map $S: V \to W$ is defined to be invertible if there exists a map $T : W \to V$ such that 
+    $ST = I_V$ and $TS = I_W$, where $I_W$  and $I_V$ are the identity maps on $W$ and $V$ respectively. 
+    \\ \\
+    In such a case, $T = S^{-1}$ and is called the \textbf{inverse} of $S$. 
+\end{definition}
+\begin{theorem}
+    Every linear map has a unique inverse. 
+\end{theorem}
+\begin{proof}
+    Let $S_1$ and $S_2$ be the inverses of $T$.
+    $$S_1I = S_1(TS_2) = (S_1T)S_2 = S_2$$
+    Hence, every linear map has a unique inverse. 
+\end{proof}
+
+\begin{theorem}
+    A linear map is invertible if and only if it is injective and surjective. 
+\end{theorem}
+\begin{proof}
+    Let $T: V \to W$ be invertible. To show that it is injective, let $Tu = Tv$ for some $u, v \in V$ 
+    $$u = Iu = T^{-1} (Tu) = T^{-1} (Tv) = v$$
+    Since $Tu = Tv \implies u = v$, T is injective. 
+    
+    Consider $w \in V$
+    $$w = T^{-1} T w$$
+    which implies $\text{range } T = W$. Hence, $T$ is surjective. 
+
+\end{proof}
+\end{document}
