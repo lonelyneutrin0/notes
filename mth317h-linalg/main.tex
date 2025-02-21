@@ -117,8 +117,8 @@
 % endregion
 
 \title{Linear Algebra}
-\author{lonelyneutrino}
-\date{December 2024}
+\author{Hrishikesh Belagali}
+\date{\today}
 \begin{document}
 \maketitle
 \section{Vector Spaces}
@@ -138,14 +138,18 @@ The operators of complex numbers are well-defined. \\
 For $\lambda, \alpha, \beta \in \mathbb C$,\\  \\
 \textbf{commutativity}
 $$\alpha + \beta = \beta + \alpha$$ 
+$$\alpha\cdot \beta = \beta \cdot \alpha$$
 \textbf{associativity}
 $$(\alpha + \beta) + \lambda = \alpha + (\beta + \lambda)$$
+$$(\alpha\beta)\lambda = \alpha(\beta\lambda)$$
 \textbf{identities}
 $$\lambda + 0 = \lambda \text{ and } \lambda * (1) = \lambda$$ 
 \textbf{additive inverse}
 $$\text{For every } \alpha \in \mathbb C, \text{ there exists a unique } \beta : \alpha + \beta = 0$$
+The additive inverse of $\alpha$ is denoted by $-\alpha$.\\
 \textbf{multiplicative inverse}
-$$\text{For every } \alpha \in \mathbb C, \text{ there exists a unqiue } \beta : \alpha\cdot\beta = 1$$
+$$\text{For every } \alpha \in \mathbb C \backslash \{0\}, \text{ there exists a unqiue } \beta : \alpha\cdot\beta = 1$$
+The multiplicative inverse of $\alpha$ is denoted by $\alpha^{-1}$.\\
 \textbf{distributivity}
 $$\lambda(\alpha + \beta) = \lambda \cdot \alpha + \lambda \cdot \beta$$
 
@@ -158,7 +162,6 @@ $$\lambda(\alpha + \beta) = \lambda \cdot \alpha + \lambda \cdot \beta$$
     $$\therefore \alpha\beta = ca-db+(da+cb)i = ac - bd + (ad + bc) i = \beta\alpha$$
     Hence, the commutativity of complex number multiplication is proven.  
 \end{example}
-
 Additive and multiplicative inverses of complex numbers can be defined. By doing so, we can define subtraction and division. \\\\
 \textbf{additive inverse}
 $$\text{For every } \alpha \in \mathbb C, \text{ there exists an additive inverse } \beta : \alpha + \beta = 0$$
@@ -172,6 +175,10 @@ It can be proven that $\beta = \frac{1}{\alpha}$.
 $$\alpha\beta = \alpha\frac{1}{\alpha} = 1$$
 \textbf{division}\\ 
 Hence, the division of two complex numbers $\alpha$ and $\beta$ is defined as the multiplication of $\alpha$ and the multiplicative inverse of $\beta$.
+\begin{definition}[Field]
+    Any set $X$ is defined with closed operations $(+, .)$ and follows the above-mentioned axioms, $X, +, .$ is called a \textbf{field}.
+    An arbitrary field is denoted by $\mathbb F$. A field obeys all the abovementioned properties, as $\mathbb C$ is a field itself.
+\end{definition}
 \begin{definition}[Lists]
     A list (also called an \textbf{n-tuple}) is a collection of objects in a particular order. Two lists are equal if and only if they have the same size and the same elements in the same order. Lists are commonly written in the following manner-
     $$\mathbf v = \pqty{v_1, v_2, v_3 \cdots v_n}$$ 
@@ -181,17 +188,623 @@ Hence, the division of two complex numbers $\alpha$ and $\beta$ is defined as th
     $\mathbb F^n$ is defined as follows- 
     $$\mathbb F^n = \{(x_1, x_2, x_3 \cdots x_n): x_k \in \mathbb F \text{ for } k = 1,\cdots n\}$$
 \end{definition}
-\begin{definition}[commutativity of $\mathbb F^n$ addition]
-    Addition is defined by element-wise addition in $\mathbb F^n$. Consider $x,y \in \mathbb F^n$ 
-   \begin{align} 
-        x+y &= (x_1, x_2, x_3, \cdots x_n) + (y_1, y_2, y_3 \cdots y_n) \\ 
-        &= (x_1 + y_1, x_2 + y_2, x_3 + y_3, \cdots x_n +  y_n) \\
-        &= (y_1 + x_1, y_2 + x_2, y_3 + x_3 \cdots y_n + x_n) \\ 
-        &= y + x
-        \intertext{Hence, addition of vectors in n-dimensional vector spaces is commutative.}
-    \end{align}
+\pagebreak
+\begin{definition}[Vector Space]
+    A vector space $\mathbf V$, $+ : \mathbf V \times \mathbf V \mapsto \mathbf V$, $\cdot : \mathbb F \times \mathbf V \mapsto \mathbf V$ is defined as a collection of elements closed under the operations $+$ and $\cdot$, adhering to the following axioms- 
+    \begin{itemize}
+        \item \textbf{commutativity of addition:} $\mathbf u + \mathbf v = \mathbf v + \mathbf u \text{ }\forall \text{ }\mathbf u, \mathbf v \in \mathbf V$  
+        \item \textbf{associativity of addition:} $\mathbf u + (\mathbf v + \mathbf w) = (\mathbf u + \mathbf v) + \mathbf w \text{ } \forall \text{ } \mathbf v, \mathbf u, \mathbf w \in \mathbf V$
+        \item \textbf{additive identity:} $\mathbf v + \mathbf 0 = \mathbf v \text{ } \forall \text{ } \mathbf v, \mathbf 0 \in \mathbf V$
+        \item \textbf{additive inverse:} $\mathbf{v} + \mathbf{(-v)} = \mathbf 0 \text{ } \forall \text{ } \mathbf v \in \mathbf V$ 
+        \item \textbf{associativity of scalar multiplication:} $(\alpha \beta) \mathbf v = \alpha (\beta \mathbf v) \text{ } \forall \text{ } \alpha, \beta \in \mathbb F, \mathbf v \in \mathbf V$
+        \item \textbf{multiplicative identity:} $1\mathbf v = \mathbf v \text{ }\forall\text{ } \mathbf v \in \mathbf V$
+        \item \textbf{distributivity}:
+            $$(\alpha + \beta)(\mathbf v + \mathbf w) = \alpha \mathbf v + \alpha \mathbf w + \beta \mathbf v + \beta \mathbf w$$  
+    \end{itemize}
+\end{definition}
+\begin{example}[$\mathbf V = \mathbb R^n$]
+    This space is an n-dimensional real-valued vector space of the form 
+    \[\mathbf v= \bmqty{x_1 \\ x_2 \\ x_3\\ \cdots \\ x_n}, x_1, x_2, \cdots x_n \in \mathbb R \]
+    $\mathbf V$ is closed under scalar multiplication and addition. 
+    $$\bmqty{x_1 \\ x_2 \\ \cdots \\ x_n} + \bmqty{y_1 \\ y_2 \\ \cdots \\ y_n} = \bmqty{x_1+y_1 \\ x_2+y_2 \\ \cdots \\x_n + y_n} \in \mathbf V$$
+    $$\alpha \bmqty{x_1 \\ x_2 \\ \cdots \\ x_n} = \bmqty{\alpha x_1 \\ \alpha x_2 \\ \cdots \\ \alpha x_n} \in \mathbf V$$
+commutativity
+$$\bmqty{x_1 \\ x_2 \\ \cdots \\ x_n} + \bmqty{y_1 \\ y_2 \\ \cdots \\ y_n} = \mathbf x + \mathbf y = \bmqty{x_1 + y_1 \\ x_2 + y_2 \\ \cdots \\ x_n + y_n} = \bmqty{y_1 + x_1 \\ y_2 + x_2 \\ \cdots \\ y_n + x_n} = \mathbf y + \mathbf x$$
+associativity
+$$(\mathbf x + \mathbf y) + \mathbf z = \pqty{\bmqty{x_1 \\ x_2 \\ \cdots \\ x_n} + \bmqty{y_1 \\ y_2 \\ \cdots \\ y_n}} + \bmqty{z_1 \\ z_2 \\ \cdots \\ z_n} = \bmqty{x_1 + y_1 \\ x_2 + y_2 \\ \cdots \\ x_n + y_n} + \bmqty{z_1 \\ z_2 \\ \cdots \\ z_n} = \bmqty{x_1 + y_1 + z_1 \\ x_2 + y_2 + z_2 \\ \cdots \\ x_n + y_n + z_n} = \mathbf x + (\mathbf y + \mathbf z)$$ 
+additive identity
+For any $\mathbf x \in \mathbb R$, 
+$$\bmqty{x_1 \\ x_2 \\ \cdots \\ x_n} + \bmqty{0 \\ 0 \\ \cdots \\ 0} = \bmqty{x_1 + 0 \\ x_2 + 0 \\ \cdots \\ x_n + 0} = \mathbf x$$
+\end{example}
+
+\pagebreak
+\begin{example}[$V = \mathcal P_n$]
+    Let $n \in \mathbb Z_{> 0}$. $$V = \mathcal P_n = \{p : \mathbb R \to \mathbb R : \exists a_0, a_1 \cdots a_n \in \mathbb R \text{ s.t } p(x) = a_0 + a_1x + \cdots a_nx^n\}$$
+    This forms the set of polynomials degree less than or equal to n. It is easy to show that the set is closed under addition - 
+    $$(p+q)(x) = (a_0 + b_0) + (a_1 + b_1)x \cdots (a_n + b_n) x^n, p, q \in \mathcal{P}_n$$
+    For $\alpha \in \mathbb R, p \in \mathcal P_n$, 
+    $$\alpha p = (\alpha p)(x) = \alpha a_0 + \alpha a_1 x + \cdots \alpha a_n x^n$$
+    Hence, the set is closed under scalar multiplication. 
+\end{example}
+
+\begin{proof} 
+    \textit{$\mathcal P_n$ is a vector space.} \\ 
+    We have already shown that the set is closed under its definition of addition and scalar multiplication. 
+    \\\\ \textbf{additive commutativity:} \\ 
+    Let $p,q \in \mathcal P_n$ 
+    $$p(x) = a_0 + a_1x + \cdots a_n x^n$$
+    $$q(x) = b_0 + b_1 x + \cdots b_n x^n$$
+    $$(p+q)(x) = a_0 + b_0 + (a_1 + b_1)x + \cdots (a_n + b_n)x^n$$ Addition is commutative over the field of real numbers.
+    $$ = (b_0 + a_0) + (b_1 + a_1)x + \cdots (b_n + a_n)x^n = (q+p)(x)$$
+    Additive associativity follows from the associativity of real numbers. 
+    \\\\ \textbf{additive identity:} \\ 
+    Define $p_0(x) = 0 + 0x + \cdots 0x^n$ 
+    Clearly, $p_0(x)$ belongs to $\mathcal P_n$
+    For some $p \in \mathcal P_n$, 
+    $$(p+p_0)(x) = (a_0 + 0) + (a_1 + 0) + \cdots (a_n + 0)x^n$$
+    $$ = p(x)$$
+    Hence, the zero vector is $0 + 0x \cdots 0x^n$.
+    \\\\ \textbf{additive inverse}: \\ 
+    Let $p(x) = a_0 + a_1 x + \cdots a_n x^n$. Let $q(x) = -a_0 - a_1 x - \cdots -a_n x^n$. $p, q \in \mathcal P_n$ 
+    $$(p+q)(x) = (a_0 - a_0) + (a_1 - a_1) x + \cdots (a_n - a_n) x^n = \mathbf 0$$
+    Hence, we have shown that for any arbitrary element of $\mathcal P_n$, there exists an additive inverse whose addition gives 
+    the additive identity. 
+    \\\\ \textbf{scalar distributivity:} \\ 
+    Let $\alpha, \beta \in \mathbb R, p \in \mathcal P_n, p(x) = a_0 + a_1 x + \cdots a_n x^n$ 
+    Then, $$((\alpha + \beta)p)(x) = (\alpha+\beta)a_0 + (\alpha+\beta)a_1 x + \cdots (\alpha+\beta)a_n x^n$$
+    Using the distributivity of real numbers, 
+    $$= \alpha a_0 + \beta a_0 + \alpha a_1 x + \beta a_1 x + \cdots + \alpha a_n x^n + \beta a_n x^n$$
+    $$ = (\alpha p)(x) + (\beta p)(x)$$
+    Hence, $$((\alpha + \beta)p)(x) = (\alpha p)(x) + (\beta p)(x)$$
+\end{proof}
+\pagebreak
+\begin{example}[$V =\mathcal P_n^=$]
+    Consider the polynomial space where the degree \textbf{must} be $n$. This does not form a vector space because addition and scalar multiplication are not closed. \\
+    \\ Consider $p(x) = x^2 + 1$ and $q(x) = -x^2$. The element $(p+q)(x) = 1$ which is not a member of $\mathcal P_n^=$
+\end{example}
+
+\begin{example}
+    Let $V=(0, \infty) \subset \mathbb R$. 
+    The operations are defined by $(\oplus, \otimes)$ which are addition and scalar multiplication respectively. 
+    Let $\mathbf v, \mathbf w \in V$ 
+    $$\mathbf v \oplus \mathbf w = \mathbf v\cdot \mathbf w$$
+    $$\alpha \mathbf v = \mathbf{v}^\alpha$$
+    The additive identity is $1$ and the scalar multiplicative identity is $1$.
+\end{example}
+
+\begin{example}
+    $$V = \left \{ \bmqty{x_1  \\ x_2} x_1, x_2 \in \mathbb R \right \}$$
+    $$ \bmqty{x_1 \\ x_2} + \bmqty{y_1 \\ y_2} = \bmqty{x_1+y_1 \\ x_2 + 2y_2}$$ 
+    $$ \alpha \bmqty{x_1 \\ x_2} = \bmqty{\alpha x_1 \\ \alpha x_2}$$ It lacks additive commutativity and is hence, not a vector space.
+
+\end{example}
+Some fundamental results: \\ 
+
+Proposition: The additive identity is unique. \\ 
+\begin{proof}
+    Let $V$ be a vector space with two additive identities $0$ and $0'$.
+    Then, 
+    $$0 = 0 + 0' = 0' + 0 = 0'$$
+    Hence, proven.
+\end{proof}
+Proposition: The additive inverse is unique. \\ 
+\begin{proof}
+    Let $V$ be a vector space. For each vector $w$, let there be 
+    two additive inverses $v$ and $v'$. 
+    $$v = v+0 = v + (v' + w) = (v+w) + v' = v'$$ 
+    Hence, $v = v'$.
+\end{proof}
+Proposition: $0v = 0$
+\begin{proof}
+    $$0v = (0+0)v = 0v + 0v$$
+    Adding the additive inverse of $0v$ to both sides, 
+    $$0v + (-0v) = (0v + 0v) + (-0v)$$ 
+    Using the associativity of addition,
+    $$0 = 0v + (0v + (-0v))$$ 
+    $$0 = 0v$$ 
+    Hence, proven.
+\end{proof}
+Proposition: $(-1)v = -v$. 
+\begin{proof}
+    $$0v = 0 = (1-1)v = v + (-1)v = 0$$ 
+    Clearly, $(-1)v$, when added to $v$, gives us the additive identity.
+    Hence, $(-1)v = -v$.
+\end{proof}
+\subsection{Subspace}
+\begin{definition}[Subspace]
+    If $\mathbf V$ is a vector space, the space $\mathbf U$ is called a subspace of $\mathbf V$ if: 
+    \begin{itemize}
+        \item $\mathbf U$ is a vector space defined under the same addition and multiplication as $\mathbf V$, 
+        \item $\forall x \in \mathbf U, x \in \mathbf V$.
+        \item $\vec 0_V \in \mathbf U$.
+    \end{itemize}
+
+\end{definition}
+    
+\begin{example}[$\mathbb R^2$]
+        $$\mathbf U = \left \{ \pmqty{x_1 \\ x_2} \text{ }|\text{ } x_1 - x_2 = 1\right \} \subseteq \mathbb R^2$$ 
+        This set lacks the additive identity and is hence, not a subspace. 
+\end{example}
+\begin{example}
+Let $\mathbf V$ be any vector space. 
+\begin{itemize}
+    \item $\mathbf U = \mathbf V$ is a subspace of $\mathbf V$. That is, any space is a subspace of itself. 
+    \item $\{ \vec 0\}$, where $\vec 0$ is the additive identity of $\mathbf V$ is the trivial subspace of $\mathbf V$.
+\end{itemize}    
+\end{example}
+\pagebreak
+\begin{example}[$\mathbb R^3$]
+    $\mathbf V = \mathbb R^3$, 
+    $$ \mathbf U = \left \{ \pmqty{x_1 \\ 0 \\ x_3} | x_1, x_3 \in \mathbb R\right \}$$
+    is a subspace of $\mathbf V$
+\end{example}
+\begin{theorem}[Subspace Conditions]
+    If $\mathbf V$ is a vector space and $\mathbf U \subseteq \mathbf V$, then $\mathbf U$ is a subspace if and only if 
+    \begin{itemize}
+        \item $\vec 0 \in \mathbf U$, where $\vec 0$ is the additive identity of $\mathbf V$.
+        \item $\mathbf U$ is closed under vector addition and scalar multiplication, as defined in $\mathbf V$.
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    The biconditional statement consists of two distinct propositions. \\\\ 
+    \textbf{Statement 1.1.} If $\mathbf U$ is a subspace, then $\vec 0 \in \mathbf U$ and $\mathbf U$ is closed under vector addition and scalar multiplication. \\\\ 
+    If $\mathbf U$ is a subspace, it is also a vector space defined under the operations of the superspace. By virtue of being a vector space, it is closed under addition and scalar multiplication.
+    This also implies the existence of the additive identity, however it may or may not be the same as the one from $\mathbf V$. 
+    Let $v \in \mathbf U$. If the additive inverse is $-v$, 
+    $$v + (-v) = \vec 0$$ Closure under addition implies $\vec 0 \in \mathbf U \implies \vec 0 \in \mathbf V$. The uniqueness
+    of the additive identity ensures that $\vec 0$ is the additive identity of $\mathbf V$. \\\\ 
+    \textbf{Statement 1.2.} Assume $\mathbf U$ satisfies closure and additive identity properties. Then, $\mathbf U$ is a subspace of $\mathbf V$. \\\\ 
+    Let $u_1, u_2 \in \mathbf U$, then $u_1, u_2 \in \mathbf V$, so commutativity and associativity of $\mathbf V$ extends to $\mathbf U$. 
+    $\vec 0 \in \mathbf U$ by definition of the additive identity in $\mathbf V$. For any $u \in \mathbf U$, $$u + \vec 0 = u$$
+    $\therefore$ $\vec 0$ is the additive identity of $\mathbf U$. \\ 
+    Let $u \in \mathbf U \subseteq \mathbf V$
+    $$0u = (1-1)u = \vec 0$$
+    $(-1)u \in \mathbf U$ by closure under scalar multiplication.
+    $$u + (-u) = \vec 0$$
+    Hence, for any vector in the subspace, the additive inverse is well-defined.
+    All other properties follow for any vector in $\mathbf U$ as $v \in \mathbf U \implies v \in \mathbf V$.
+    \\\\$\therefore$ $\mathbf U \subseteq \mathbf V$. 
+\end{proof}
+\pagebreak
+\begin{example}
+    $$\mathbf U = \left \{ \pmqty{x_1 \\ x_2 \\ x_3} | x_1x_2x_3 = 0\right \} \subseteq \mathbb R^n$$
+    The additive identity is within the subspace as $0\cdot 0\cdot 0 = 0$
+    However, closure under vector addition fails. 
+    Consider $\pmqty{1 \\ 1 \\ 0}, \pmqty{0 \\ 1 \\ 1} \in \mathbb{U}$
+    $$\pmqty{1 \\ 1 \\ 0} + \pmqty{0 \\ 1 \\ 1} = \pmqty{1 \\ 2 \\ 1} \notin \mathbf U$$
+    Hence, $\mathbf U \nsubseteq \mathbb R^3$.
+\end{example}
+\begin{example}
+    $$\mathbf U = \left \{ \pmqty{x_1 \\ x_2 \\ x_3} | x_3 = 2x_1 - x_2\right \}$$ 
+    The additive inverse is contained as $0 = 2 \cdot 0 - 0$. 
+    Let $\pmqty{x_1 \\ x_2 \\ x_3}, \pmqty{y_1 \\ y_2 \\ y_3} \in \mathbf U$. 
+    $$\pmqty{x_1 \\ x_2 \\ x_3} + \pmqty{y_1 \\ y_2 \\ y_3} = \pmqty{x_1 + y_1 \\ x_2 + y_2 \\ x_3 + y_3}$$ 
+    $$2(x_1 + y_1) - (x_2 + y_2)  = 2x_1 - x_2 + 2y_1 - y_2 = x_3 + y_3$$ 
+    Hence, for all $x, y \in \mathbf U$, $x+y \in \mathbf U$. 
+    \\\\ 
+    Let $\pmqty{x_1 \\ x_2 \\ x_3} \in \mathbf U$, $\alpha \in \mathbb R$
+    $$\alpha \pmqty{x_1 \\ x_2 \\ x_3} = \pmqty{\alpha x_1 \\ \alpha x_2 \\ \alpha x_3}$$ 
+    $$ 2(\alpha x_1) - \alpha x_2 = \alpha (2x_1 - x_2) = \alpha (x_3)$$ 
+    Hence, $\forall x \in \mathbf U, \forall \alpha \in \mathbb R, \alpha x \in \mathbf U$. 
+\end{example}
+\begin{example}
+$$\mathbf U = \left \{ \alpha \pmqty{2 \\ 1 \\ 1} + \beta \pmqty{1 \\ 3 \\ 1}, \alpha, \beta \in \mathbb R\right \}$$
+ 
+\end{example}
+\pagebreak
+\section{Span and Linear Combinations}
+\begin{definition}[Linear Combination]
+    Let $V$ be a vector space such that $v_1, v_2, \cdots v_n \in V$. 
+    A linear combination of this collection of vectors is the vector given by 
+    $$v = \sum_{k=1}^n \alpha_k v_k, \forall k \alpha_k \in \mathbb R$$
 \end{definition}
 
+\begin{example}[$\mathbb R^2$]
+    Assume two vectors $v = \pmqty{1 \\ 2}$ and $w = \pmqty{-1 \\ 4}$. 
+    One linear combination of these vectors is 
+    $$x = 6\pmqty{1 \\ 2} + 3\pmqty{-1 \\ 4}$$. 
+\end{example}
+
+\begin{example}[$\mathbb R^3$]
+    Is $\pmqty{1\\0\\3}$ a linear combination of $$\pmqty{1 \\ 1 \\ 1}, \pmqty{2 \\ 0 \\ 1}, \pmqty{0 \\ -2 \\ -1}$$
+    In other words, are there $\alpha_1, \alpha_2, \alpha_3 \in \mathbb R$ such that 
+    $$\pmqty{1 \\ 0 \\ 3} = \alpha_1 \pmqty{1\\1\\1} + \alpha_2 \pmqty{2\\0\\1} + \alpha_3 \pmqty{0 \\ -2 \\ -1}$$ 
+    $$\pmqty{1 \\ 0 \\ 3} = \pmqty{\alpha_1 + 2\alpha_2 \\ \alpha_1 - 2\alpha_3 \\ \alpha_1 + \alpha_2 -\alpha_3}$$ 
+    This turns into the system 
+    \begin{align}
+        \alpha_1 + 2\alpha_2 = 1 \\ 
+        \alpha_1 - 2\alpha_3 = 0 \\ 
+        \alpha_1 + \alpha_2 - \alpha_3 = 3 
+    \end{align}
+    The given system does not have any solutions. Hence, the 
+    given vector cannot be expressed as a linear combination 
+    of the others. 
+
+\end{example}
+
+\begin{definition}[Span]
+    Let $V$ be a vector space. Given vectors $v_1, v_2 \cdots v_n$, 
+    the span is the subset of $V$ defined by 
+    $$ \text{span(}v_1, v_2, \cdots v_n) = \left \{ \sum_{k=1}^n \alpha_k v_k | \alpha_1, \alpha_2 \cdots \alpha_n \in \mathbb R\right \}$$ 
+Convention: $$\text{span(}\phi) = \{ \vec 0\}$$
+\end{definition}
+
+\textbf{Terminology:} \\ 
+LADR refers to a group of vectors as a "list", which is synonymous with a set or collection of vectors. 
+
+\begin{example}
+Is $\pmqty{4 \\ -6 \\ -1} \in \text{span}\pqty{\pmqty{1 \\ 1 \\ 1}, \pmqty{2 \\ 0 \\ 1}}$ in $\mathbb R^3$?
+$$\pmqty{4 \\ -6 \\ -1} = \alpha_1 \pmqty{1 \\ 1 \\ 1} + \alpha_2 \pmqty{2 \\ 0 \\ 1}$$
+\begin{align}
+    4 &= \alpha_1 + 2\alpha_2 \\ 
+    -6 &= \alpha_1\\ 
+    -1 &= \alpha_1 + \alpha_2
+\end{align} 
+This system is consistent and has the solution $\alpha_1 = -6, \alpha_2 = 5$. 
+Therefore, 
+$$\pmqty{4 \\ -6 \\ -1} = -6\pmqty{1\\1\\1} + 5\pmqty{2 \\ 0 \\ 1}$$
+Yes, it belongs to the span of the other two vectors.
+\end{example}
+
+\begin{definition}[Spanning Set]
+    If $V$ is a vector space, then the collection $v_1, v_2 \cdots v_n$
+    is called a spanning set if any vector $v \in V$ can be represented
+    as a linear combination of the collection. In other words, 
+    $$\text{span}\pqty{v_1, v_2 \cdots v_n} = V$$
+\end{definition}
+\begin{example}[$\mathbb R^n$]
+    Let a collection of $\mathbb R^n$ be the collection 
+    $$U = \left \{ \pmqty{1 \\ 0 \\ 0 \\ \cdots \\ 0}, \pmqty{0 \\ 1 \\ 0 \\ \cdots \\ 0},  \cdots \pmqty{0 \\ 0 \\ 0 \\ \cdots \\ 1}\right \}$$
+    This set spans $\mathbb R^n$ and is called the \textbf{canonical basis} of $\mathbb R^n$.
+\end{example}
+\begin{example}
+Claim: $v_1 = \pmqty{1 \\ 2}$ and $v_2 = \pmqty{2 \\ 0}$ span $\mathbb R^2$.\\\\ 
+Let $V \ni v = \pmqty{x \\ y}$. To prove the claim, we show that 
+$$v = \alpha_1 v_1 + \alpha_2 v_2$$ 
+$$\pmqty{x \\ y} = \alpha_1 \pmqty{1 \\ 2} + \alpha_2 \pmqty{2 \\ 0}$$ 
+We get the system 
+\begin{align}
+    x = \alpha_1 + 2\alpha_2 \\ 
+    y = 2\alpha_1  
+\end{align}
+We get $\alpha_1 = \frac{y}{2}$, $\alpha_2 = \frac{x}{2} - \frac{y}{4}$
+\end{example}
+
+\begin{example}
+    Claim: $\pmqty{2 \\ 1}$ and $\pmqty{4\\2}$ do not span $\mathbb R^2$.
+    Let $\mathbb R^2 \ni v = \pmqty{x \\ y}$, s.t. 
+    $$\alpha_1 \pmqty{2 \\ 1}+  \alpha_2 \pmqty{4 \\ 2} = \pmqty{x \\ y}$$ 
+    This gives us the system 
+    \begin{align}
+        2\alpha_1 + 4\alpha_2 = x \\ 
+        \alpha_1 + 2\alpha_2 = y  
+    \end{align}
+    This imposes the condition $x = 2y$ on the components of $v$.
+    Hence, there are vectors which do not belong to this span. 
+\end{example}
+
+\textbf{Proposition:} Let $V$ be a vector space. Then for any $v_1, v_2 \cdots v_n \in V$
+$\text{span}(v_1, v_2, \cdots v_n)$ is a subspace of $V$. 
+\begin{proof}
+$$\vec 0 = \sum_{k=1}^n 0v_k$$
+Since $0v = \vec 0$, the additive identity belongs to the span. 
+Consider two elements of the span $a = \sum_{k=1}^n \alpha_k v_k$ 
+and $b = \sum_{k=1}^n \beta_k v_k$. 
+$$a+b = \sum_{k=1}^n \alpha_k v_k + \sum_{k=1}^n \beta_k v_k$$ 
+$$a+b = \sum_{k+1}^n (\alpha_k v_k + \beta_k v_k)$$ 
+$$a+b = \sum_{k+1}^n (\alpha_k + \beta_k) v_k$$ 
+Since the sum of any real numbers is a real number, $a+b$ belongs to the span. 
+Consider a scalar $\lambda \in \mathbb R$. Using the distributive property, 
+$$\lambda a = \lambda \sum_{k=1}^n \alpha_k v_k = \sum_{k=1}^n (\lambda \alpha_k) v_k$$ 
+Hence, $\lambda a$ belongs to the span. \\\\ 
+Therefore, the span is a subspace of $V$. 
+\end{proof}
+\textbf{Proposition:} span$(v_1, v_2 \cdots v_n)$ is the smallest subspace
+of $V$ that contains $v_1, v_2, v_3, \cdots v_n$.
+\begin{proof}
+    Let $v_1, \cdots v_n$ be a list of vectors in $V$. \\ 
+    The span of this list contains the zero vector because 
+    $$\vec 0 = 0v_1 + 0v_2 \cdots 0v_n$$ 
+    It is closed under addition and scalar multiplication as well. 
+    $$(a_1 v_1 + a_2v_2 \cdots a_n v_n ) + (c_1 v_1 + c_2 v_2 \cdots c_n v_n) = (a_1 + c_1) v_1 + (a_2 + c_2) v_2 \cdots (a_n + c_n) v_n$$ 
+    $$\lambda (a_1 v_1 + \cdots a_n v_n) = \lambda a_1 v_n + \cdots \lambda a_n v_n = \mu v_1 + \cdots \mu v_n$$
+    Each of the vectors of the list belong to the span of the list, by setting the corresponding coefficient to 1 and 
+    the rest to zero. Also, any subspace containing each of the vectors in the list also contains the entire span, 
+    since subspaces are closed under addition and scalar multiplication. Therefore, the span of any list of 
+    vectors is the smallest subspace containing them. 
+\end{proof}
+\begin{definition}[Dimensionality]
+    A vector space $V$ is finite-dimensional if there is a 
+    finite set $v_1, v_2, v_3 \cdots v_n \in V$ which span
+    $V$. 
+    If $V$ is not finite-dimensional, it is infinite-dimensional
+\end{definition}
+\textbf{Claim:} Let $\mathcal P$ be the space of all polynomials. Then, $\mathcal P$ is 
+infinite dimensional. 
+\begin{proof}
+    Suppose by contradiction that $\mathcal P$ is finite. Then
+    $$\exists p_1, p_2 \cdots p_k \in \mathcal P \text{ s.t. } \mathcal{P} = \text{span}(p_1, \cdots p_k)$$ 
+    Let $n_i := \deg (p_i)$. Then, the larget value of $n_i$ is finite. 
+    Hence, for any $v \in \mathcal P$ 
+    $$v = \sum_{i=1}^k \alpha_i p_i$$ 
+    Notating each $p_i$ as a polynomial, 
+    $$p_i(x) = a_{i0} + a_{i1} + \cdots a_{in_i}x^{n_i}$$ 
+    Hence, the largest power that appears with nonzero 
+    coefficient in $\mathcal P$ has power less than or equal 
+    to the greatest value of $n_i$.
+    Hence, for an arbitrary element of $\mathcal P$, $\deg (p) \leq \max n_i$. This 
+    contradicts the definition of $\mathcal P$, hence $P$ is infinite-dimensional.
+\end{proof}
+
+\begin{definition}[Linear Independence]
+    A collection of vectors $v_1, \cdots v_n \in V$ is 
+    linearly independent if the only solution to 
+    $$\vec 0 = \sum_{k=1}^n \alpha_k v_k$$
+    is $\alpha_1, \cdots \alpha_k = 0$.\\
+    The empty set is also deemed to be linearly independent. 
+\end{definition}
+
+\textbf{Proposition:} If $V$ is a vector space, $v_1, v_2 \in V$ 
+is linearly dependent if and only if 
+$$\exists \alpha \text{ such that } v_1 = \alpha v_2 \text{ or } v_2 = \alpha v_1$$ 
+\begin{proof}
+    Let the second statement hold true. Without loss of generality, 
+    assume $v_1 = \alpha v_2$.\\\\ 
+    If $\alpha = 0$, $v_1 = \vec 0$ and hence the collection is linearly dependent. 
+    If $\alpha \neq 0$, by field axioms there exists a number $\alpha^{-1}$ such that 
+    $\alpha \alpha^{-1} = 1$. 
+    $$v_1 + v_2 = \vec 0$$ 
+    $$ -\alpha^{-1}\alpha v_2 + v_2 = \vec 0$$ 
+    $$-(1)v_2 + v_2 = \vec 0$$ 
+    $$\vec 0 = \vec 0$$ 
+    Hence, for a nonzero value of $\alpha$, the linear combination 
+    of the collection gives the zero vector. Therefore, 
+    the collection is linearly dependent.
+    \\\\ 
+    Let the collection be linearly dependent. By extension,
+    $v_1 \neq \vec 0$ and $v_2 \neq \vec 0$. For some nonzero
+    $\alpha_1$ or $\alpha_2$, 
+    $$\alpha_1 v_1 + \alpha_2 v_2 = \vec 0$$ 
+    Without loss of generality, we can assume $\alpha_1 \neq 0$. 
+    Then, $$\alpha_1^{-1} \alpha_1 v_1 + \alpha_1^{-1}\alpha_2 v_2 = \alpha_1^{-1}\vec 0$$
+    Hence, 
+    $$v_1 + \alpha_1^{-1}\alpha_2 v_2 = \vec 0$$ 
+    $$v_1 = \beta v_2 : \beta = -\alpha_1^{-1}\alpha_2$$
+    
+\end{proof}
+In $\mathbb R^4$, is $\text{span}\left \{{\pmqty{1 \\ 1 \\ 2 \\ 3}, \pmqty{0 \\ 1 \\ -1 \\ 2}, \pmqty{2 \\ 2 \\ 2 \\ 3}} \right \}= \mathbb R^4$? \\\\
+No, the max number of linearly independent vector is the lower bound for the cardinality of any spanning set.
+\begin{lemma}
+    Suppose $v_1, \cdots v_n$ is a linearly dependent list in $V$. Then, there exists $j \in \{1,2, \cdots m\}$ such that
+    $v_j \in \text{span}(v_1, \cdots v_{j-1}, v_{j+1}, v_m)$ \\\\
+    If this vector is removed, the resulting list's span is unchanged. 
+\end{lemma}
+\begin{proof}
+    Because the list is linearly dependent, there exists scalars $\alpha_1, \cdots \alpha_n \in \mathbb F$ not all zero such that 
+    $$\vec 0 = \alpha_1 v_1 + \cdots \alpha_n v_n$$ 
+    If $j$ is the largest index such that $a_j \neq 0$, then we can rewrite the above equation as 
+    $$v_j = - \frac{\alpha_1}{\alpha_j} v_1 - \frac{\alpha_2}{\alpha_j} v_2 \cdots \frac{\alpha_n}{\alpha_j} v_n \text{     (1)}$$ 
+    Clearly, $v_j \in \text{span}(v_1, \cdots v_{j-1}, v_{j+1}, v_n)$\\\\ 
+    Consider an arbitrary vector $u$ in the span of $v_1, \cdots v_n$. It can be written as
+    $$u = \alpha_1 v_1 + \cdots \alpha_j v_j \cdots + \alpha_n v_n$$ 
+    If we substitute (1) into the expression, we get $u$ as a linear combination of $v_1, \cdots v_{j-1}, v_{j+1}, \cdots v_n$.
+    \\\\ 
+    This works if the list has more than 1 vector. Note that if a list contains only 1 vector and is linearly dependent, that vector must be the zero vector.
+    Since $\vec 0 \in \text{span}(\phi)$, the first statement is proven. 
+    Removing $\vec 0$ from the list gives us $\text{span}(\phi)$, which is $\vec 0$. Hence, the span is unchanged. 
+\end{proof}
+\textit{Proposition:} In a finite-dimensional vector space, the length of every linearly independent list of vectors 
+is less than or equal to the length of every spanning list of vectors. 
+\begin{proof}
+    Suppose $u_1, \cdots u_m$ is linearly independent in $V$ and $w_1, \cdots w_n$ spans $V$. We need to show that 
+    $m \leq n$. \\\\ 
+    Since $w_1, \cdots w_n$ span $V$, adding another vector to the list does not change its span. 
+    So, $$u_1, w_1, \cdots w_n$$ also spans $V$. By the linear dependence lemma, one of the vectors $w$ can be 
+    removed and the resulting set will still span $V$. We can iteratively add $u_j$ to the list, and each time it will stil span $V$. Since all vectors $u_i$ are 
+    linearly independent, by the linear dependence lemma, the vector we remove will be one of the $w$'s and not one of the $u$'s. By the time all vectors $u$ have been added, 
+    the set contains $u_1, \cdots u_m$. Since at each iteration of adding $u$ we remove a $w$, there are at least as many $w$'s as there are $u$'s. 
+    Hence, the statement is proven that $m \leq n$.
+\end{proof}
+\textit{Proposition: } Every subspace of a finite-dimensional vector space is finite-dimensional.  
+\begin{proof}
+    Suppose $V$ is finite dimensional and $U$ is a subset of $V$. We need to show that $U$ is also finite dimensional. 
+    If $U$ is $\{\vec 0\}$, then $U$ is finite dimensional and we are done. Otherwise, we choose a vector $v_1$. If $U = \text{span}(v_1)$, 
+    then $U$ is finite dimensional. If not, we can add another vector $v_2$ to our list that is not in the span of $v_1$.  We again check if the 
+    span of these two vectors is $U$. We iteratively add vectors to the list that are not in its span. Eventually, this process has to terminate, because 
+    the number of linearly independent vectors is always less than or equal to the number of spanning vectors in a space. 
+\end{proof}
+
+\newpage
+\begin{definition}[Basis]
+    If a list of vectors $v_1, \cdots v_n \in V$ can uniquely represent any arbitrary vector $v \in V$, then the list is known as a basis for the space.
+\end{definition}
+\begin{proof}
+    We will first show that if a list $v_1, \cdots v_n \in V$ is a basis, then any vector $v \in V$ admits a unique reprsentation.
+    Since the list spans $V$, for some scalars $a_1 \cdots a_n$ 
+    $$v = a_1 v_1 + \cdots a_n v_n$$ 
+    Let us assume that there is another set of scalars $c_1, \cdots c_n$ such that 
+    $$v = c_1 v_1 + \cdots c_n v_n$$ 
+    Subtracting these two equations, 
+    $$\vec 0 = (a_1 - c_1)v_1 + \cdots (a_n - c_n)v_n$$ 
+    Since the list is linearly independent, $a_1 - c_1 = \cdots a_n - c_n = 0$, so $a_1 = c_1, \cdots a_n = c_n$. 
+    Hence, the representation of any vector is unique in terms of the basis. \\\\ 
+    We will now show the other direction, if $v \in V$ admits a unique representation in terms of the list, then the list is linearly independent and a basis. 
+    Since any vector can be written in terms of the list, by definition the list spans $V$. To show linear independence, consider the vector $\vec 0$ and the scalars 
+    $a_1, \cdots a_n$ 
+    $$\vec 0 = a_1 v_1 + a_n v_n$$ 
+    Since the representation is unique, and we know that $0v = \vec 0$, all of the scalars have to equal zero. 
+    Hence, by definition the list is linearly independent. 
+\end{proof}
+
+\begin{example}
+    What are some bases for $\mathbb R^2$?  \\ 
+    \begin{itemize}
+        \item \textbf{Canonical Basis:} $\pmqty{1 \\ 0}, \pmqty{0 \\ 1}$
+        Let $\mathbb R^2 \ni x = \pmqty{x_1 \\ x_2}$ be an arbitrary vector. Then, 
+        $$x_1\pmqty{1 \\ 0} + x_2 \pmqty{0 \\ 1} = \pmqty{x_1 \\ x_2}$$
+        So, the vectors span $\mathbb R^2$. \\\\ 
+        Suppose $\exists \alpha_1, \alpha_2 \in \mathbb R$ s.t.t 
+        $$\alpha_1 \pmqty{1 \\ 0} + \alpha_2 \pmqty{0 \\ 1} = \pmqty{0 \\ 0}$$ 
+        Therefore, 
+        $$\pmqty{\alpha_1 \\ \alpha_2 } = \pmqty{0 \\ 0 } \leftrightarrow \alpha_1 = \alpha_2 = 0$$
+        Hence, the vectors are linearly independent. Therefore, given vectors form a basis. 
+        \item $\pmqty{1 \\ 2}, \pmqty{2 \\ 0}$: 
+    \end{itemize}
+\end{example}
+
+\begin{corollary}
+    If $v_1, \cdots v_n$ span $V$, and $\{ v_1, \cdots v_n\} \subseteq \{ w_1, \cdots w_n \}$, then 
+    $w_1, \cdots w_n$ spans $V$. 
+\end{corollary}
+
+Show that $\left \{ \pmqty{1 \\ 2 \\ 0}, \pmqty{2 \\ 0 \\ 0}, \pmqty{3 \\ 1 \\ 2}\right \}$ spans $\mathbb R^3$.
+\\\\ 
+We can show that the canonical basis is a subset of the span of these vectors. Then, this set of vectors would also span the space by the corollary above.
+$$\pmqty{1 \\ 0 \\ 0} = 0\pmqty{1 \\ 2 \\ 0} + \frac12 \pmqty{2 \\ 0 \\ 0} + 0\pmqty{3 \\ 1 \\ 2}$$
+$$\pmqty{0 \\ 1 \\ 0} = \frac12 \pmqty{1 \\ 2 \\ 0} -\frac14\pmqty{2 \\ 0 \\ 0} + 0\pmqty{3 \\ 1 \\ 2}$$
+$$\pmqty{0 \\ 0 \\ 1} = -\frac14 \pmqty{1 \\ 2 \\ 0} + \frac78 \pmqty{2 \\ 0 \\ 0} + \frac12 \pmqty{3\\ 1 \\ 2}$$
+Therefore, the given subset spans $\mathbb R^3$.\\\\ 
+
+\textit{Proposition: }Any spanning list can be reduced to a basis. Similarly, any linearly independent list can be extended to a basis. 
+\begin{proof}
+Consider a list $v_1, \cdots v_n$ and the multistep process as follows: \\\\ 
+Step 0: \\ 
+If $v_1 = \vec 0$, then remove it from the list, otherwise leave the list unchanged. \\\\ 
+For $k \in \{2, \cdots n\}$: \\
+If $v_k$ is in the span of the list $v_1, \cdots v_{k-1}, \cdots v_n$, then remove it from the list. Otherwise, 
+leave the list unchanged. \\\\ 
+By the end of the sequence, we have a spanning list, because we have only removed vectors from the list which are in the span of the list. Also, by ensuring that 
+none of the vectors are in the span of the other vectors of the list, we have reduced the list to a linearly independent list. Therefore, the resulting list after this "reduction algorithm" 
+is a basis in $V$. Note that the order of removing elements matters for the vectors that form a basis, however the resulting list will always be a basis. 
+\end{proof}
+\begin{corollary}
+    Every finite dimensional vector space has a basis. 
+\end{corollary}
+\begin{proof}
+    By definition if $V$ is finite dimensional, there is a finite spanning set, which 
+    can always be reduced to a basis.
+\end{proof}
+\textit{Proposition: } Every linearly independent list of vectors in a finite-dimensional vector space can be 
+extended to a basis of the vector space. 
+\begin{proof}
+    Consider a linearly independent list $w_1, \cdots w_m$ and a basis of $V$ $e_1, \cdots e_n$. Then, the list 
+    $$w_1, \cdots w_m, e_1 \cdots e_n$$ 
+    spans the space. Using the reduction algorithm, we can recover a basis from this spanning set, containing all elements of the $w$ list 
+    and some elements of the basis list $e$. Note that the resulting list will contain all of the vectors of $w$ because they are linearly independent. 
+\end{proof}
+\newpage
+\textit{Proposition: } Any two bases of a finite-dimensional vector space have the same length. 
+\begin{proof}
+    Consider any two bases of a space $B_1$ and $B_2$. Since $B_1$ is linearly independent and $B_2$ is spanning, 
+    if we denote the size of $B_1$ as $m$ and the size of $B_2$ as $n$, then we know that $m \leq n$. Since $B_1$ is spanning 
+    and $B_2$ is linearly independent, we know that $m \geq n$. Hence, we can conclude that $m = n$. 
+\end{proof}
+\begin{definition}[Definition]
+    The dimension of a finite-dimensional vector space is the length of any basis of the vector space. \\ 
+    The dimension of $V$ is denoted by $\dim V$.
+\end{definition}
+\textit{Proposition: } If $V$ is a finite dimensional space and $U$ is a subspace of $V$, then $\dim U \leq \dim V$. 
+\begin{proof}
+    We can consider a basis of $U$ to be a linearly independent list of $V$, and a basis of $V$ to be a spanning set of $V$.  
+    Then, by definition, $\dim U \leq \dim V$. 
+\end{proof}
+\textit{Proposition: } Suppose $V$ is finite-dimensional. Then every linearly independent list of vectors in $V$ with length $\dim V$ is a basis of $V$. 
+\begin{proof}
+    Let $n = \dim V$ and let $v_1, \cdots v_n$ be a linearly independent list in $V$. Then, we can extend the list to a basis. However, since any basis of $V$ has exactly $n$ elements, 
+    we do not need to add any vectors to the list, it is alraedy a basis. 
+\end{proof}
+\textit{Proposition: } Suppose $V$ is finite-dimensional. Then every spanning list of size $\dim V$ is a basis of $V$. 
+\begin{proof}
+    Let $m = \dim V$ and $v_1, \cdots v_m$ span $V$. We can reduce the list to a basis of $V$. However, since any basis of $V$ is of size $m$, we do not need to 
+    remove any vectors, as the list is already a basis.
+\end{proof}
+
+\newpage
+\section{Linear Maps/Transformations}
+\begin{definition}[Linear Map]
+    Suppose $V,W$ are vector spaces. $T: V \to W$ is called a linear map from $V$ to $W$ if 
+    every element of $V$ is related to some element in $W$, such that for two vectors $v_1, v_2 \in V$ 
+    $$T(\alpha_1 v_1 + \alpha_2 v_2) = \alpha_1 T(v_1) + \alpha_2 T(v_2), \alpha_1, \alpha_2 \in \mathbb R$$
+    $T(v_1), T(v_2) \in W$.
+\end{definition}
+\begin{example}[$\mathbb R^2 \to \mathbb R^2$]
+$$T\pmqty{x_1 \\ x_2} = \pmqty{x_1 + 2x_2 \\ 3x_1}$$
+Let $v_1 = \pmqty{x_1 \\ x_2}, v_2 = \pmqty{y_1 \\ y_2}$
+$$T\pqty{v_1 + v_2} = T\pmqty{x_1 + y_1\\ x_2 + y_2} = \pmqty{x_1 + y_1 + 2(x_2 + y_2) \\ 3(x_1 + y_1)} = \pmqty{x_1 + 2x_2 \\ 3x_1} + \pmqty{y_1 + 2y_2 \\ 3y_1} = T v_1 + T v_2$$
+$$T(\lambda v_1) = T\pmqty{\lambda x_1 \\ \lambda x_2} = \pmqty{\lambda x_1 + 2\lambda x_2 \\ 3\lambda x_1} = \lambda \pmqty{x_1 + 2x_2 \\ 3x_1} = \lambda T(v_1)$$ 
+\end{example}
+\textit{Proposition:} If $T : V \to W$ is linear, then $T(\vec 0_V) = \vec 0_W$
+\begin{proof}
+    By definition of a linear map, 
+    $$T(\vec 0_V) = T(\vec 0_V + \vec 0_V) = T(\vec 0_V) + T(\vec 0_V)$$ 
+    Adding $-T(\vec 0_V)$ to both sides, 
+    $$T(\vec 0_V) = \vec 0_W$$ 
+\end{proof}
+\textit{Contrapositive: } If $T : V \to W$ is a transformation and $T(\vec 0_V) \neq \vec 0_W$, then $T$ is nonlinear. 
+\begin{proof}
+    This is a contrapositive and logically equivalent to the statement proven above. 
+\end{proof}
+\begin{example}
+    \textbf{zero} \\
+    The zero map takes a vector and maps it to the additive inverse of the codomain space. If we have $0 \in \mathcal L (V, W)$, then 
+    for any vector $v \in V$ 
+    $$0v = \vec 0_W$$ 
+    \textbf{identity} \\
+    The identity map $I \in \mathcal L(V,V)$ takes a vector and returns the same vector. 
+    $$Iv = v$$ 
+    \textbf{differentiation}
+    The differential operator $D \in \mathcal L(\mathcal P_n, \mathcal P_n)$ is defined as 
+    $$Dp = p'$$ 
+\end{example}
+\textit{Proposition: } Suppose $v_1, \cdots v_n$ is a basis of $V$ and $w_1, \cdots w_n \in W$ is a list of vectors, not necessarily a basis. Then there exists 
+a unique linear map $T : V \to W$ such that 
+$$T v_j  = w_j \text{ for each $j = 1, \cdots n$}$$ 
+\begin{proof}
+    First, we will show that such a linear map exists. Consider $T : V \to W$ such that 
+    $$T(c_1 v_1 + \cdots c_n v_n) = c_1 w_1 \cdots c_n w_n$$
+    This map maps each vector as desired, since we can set the arbitrary coefficients of the desired vector to $1$, 
+    and the rest to $0$. We will now show that this is a linear map. \\\\ 
+    Let $z_1, z_2 \in V$ such that $z_1 = \sum_{k=1}^n \alpha_k v_k$ and $z_2 = \sum_{k=1}^n \beta_k v_k$ 
+    Then $$T(z_1 + z_2) = T\pqty{\sum_{k=1}^n (\alpha_k + \beta_k) v_k} =  \sum_{k=1}^n T (\alpha_k + \beta_k)v_k = \sum_{k=1}^n T(\alpha_k v_k) + \sum_{k=1}^n T(\beta_k v_k) = T(z_1) + T(z_2)$$ 
+    $$T(\lambda z_1) = T\pqty{\sum_{k=1}\lambda \alpha_k v_k} = \sum_{k=1}\lambda \alpha_k w_k = \lambda T \pqty{\sum_{k=1}^n \alpha_k v_k} = \lambda T z_1$$
+    If we assume there is another map $S : V \to W$ is linear and $S v_i = w_i$ for each $i = 1, \cdots n$. 
+    Let $v \in V$ be an arbitrary vector $v = \sum_{i=1}^n \alpha_i v_i$ 
+    $$Sv = S\pqty{\sum_{i=1}^n \alpha_i v_i}$$ 
+    $$Sv = \sum_{i=1} S(\alpha_i v_i)$$ 
+    $$Sv = \sum_{i=1} \alpha_i S v_i$$ 
+    $$Sv = \sum_{i=1} \alpha_i w_i = Tv$$ 
+    Therefore, T is unique. 
+\end{proof}
+\begin{definition}[$\mathcal L(V, W)$]
+    The set of all linear maps from $V\to W$ is denoted as $\mathcal L(V, W)$. It always contains the trivial map $Tv = \vec 0$.  
+\end{definition}
+\textit{Proposition: } $\mathcal L(V,W)$ is a vector space. 
+\begin{proof}
+    \textbf{Operator Definitions} \\ 
+    Consider two elements of $\mathcal L(V,W)$, $T : V \to W$ and $S : V \to W$. Then, the addition of these two maps is defined as 
+    $$Tv + Sv = (T + S)v$$
+\end{proof}
+
+\begin{definition}[Composite Maps]
+    Suppose there are three vector spaces $V, W, Z$. Let $S : W \to Z$ and $T : V \to W$. 
+    Then $ST : V \to Z$ such that $ST(v) = S(Tv)$. It is a composition of the two maps, $S \circ T$
+\end{definition}
+\begin{proof}
+    We will show that $ST$ is linear. Consider $v_1, v_2 \in V$. 
+    $$ST(v_1 + v_2) = S(T(v_1 + v_2)) = S(T(v_1) + T(v_2)) = S(T(v_1)) + S(T(v_2)) = ST(v_1) + ST(v_2)$$ 
+    Consider $\lambda \in \mathbb F$, then 
+    $$ST(\lambda v_1) = S(T(\lambda v_1)) = S(\lambda T(v_1)) = \lambda ST(v_1)$$ 
+\end{proof}
+\begin{definition}[Injective]
+    If $V$ and $W$ are any sets, a function $T : V \to W$ is injective if for any $v_1, v_2 \in V$, $Tv_1 = Tv_2 \implies v_1 = v_2$.
+    The contrapositive is also commonly used for proof based methods. 
+\end{definition}
+\newpage
+\begin{definition}[Surjective]
+    If $V$ and $W$ are any sets, a function $T : V \to W$ is surjective if for any vector $w \in W$, there is some $v \in V : Tv = w$.
+\end{definition}
+
+\newpage
 \section{Invertibility and Isomorphisms}
 \begin{definition}[inverse, invertible]
     A linear map $S: V \to W$ is defined to be invertible if there exists a map $T : W \to V$ such that 
@@ -219,6 +832,6 @@ Hence, the division of two complex numbers $\alpha$ and $\beta$ is defined as th
     Consider $w \in V$
     $$w = T^{-1} T w$$
     which implies $\text{range } T = W$. Hence, $T$ is surjective
-
 \end{proof}
+
 \end{document}
