@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}                       % custom enum labels
+\usepackage{parskip}          
+\usepackage{physics}
+\usepackage{geometry} 
+\usepackage{esint}
+\geometry{
+  paperwidth=18cm,
+  left=8mm,
+  right=8mm,
+  top=8mm,
+  bottom=8mm,
+}
+\usepackage[framemethod=TikZ]{mdframed}     % graphics and framed envs
+
+\renewcommand{\familydefault}{\sfdefault}      % sans serifs text
+\setlength{\parindent}{0pt}                    % no paragraph indentation
+
+% region TITLE CONSTRUCTION
+\newlength\mywidth
+\mywidth=\wd0
+\renewcommand{\contentsname}{\hangindent=\mywidth \courseid: \coursetitle \\ \medskip \LARGE{[MY NAME HERE], \semester}}
+% endregion
+
+% region FRAMED ENVIRONMENTS
+\newcounter{chapter}\setcounter{chapter}{1}
+\newcounter{theo}[chapter]\setcounter{theo}{0}
+\newcommand{\numTheo}{\arabic{chapter}.\arabic{theo}}
+\newcommand{\mdftheo}[3]{
+    \mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=#3]
+            {\ifstrempty{#2}{\strut #1~\numTheo}{\strut #1~\numTheo:~#2}};
+        },
+        innertopmargin=4pt,linecolor=#3,linewidth=2pt,
+        frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+        skipabove=11pt,skipbelow=0pt
+    }
+}
+\newcommand{\mdfnontheo}[3]{
+    \mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=#3]
+            {\ifstrempty{#2}{\strut #1}{\strut #1:~#2}};
+        },
+        innertopmargin=4pt,linecolor=#3,linewidth=2pt,
+        frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+        skipabove=11pt,skipbelow=0pt
+    }
+}
+\newcommand{\mdfproof}[1]{
+    \mdfsetup{
+        skipabove=11pt,skipbelow=0pt,
+        innertopmargin=4pt,innerbottommargin=4pt,
+        topline=false,rightline=false,
+        linecolor=#1,linewidth=2pt
+    }
+}
+\newenvironment{theorem}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Theorem}{#1}{red!25}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{lemma}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Lemma}{#1}{red!15}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{corollary}[1][]{
+    \refstepcounter{theo}
+    \mdftheo{Corollary}{#1}{red!15}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{definition}[1][]{
+    \mdfnontheo{Definition}{#1}{blue!20}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{example}[1][]{
+    \mdfnontheo{Example}{#1}{yellow!40}
+    \begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+\newenvironment{proof}[1][]{
+    \mdfproof{black!15}
+    \begin{mdframed}[]\relax
+\textit{Proof. }}{\end{mdframed}}
+% endregion
+
+% region NEW COMMANDS
+\newcommand{\ds}{\displaystyle}
+\newcommand{\pfn}[1]{\textrm{#1}}  % enables new functions
+\newcommand{\mbf}[1]{\mathbf{#1}}  % mathbf
+\newcommand{\C}{\mathbb{C}}        % fancy C
+\newcommand{\R}{\mathbb{R}}        % fancy R
+\newcommand{\Q}{\mathbb{Q}}        % fancy Q
+\newcommand{\Z}{\mathbb{Z}}        % fancy Z
+\newcommand{\N}{\mathbb{N}}   
+\newcommand{\K}{\mathbb{K}}  % fancy N
+\newcommand{\V}{\mathbf{V}} %vector space 
+\newcommand{\0}{\mathbf{0}} %zero vector 
+\newcommand{\from}{\leftarrow}
+\renewcommand{\i}[1]{\textit{#1}}
+\renewcommand{\b}[1]{\textbf{#1}}
+\newcommand{\qed}{$\square$}
+
+% endregion
+
+\title{Ordinary Differential Equations}
+\author{lonelyneutrino}
+\date{August 2025}
+\begin{document}
+\maketitle
+\section{First Order Differential Equations}
+\begin{definition}
+    First order ODEs are of the form
+    \begin{equation}
+        \frac{dy}{dx} = f(x, y)
+    \end{equation}
+    A function $y = \phi(x)$ is a solution on an interval $I$ if $\phi'(x) = f(x, \phi(x))$ for all $x \in I$.
+\end{definition}
+
+\begin{example}
+    A simple example of a first order ODE is
+    \begin{equation}
+        \frac{dy}{dx} = 2x
+    \end{equation}
+    A solution to this equation is $y = x^2 + C$, where $C$ is a constant.
+\end{example}
+
+\begin{example}
+    \begin{equation}
+        \dv{y}{x} = p(x) y
+    \end{equation}
+    A solution to this equation is $y = C\exp{\int p(x) \, dx}$, where $C$ is a constant.
+\end{example}
+
+\begin{definition}
+    An initial value problem (IVP) is a differential equation along with a specified value, called the initial condition, that the solution must satisfy at a given point. For example, the IVP for the first order ODE
+    \begin{equation}
+        \frac{dy}{dx} = f(x, y)
+    \end{equation}
+    might specify that $y(x_0) = y_0$ for some point $x_0$ in the interval of interest.
+\end{definition}
+
+\subsection{First Order Linear ODEs}
+\vspace{5pt}
+\begin{definition}
+    A first order linear ODE is an equation of the form
+    \begin{equation}
+        \frac{dy}{dx} + p(x) y = g(x)
+    \end{equation}
+    where $p(x)$ and $g(x)$ are continuous functions on an interval $I$.
+\end{definition}
+
+\begin{theorem}[Integrating Factor Method]
+    The general solution to the first order linear ODE
+    \begin{equation}
+        \frac{dy}{dx} + p(x) y = g(x)
+    \end{equation}
+    is given by
+    \begin{equation}
+        y = \frac{1}{\mu(x)} \left( \int \mu(x) g(x) \, dx + C \right)
+    \end{equation}
+    where $\mu(x) = \exp{\int p(x) \, dx}$ is the integrating factor and $C$ is an arbitrary constant.
+\end{theorem}
+
+\begin{proof}
+    To prove this theorem, we start with the first order linear ODE
+    \begin{equation}
+        \frac{dy}{dx} + p(x) y = g(x)
+    \end{equation}
+    We multiply both sides by the integrating factor $\mu(x)$:
+    \begin{equation}
+        \mu(x) \frac{dy}{dx} + \mu(x) p(x) y = \mu(x) g(x)
+    \end{equation}
+    If $\mu(x)$ is chosen such that $\mu'(x) = \mu(x) p(x)$, then the left-hand side becomes the derivative of the product $\mu(x) y$. The integrating factor is given by:
+    \begin{equation}
+        \mu(x) = \exp{\int p(x) \, dx}
+    \end{equation}
+    The left-hand side can be rewritten as the derivative of a product:
+    \begin{equation}
+        \frac{d}{dx} \left( \mu(x) y \right) = \mu(x) g(x)
+    \end{equation}
+    Integrating both sides with respect to $x$ gives:
+    \begin{equation}
+        \mu(x) y = \int \mu(x) g(x) \, dx + C
+    \end{equation}
+    Finally, we solve for $y$:
+    \begin{equation}
+        y = \frac{1}{\mu(x)} \left( \int \mu(x) g(x) \, dx + C \right)
+    \end{equation}
+\end{proof}
+
+\begin{example}
+    Consider the first order linear ODE 
+    \begin{equation}
+        y' + \frac12 y = \frac12 \exp{x/3}
+    \end{equation}
+    To solve this ODE, we first identify the integrating factor:
+    \begin{equation}
+        \mu(x) = \exp{\int \frac12 \, dx} = \exp{\frac12 x}
+    \end{equation}
+    Multiplying both sides of the ODE by the integrating factor gives:
+    \begin{equation}
+        \exp{\frac12 x} y' + \frac12 \exp{\frac12 x} y = \frac12 \exp{\frac56 x}
+    \end{equation}
+    The left-hand side can be rewritten as:
+    \begin{equation}
+        \frac{d}{dx} \left( \exp{\frac12 x} y \right) = \frac12 \exp{\frac56 x}
+    \end{equation}
+    Integrating both sides with respect to $x$ gives:
+    \begin{equation}
+        \exp{\frac12 x} y = \int \frac12 \exp{\frac56 x} \, dx + C
+    \end{equation}
+    Finally, we solve for $y$:
+    \begin{equation}
+        y = \exp{-\frac12 x} \left( \int \frac12 \exp{\frac56 x} \, dx + C \right) 
+    \end{equation}
+    \begin{equation}
+        y = \frac{3}{5} \exp{\frac12 x} + C\exp{-\frac12 x}
+    \end{equation}
+\end{example}
+
+\end{document}
+
