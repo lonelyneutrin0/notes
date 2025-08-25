@@ -803,6 +803,97 @@ $$T v_j  = w_j \text{ for each $j = 1, \cdots n$}$$
 \begin{definition}[Surjective]
     If $V$ and $W$ are any sets, a function $T : V \to W$ is surjective if for any vector $w \in W$, there is some $v \in V : Tv = w$.
 \end{definition}
+\begin{definition}[Null space/Kernel]
+    The null space of $T : V \to W$ is the subset $N(T)$ of $V$ such 
+    that $$v \in N(T) \implies T(v) = \vec 0_W$$
+\end{definition}
+\begin{definition}[Range]
+    The range of $T$ is the subset of $W$ such that each vector of 
+    the subset has a preimage in $V$.
+\end{definition}
+Note: If $U \subseteq V$, any subset and $T : V \to W$ is a function, the image of $U$ under $T$ is 
+$$T(U) = \{ Tv : v \in U \}$$ 
+\textit{Proposition: } A linear map is injective if and only if its kernel is $\{\vec 0\}$.
+\begin{proof}
+    Let $T \in \mathcal L(V, W)$ be an arbitrary linear map. We will first show that if $\text{null}(T) = \{0\}$, 
+    then the map is injective.\\
+    Consider two vectors $v, w \in V$. Then, to show that $T$ is injective, 
+    $$T(v) = T(w) \implies v = w$$ 
+    Starting from the hypothesis, 
+    $$T(v) = T(w)$$ 
+    Using the linearity of $T$, 
+    $$T(v-w) = \vec 0$$ 
+    Clearly, $v-w \in \text{null}(T)$. But, we started with the assumption that $\{\vec 0\}$ is the only 
+    element of $\text{null}(T)$. Therefore, 
+    $$v-w = \vec 0$$ 
+    $$v = w$$
+    Hence, proven. \\ 
+    We will now assume that $T$ is injective, and show that $\text{null}(T) = \{\vec 0\}$. By the linearity of $T$, 
+    we know that $T\vec 0 = \vec 0$. Therefore, $\vec 0 \in \text{null}(T)$. If any other vector $v$ exists such that 
+    $$Tv = \vec 0$$
+    then T is not injective by definition. Hence, if $T$ is injective, then $\text{null}(T) = \{\vec 0\}$.
+\end{proof}
+
+\begin{definition}[Rank Nullity Theorem]
+    For any linear map $T \in \mathcal L(V, W)$, 
+    $$\dim V = \dim \text{null}(T) + \dim \text{range}(T)$$
+\end{definition}
+\newpage
+\begin{corollary}
+    There is no injective linear map from a higher dimensional space to a lower dimensional space. 
+    $$\dim \text{null}(T) = \dim V - \dim \text{range}(T)$$ 
+    The largest possible dimension of $\text{range}(T)$ is $\dim W$, therefore
+    $$\dim \text{null}(T) = \dim V - \dim W > 0$$
+    Since the dimension of $\text{null}(T)$ is greater than zero, $T$ is not injective. 
+\end{corollary}
+
+\begin{corollary}
+    There is no surjective map from a lower dimensional space to a higher dimensional space.
+    $$\dim \text{range}(T) = \dim V - \dim \text{null}(T)$$
+    Since $\dim W > \dim V$, 
+    $$\dim \text{range}(T) = \dim V - \dim \text{range}(T) < \dim W$$
+    Therefore, the map can never be surjective.
+\end{corollary}
+
+\begin{corollary}
+    For all maps $T \in \mathcal L(V, W)$, if $\dim V = \dim W$, then $T$ is injective iff it is surjective. \\ $T$ is injective implies $\dim \text{null}(T) = 0$. 
+    Then, $\dim V = \dim \text{range}(T) = \dim W$. 
+\end{corollary}
+
+\begin{definition}[Matrix]
+    Let $m$ and $n$ denote positive integers. An $m \times n$ matrix $A$ is a rectanglar
+    array of elements of $\mathbb F$ with $m$ rows and $n$ columns.
+    $$
+    \pmqty{
+        A_{1,1} & \cdots & \cdots & A_{1, n} \\ 
+        \vdots & \text{ } & \text { }& \vdots \\
+        \vdots & \text{ } & \text { }& \vdots \\
+        A_{m, 1} & \cdots & \cdots & A_{m, n}}
+    $$
+\end{definition}
+
+\begin{definition}[Matrix of a linear map]
+    Suppose $T \in \mathcal L(V, W)$ and $v_1, \cdots v_n$ is a basis of $V$, and
+    $w_1, \cdots w_m$ is a basis of $W$. The matrix of $T$ is the $m \times n$
+    matrix $\mathcal M(T)$ whose entries $A_{j, k}$ are defined by 
+    $$Tv_k = A_{1, k}w_1 + \cdots + A_{m, k}w_m$$
+    If the bases are not clear, we can use the notation 
+    $$\bqty{T}_{\mathcal B_W, \mathcal B_V}$$ 
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \newpage
 \section{Invertibility and Isomorphisms}
@@ -831,7 +922,281 @@ $$T v_j  = w_j \text{ for each $j = 1, \cdots n$}$$
     
     Consider $w \in V$
     $$w = T^{-1} T w$$
-    which implies $\text{range } T = W$. Hence, $T$ is surjective
+    which implies $\text{range } T = W$. Hence, $T$ is surjective\\\\
+    Now suppose $T$ is injective and surjective. We want to prove that $T$ is invertible.  Consider for every element $w \in W$ there 
+    is some element $Sw \in V$ such that $T(Sw) = w$. This exists because the map is bijective.
+    $$T \circ S (w) = w = Iw$$
+    We will now show that $S \circ T = I$ 
+    $$T\circ (S \circ T)(v) = (T \circ S)\circ T(v) = ITv$$
+    Because $T$ is injective, this implies that $S \circ T = I$. 
+    To complete the proof, we need to show that $S$ is linear.
+    $$T(Sw_1 + Sw_2) = T(Sw_1) + T(Sw_2) = w_1 + w_2$$ 
+    $Sw_1 + Sw_2$ is the unique element mapping to $w_1 + w_2$. By the definition of $S$, 
+    this means $S(w_1 + w_2) = Sw_1 + Sw_2$ \\\\
+    For some scalar $\lambda \in \mathbb F$, $$T(\lambda S( w_1)) = \lambda T(S(w_1)) = \lambda w_1$$ 
+    $\lambda S w_1$ is the unique element mapping to $\lambda w_1$. Therefore, $S$ is linear. 
 \end{proof}
+\begin{definition}[Isomorphism]
+    Two vector spaces $V$ and $W$ are isomorphic if there is an invertible linear map $T \in \mathcal L(V, W)$
+    $T$ is an isomorphism from $V$ to $W$.
+\end{definition}
+\newpage
+\textit{Proposition:} Two finite-dimensional vector spaces over $\mathbb F$ are isomorphic if and only 
+if they have the same dimension. \\\\ 
+Proof. We will first show that if two spaces are isomorphic, they have the same dimension. \\\\ 
+Consider two finite-dimensional isomorphic vector spaces $V$ and $W$ defined over $\mathbb F$. By definition,
+there exists an isomorphism $T : V \to W$. Because $T$ is invertible, we know it's bijective. Therefore, 
+$\dim \text{range}(T) = \dim W$ and $\dim \text{null}(T) = 0$. Therefore, $\dim V = \dim W$.\\\\ 
+We will now show that if two spaces have the same dimension, they are isomorphic. Consider the bases $$\mathcal B_V = v_1, \cdots v_n$$
+$$\mathcal B_W = w_1 \cdots w_n$$
+Then, for scalars $\alpha_1, \cdots \alpha_n \in \mathbb F$, let $T$ be defined by 
+$$T(\alpha_1 v_1 + \cdots + \alpha_n v_n) = \alpha_1 w_1 + \cdots + \alpha_n w_n$$ 
+All possible linear combinations of $\mathcal B_W$ span $W$ because $\mathcal B_W$ is a basis.
+Therefore, $\text{range}(T) = W$. Since $\mathcal B_V$ is a basis, it is linearly independent. Therefore, the 
+only solution of $Tv = \vec 0_W$ is $v = \vec 0_V$. Hence, $T$ is bijective. By extension, it is
+an isomorphism between $V$ and $W$. \\\\ 
+\begin{definition}[Operator]
+    An operator is a linear map from a space to itself. It is a special kind of isomorphism, called 
+    an automorphism.
+\end{definition}
+
+\newpage
+\begin{definition}[Pivot]
+    The first nonzero entry of each row is called the pivot. 
+\end{definition}
+
+\begin{definition}[Echelon Form]
+    All zero rows are below all nonzero rows \\ 
+    The pivot in each row is strictly to the right of the pivot in the row above it.
+\end{definition}
+
+\begin{definition}[Reduced Echelon Form]
+    If a matrix is in reduced echelon form, it is in echelon form and: \\\\ 
+    All pivot entries are 1. \\
+    All entries above the pivot are 0.
+\end{definition}
+
+A system is inconsistent (does not have a solution) if and only if there 
+is a pivot in the last column of the echelon form of the augmented matrix. \\\\ 
+\subsection*{Pivot Analysis}
+\begin{enumerate}
+    \item A system has at most 1 solution if there is a pivot in every column of the coefficient matrix. 
+    Since there are no columns without a pivot, there is a leading variable in each row. 
+    Therefore, there are no free variables and the finitely-many solutions. 
+    \item A system has at least 1 solution if there is a pivot in every row of the coefficient matrix. 
+    \item A system has exactly 1 solution if there is a pivot in every row and column of the coefficient matrix.
+\end{enumerate}
+
+\begin{corollary}
+    Consider the system of vectors $v_1, \cdots v_n \in \mathbb F^n$, and 
+    let $A = \bqty{v_1, \cdots v_n}$ be an $n \times n$ matrix with columns $v_1, \cdots v_n$. 
+    Then, 
+    \begin{enumerate}
+        \item The system of vectors are linearly independent if the echelon form of $A$ has a pivot in every column. 
+        \item The system of vectors is spanning if the echelon form of $A$ has a pivot in every row. 
+        \item The system of vectors forms a basis if there is a pivot in every row and every column.
+    \end{enumerate}
+\end{corollary}
+
+\begin{corollary}
+    A matrix is invertible if and only if there is a pivot in every row and column.
+\end{corollary}
+
+\newpage
+\subsection*{Determinant}
+The determinant is an alternating multilinear form $V^n \to \mathbb F$ where $V$ is a vector space defined over the field 
+$\mathbb F$. It has the following properties: 
+\begin{enumerate}
+    \item Multilinearity: 
+    For vectors $v_1, \cdots v_n \in V$, and $\lambda \in \mathbb F$, 
+    $$D( \alpha v_1, \cdots v_n) = \alpha D(v_1, \cdots v_n)$$ 
+    $$D(v_1, \cdots v_k + v_{k+1}, \cdots, v_n) = D(v_1, \cdots v_k, \cdots v_n) = D(v_1, \cdots v_{k+1}, v_n)$$ 
+    \item Antisymmetry
+    $$D(v_1, \cdots v_i,\cdots v_j, \cdots v_n) = -D(v_1, \cdots v_j, \cdots v_i, \cdots v_n)$$
+    \item Normalization: The determinant of the canonical basis of any space and the identity matrix is 1.
+\end{enumerate}
+For a square matrix $A$, 
+$$\det(A) = \det(A^T)$$ 
+Therefore, any property on the columns of $A$ also applies to the rows of $A$.
+The following properties hold for a square matrix $A$: 
+\begin{enumerate}
+    \item If any row or column in $A$ is completely zeros, then $\det A = 0$ \\\\
+    Proof. Using multilinearity, 
+    $$\det(v_1, \cdots \vec 0, \cdots v_n) = \det(v_1, \cdots 0 \cdot \vec 0, \cdots v_n) = 0 \det(v_1, \cdots \vec 0, \cdots v_n) = 0$$ 
+    \item 
+    If any rows or columns are equal, then $\det A = 0$. \\\\ 
+    Proof. If $v_i = v_j$
+    $$\det(v_1, \cdots v_i, \cdots v_i, \cdots v_n) = -\det(v_1 \cdots v_i, \cdots v_i, \cdots v_n) \therefore \det(v_1, \cdots v_n) = 0$$
+    \item
+    If one column is a multiple of another, then $\det A = 0$. \\\\ 
+    Proof. This uses the same logic as the two properties above - pull out the multiple using multilinearity, then use antisymmetry to prove that $\det A = 0$.
+    \item 
+    If the matrix is not invertible, (the columns of the matrix are linearly dependent), then the 
+    determinant is zero. 
+\end{enumerate}
+
+The determinant of a triangular matrix is the product of its diagonals. 
+\begin{theorem}
+    If $A$ and $B$ are square matrices, then 
+    $$\det(AB) = \det(A) \det(B)$$ 
+\end{theorem}
+\begin{corollary}
+    For square matrices $A_1, \cdots A_n$, 
+    $\det(A_1 A_2\cdots A_n) = \det(A_1)\det(A_2)\cdots\det(A_n)$
+\end{corollary}
+\begin{corollary}
+    For square matrices $A$ and $B$, 
+    $$\det(AB) = \det(BA)$$
+\end{corollary}
+$$\det(aA) = a^n\det(A)$$ 
+
+\newpage
+\section{Spectral Theory}
+\begin{definition}[Eigenvector/Eigenvalue]
+    Consider a linear operator $T \in \mathcal L(V)$ for a finite dimensional space $V$ defined over $\mathbb C$. 
+    If $Tv = \lambda v ; \lambda \in \mathbb C, v \neq \vec 0$, then $v$ is called an eigenvector and
+    $\lambda$ is the corresponding eigenvalue.
+\end{definition}
+
+\begin{definition}[Spectrum]
+    The set of all eigenvalues of $A$ is called the spectrum of $A$.
+\end{definition}
+
+Consider the equation 
+$$Av = \lambda I_n  v$$ 
+$$(A- \lambda I_n)v = \vec 0$$ 
+So, $v \in \text{null}(A - \lambda I_n)$. 
+Since we are given that $v \neq \vec 0$, the map corresponding to 
+$A-\lambda I_n$ is not injective. Therefore, $A - \lambda I_n$ is not invertible, and 
+$$\det(A - \lambda I_n) = 0$$ 
+
+\begin{definition}[Characteristic Polynomial]
+    The characteristic polynomial of a given square matrix $A$ is the equation
+    $$p(\lambda) = \det(A - \lambda I_n)$$ 
+    Note that this means any eigenvalue of $A$ is a root of $p(\lambda)$.
+\end{definition}
+
+\begin{theorem}[Fundamental Theorem of Algebra]
+    A polynomial of degree $n$ with coefficients in $\mathbb R$ have at most $n$ roots, all in $\mathbb C$.
+\end{theorem}
+
+From the theorem above, the characteristic polynomial can be written as 
+$$p(\lambda) = c(x-\lambda_1)(x-\lambda_2)\cdots(x-\lambda_n)$$ 
+for $c, \lambda_1, \cdots \lambda_n \in \mathbb C$.
+\begin{definition}[Algebraic Multiplicity]
+    The number of times a particular eigenvalue appears as a root in the characteristic equation is called its algebraic multiplicity. 
+    If it has multiplicity one, it is called a simple root.
+\end{definition}
+
+\begin{definition}[Eigenspace]
+    If $\lambda$ is an eigenvalue of $A$, then the eigenspace of $\lambda$ is the set of all eigenvectors corresponding
+    to that particular eigenvalue, as well as the zero vector.
+    Note that the eigenspace corresponds to the nullspace of $A - \lambda I_n$. Therefore, eigenspaces are subspaces of 
+    $\mathbb C^n$.
+\end{definition}
+
+\begin{definition}[Geometric Multiplicity]
+    The geometric multiplicity of a particular eigenvalue $\lambda$ is the dimension of its corresponding eigenspace.
+\end{definition}
+
+\begin{definition}[Similarity]
+    Two matrices are similar if there exists an invertible matrix $Q$ such that 
+    $$A = Q^{-1}BQ$$
+\end{definition}
+Proposition: If $A$ and $B$ are similar, $\det A = \det B$.\\\\
+Proof. If the two matrices $A$ and $B$ are similar, then 
+$$A = Q^{-1}BQ$$ 
+Applying the determinant on both sides, 
+$$\det(A) = \det(Q^{-1})\det(B)\det(Q)$$ 
+Lemma. $\det(Q^{-1}) = \frac{1}{\det(Q)}$ \\
+Proof. We know that 
+$$QQ^{-1} = I$$ 
+Then, 
+$$\det(Q)\det(Q^{-1}) = \det(I)$$
+By the normalization property of the determinant, 
+$$\det(Q^{-1}) = \frac{1}{\det(Q)}$$
+Note that this is always well defined, because if $\det(Q)$ is $0$, then 
+$Q^{-1}$ cannot exist.
+Therefore, from the given lemma,
+$$\det(A) = \det(B)\det(Q^{-1})\det(Q)$$ 
+$$\det(A) = \det(B)$$ 
+Hence, proven. \\\\
+Proposition: Similar matrices have the same eigenvalues. \\ 
+Proof. Consider two similar matrices $A$ and $B$. Then, for some invertible matrix $Q$, 
+$$A = Q^{-1}BQ$$
+We subtract $\lambda I$ from each side, where $\lambda \in \mathbb C$. 
+$$A - \lambda I = Q^{-1}BQ - \lambda I$$ 
+Note that $I = Q^{-1}Q$, so
+$$A - \lambda I = Q^{-1}(BQ - \lambda Q)$$ 
+$$A - \lambda I = Q^{-1}(B - \lambda I)Q$$ 
+Therefore, if $A$ and $B$ are similar, then 
+$A - \lambda I$ and $B - \lambda I$ are also similar. Therefore, 
+$$\det(A - \lambda I) = \det(B - \lambda I)$$ 
+Since $A$ and $B$ have the same characteristic polynomial, they have the same eigenvalues. Hence, proven.
+\\\\ 
+Proposition. Geometric multiplicity is always less than algebraic multiplicity for any eigenvalue. \\ 
+Proof. Consider a map $A \in \mathcal M_{n\times n}(\mathbb R)$. Let the geometric multiplicity of $\lambda^*$ be $k$. Consider an eigenbasis
+$v_1, \cdots v_k$ of the eigenspace of $\lambda^*$. 
+\begin{corollary}
+    If the algebraic multiplicity is 1, then the geometric multiplicity is 1.
+\end{corollary}
+\newpage
+If $A \in \mathcal M_{n \times n}(\mathbb F)$,
+$$\tr(A) = \sum_{i=1}^n A_{ii}$$
+
+Proposition. If $A \in \mathcal M_{n \times n}(\mathbb C)$, and $\lambda_1, \cdots \lambda_n$ are its eigenvalues, then 
+$$\tr(A) = \sum_{i=1}^n \lambda_i$$ 
+$$\det(A) = \prod_{i=1}^n \lambda_i$$
+Proof. look at textbok lol
+
+\begin{theorem}
+    If $A$ is triangular, then the eigenvalues are the diagonal entries of $A$.
+\end{theorem}
+
+\subsection{Diagonalization}
+\begin{definition}[Diagonalizable]
+    A linear map $T \in \mathcal L(V, V)$ is called diagonalizable if there exists a basis $\mathcal B$ which makes $\bqty{T}_{\mathcal B, \mathcal B}$ is diagonal.
+\end{definition}
+
+\begin{definition}[Eigenbasis]
+    An eigenbasis is a basis of a space consisting only of eigenvectors.
+\end{definition}
+
+\begin{theorem}
+    Let $A \in \mathcal M_{n\times n}(\mathbb R)$. The following are equivalent- 
+    \begin{enumerate}
+        \item $A$ is diagonalizable.
+        \item There exists an eigenbasis.
+        \item There exists an invertible matrix $P$ such that 
+        $$A = P^{-1}DP$$ 
+        where $D$ is the matrix representation of $A$ in terms of the eigenbasis.
+    \end{enumerate}
+\end{theorem}
+Proof. Write $T_A v = Av \forall v \in V$. \\\\ 
+($2 \implies 1$) Assume $B_E = v_1, \cdots v_n$ is an eigenbasis of $V$.
+Let $\lambda_i$ be the eigenvalue associated with $v_i$. Then, 
+$$T_A v_1 = \lambda_1 v_1 + 0v_2 + \cdots + 0v_n$$ 
+$$T_A v_2 = 0v_1 + \lambda_2 v_2 + \cdots + 0v_n$$
+$$\vdots$$ 
+$$T_A v_n = 0 v_1 + \cdots 0v_2 + \cdots \lambda_n v_n$$
+Therefore, 
+$$\bqty{T_A}_{B_E, B_E} = 
+\pmqty{
+    \lambda_1 & \cdots & \cdots & \text{\huge{0}} \\
+    \vdots & \ddots &  & \vdots \\
+    \vdots &  & \ddots & \vdots \\ 
+    \text{\huge{0}} & \cdots & \cdots & \lambda_n 
+}$$
+Clearly, $A$ is diagonalizable.\\\\ 
+($1 \implies 3$) Assume $A$ is diagonalizable.
+FINISH THIS LATER \newpage
+
+
+How to diagonalize: 
+\begin{enumerate}
+    \item Find the eigenvectors, check if they are an eigenbasis
+    \item $Q = \bqty{v_1, \cdots v_n}$
+    \item Then, $D$ has the corresponding eigenvalues.
+\end{enumerate}
 
 \end{document}
