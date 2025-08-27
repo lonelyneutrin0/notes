@@ -117,7 +117,7 @@
 % endregion
 
 \title{Linear Algebra II}
-\author{lonelyneutrino}
+\author{Hrishikesh Belagali}
 \date{August 2025}
 \begin{document}
 \maketitle
@@ -136,6 +136,74 @@
     special cases of $\mathbb F^{\mathcal S}$, 
     where $\mathcal S$ is a finite set of size $n$ or 
     an infinite set, respectively.
+\end{example}
+
+Note that the empty set $\phi$ is not a vector space, nor is it a subspace of any vector space.
+\begin{example}
+The set of differentiable real-valued functions is a subspace of $\mathbb R^{\mathbb R}$. Note that in calculus, the sum of two continuous functions 
+is continuous, and the sum of two differentiable functions is differentiable. Also, scalar multiples of continuous and differentiable functions are continuous and differentiable, respectively.
+\end{example}
+
+\begin{definition}
+    Let $V_1, \cdots V_n$ be subspaces of a vector space $\V$. Then, the sum of these subspaces is defined as 
+    $$V_1 + V_2 + \cdots + V_n = \{ v_1 + v_2 + \cdots + v_n \mid v_i \in V_i \text{ for all } i \}$$
+\end{definition}
+
+\begin{example}
+    Let $$V_1 = \left \{ (w, w, x, x) \in \mathbb F^4 | w, x \in \mathbb F \right \}$$
+    $$V_2 = \left \{ (y, y, y, z) \in \mathbb F^4 | y, z \in \mathbb F \right \}$$
+    Now, let $v_1 \in V_1$ and $v_2 \in V_2$. Then, we can write
+    $$v_1 = (w_1, w_1, x_1, x_1)$$
+    $$v_2 = (y_2, y_2, y_2, z_2)$$
+    for some $w_1, x_1, y_2, z_2 \in \mathbb F$. Then, we have
+    $$v_1 + v_2 = (w_1 + y_2, w_1 + y_2, x_1 + y_2, x_1 + z_2) \in V_1 + V_2$$
+    Let $W$ be defined as 
+    $$W = \left \{ (x, x, y, z) \in \mathbb F^4 | x, y, z, \in \mathbb F \right \}$$
+    Then, $v_1 + v_2 \in W$ so $V_1 + V_2 \subseteq W$. \\
+    Let $w \in W$. Then, we can write
+    $$w = (x_w, x_w, y_w, z_w)$$
+    for some $x_w, y_w, z_w \in \mathbb F$. Then, we have
+    $$w = (x_w, x_w, y_w, z_w) = (x_w, x_w, y_w, y_w) + (0, 0, 0, z_w - y_w) \in V_1 + V_2$$
+    $\therefore W = V_1 + V_2$
+\end{example}
+
+\begin{lemma}
+    For any subspaces $V_1, \cdots V_n$ of a vector space $\V$, $V_1 + \cdots + V_n$ is a subspace of $\V$. It is also the smallest subspace of $V$
+    that contains all elements of the form $v_1 + \cdots + v_n$ where $v_i \in V_i$ for all $i$.
+\end{lemma}
+\begin{proof}
+    From the definition and that $V_1, \cdots V_n$ are subspaces,
+    Since the subspaces themselves are closed under addition and scalar multiplication, $V_1 + \cdots + V_n$ is also closed under addition and scalar multiplication. Also, the zero vector $\0$ is in each of the subspaces, so $\0 \in V_1 + \cdots + V_n$. Thus, $V_1 + \cdots + V_n$ is a subspace of $\V$. 
+\end{proof}
+
+Note: Generally, the set theoretic union is rarely a subspace, except for trivial cases where one space is a subspace of the other. 
+However, intersections of subspaces are generally subspaces.
+
+\begin{definition}[Direct sum]
+    Let $V_1, \cdots V_n$ be subspaces of a vector space $\V$. Then, the sum $V_1 + \cdots + V_n$ is called a direct sum if each element of $V_1 + \cdots + V_n$ can be written in one and only one way as $v_1 + \cdots + v_n$ where $v_i \in V_i$ for all $i$. 
+    In this case, we say that the sum is a direct sum, denoted by 
+    $$W = V_1 \oplus V_2 \oplus \cdots \oplus V_n$$
+\end{definition}
+
+\begin{example}
+    Let $$U = \left \{ (x, x, y) \in \mathbb F^3 | x, y \in \mathbb F \right \}$$
+    Let $$W = \left \{ (x, 0, 0) \in \mathbb F^3 | x \in \mathbb F \right \}$$
+    Then, $U$ and $W$ are subspaces of $\mathbb F^3$.
+    Any arbitrary vector in $\mathbb F^3$ can be written as
+    $$\begin{pmatrix}
+        a \\
+        b \\
+        c
+    \end{pmatrix} = \begin{pmatrix}
+        b \\
+        b \\
+        c
+    \end{pmatrix} + \begin{pmatrix}
+        a-b \\
+        0 \\
+        0
+    \end{pmatrix}$$
+    Since this is a unique representation, $U \oplus W = \mathbb F^3$.
 \end{example}
 \end{document}
 
