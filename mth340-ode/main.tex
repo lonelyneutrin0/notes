@@ -232,5 +232,31 @@
     \end{equation}
 \end{example}
 
-\end{document}
+\subsection{Separable ODEs}
+\vspace{5pt}
+\begin{definition}
+    A separable first order differential equation is of the form 
+    $$
+    \dv{y}{x} = f(x) g(y)
+    $$
+    where $f(x)$ and $g(y)$ are functions of $x$ and $y$, respectively.
+\end{definition}
 
+\begin{definition}
+    A homogeneous first order differential equation is of the form
+    $$
+    \dv{y}{x} = f\left(\frac{y}{x}\right)
+    $$
+    where $f$ is a function of the single variable $\frac{y}{x}$.
+\end{definition}
+A homogeneous equation is solved by making the substitution $v = \frac{y}{x}$, which transforms the equation into a separable form.
+\begin{example}
+    $$
+    \dv{y}{x} = \frac{x^2 - 3y^2}{2xy}
+    $$
+    Let $v = \frac{y}{x}$, then $y = vx$ and $\dv{y}{x} = v + x\dv{v}{x}$. Substituting these into the original equation gives:
+    $$
+    v + x\dv{v}{x} = \frac{x^2 - 3(vx)^2}{2x(vx)}
+    $$
+\end{example}
+\end{document}
