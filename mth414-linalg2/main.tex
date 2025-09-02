@@ -205,5 +205,36 @@ However, intersections of subspaces are generally subspaces.
     \end{pmatrix}$$
     Since this is a unique representation, $U \oplus W = \mathbb F^3$.
 \end{example}
-\end{document}
+\begin{theorem}
+    Let $V_1, \cdots V_n$ be subspaces of a vector space $\V$. Then, $V_1  + \cdots V_n = V_1 \oplus \cdots \oplus V_n$ if and only if the only way to write $\0$ as $v_1 + \cdots + v_n$ where $v_i \in V_i$ for all $i$ is to take each $v_i = \0$.
+    In other words, if $v_1 + \cdots + v_n = \0$ implies that each $v_i = \0$, then the sum is a direct sum.
+\end{theorem}
+\begin{proof}
+    Suppose that $V_1 + \cdots V_n$ is a direct sum. Then, the additive identity can be written as 
+    the sum of additive identities from each subspace. By definition of a direct sum, this is the \textit{only}
+    way to write the additive identity as a sum. \\ 
+    Suppose that the only way to write zero is as the sum 
+    of additive identities from each subspace. Consider an arbitrary vector 
+    $v \in V$. Suppose that there are two different ways of writing the sum,
+    $$v = u_1 + \cdots u_n ; u_k \in V_k$$ 
+    $$v = v_1 + \cdots v_n ; v_k \in V_k$$
+    Then, we can subtract these two equations 
+    $$0 = (u_1 - v_1) + \cdots + (u_n - v_n) ; (u_k - v_k) \in V_k$$
+    Since the only way to write zero is as the sum of additive identities from each subspace, we must have $u_k - v_k = 0$ for all $k$. Thus, $u_k = v_k$ for all $k$, and the representation is unique.
+    Therefore, by definition, the sum $V_1 + \cdots V_n$ is a direct sum.
+\end{proof}
 
+\begin{theorem}
+    Let $U$ and $W$ be subspaces of a vector space $\V$. Then, the sum $U + W$ is a direct sum if and only if $U \cap W = \{0\}$.
+\end{theorem}
+\begin{proof}
+    Suppose that $U + W$ is a direct sum. Let $v \in U \cap W$. Then, $v \in U$, and $-v \in W$
+    $$0 = v + (-v)$$
+    Since the representation is unique, we must have $v = 0$. Thus, $U \cap W = \{0\}$.
+
+    Conversely, suppose that $U \cap W = \{0\}$. Let $u \in U$ and $w \in W$. Then, we can write
+    $$u + w = 0$$
+    From the previous result, it suffices to show that $u = w = 0$. This implies that $w$ is the additive inverse
+    of $u$, meaning $u, w \in U \cap W = \{0\}$. Therefore, $u = w = 0$ and $U + W$ = $U \oplus W$.
+\end{proof}
+\end{document}  
