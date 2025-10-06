@@ -113,6 +113,7 @@
 \renewcommand{\i}[1]{\textit{#1}}
 \renewcommand{\b}[1]{\textbf{#1}}
 \newcommand{\qed}{$\square$}
+\newcommand{\range}{\text{range }}
 
 % endregion
 
@@ -237,4 +238,175 @@ However, intersections of subspaces are generally subspaces.
     From the previous result, it suffices to show that $u = w = 0$. This implies that $w$ is the additive inverse
     of $u$, meaning $u, w \in U \cap W = \{0\}$. Therefore, $u = w = 0$ and $U + W$ = $U \oplus W$.
 \end{proof}
-\end{document}  
+\begin{lemma}
+    Suppose $v_1, \cdots v_m$ is a linearly dependent list in V. Then there exists $j \in \{1, \cdots m\}$ such that
+    $$v_j \in \text{span}(v_1, \cdots, v_{j-1})$$
+    If this condition holds, then $$\text{span} (v_1, \cdots v_m) = \text{span} (v_1, \cdots, v_{j-1}, v_{j+1}, \cdots v_m)$$
+\end{lemma}
+\begin{proof}
+    Since $v_1, \cdots v_m$ is linearly dependent,
+    there exist $a_1, \cdots a_m \in \mathbb F$ not all zero
+    such that
+    $$a_1v_1 + \cdots + a_mv_m = 0$$
+    Let $k$ be the largest index such that $a_k \neq 0$.
+    Then, $$v_k = -\frac{a_1}{a_k}v_1 - \cdots - \frac{a_{k-1}}{a_k}v_{k-1}$$
+    Therefore, $v_k \in \text{span}(v_1, \cdots, v_{k-1})$. \\
+    \\Suppose $v_k \in \text{span}(v_1, \cdots, v_{k-1})$. Then, we can write
+    $$v_k = b_1v_1 + \cdots + b_{k-1}v_{k-1}$$
+    for some $b_1, \cdots, b_{k-1} \in \mathbb F$.
+    Let $u \in \text{span}(v_1, \cdots v_m)$. Then, 
+    $$u = c_1v_1 + \cdots c_mv_m \text{ for some } c_1, \cdots c_m \in \mathbb F$$
+    Substituting for $v_k$, we get
+    $$u = c_1v_1 + \cdots + c_{k-1}v_{k-1} + c_k(b_1v_1 + \cdots + b_{k-1}v_{k-1}) + c_{k+1}v_{k+1} + \cdots + c_mv_m$$
+    Therefore, 
+    $u \in \text{span}(v_1, \cdots, v_{k-1}, v_{k+1}, \cdots v_m)$.
+    Proving the other direction is trivial, you can set the coefficients of higher indices than $k$ to zero.
+\end{proof}
+\begin{theorem}
+    Let $V$ be a finite-dimensional vector space. Suppose that 
+    $u_1, \cdots u_m$ is linearly independent in $V$ and $w_1, \cdots w_n$.
+    Then, $m \leq n$. In other words, any linearly independent list is smaller
+    or the same size as any spanning list.
+\end{theorem}
+
+\begin{theorem}
+    Suppose $U$ is a subspace of a finite-dimensional vector space $V$. Then there exists
+    a subspace $W$ of $V$ such that $V = U \oplus W$.
+\end{theorem}
+\begin{proof}
+    Let $u_1, \cdots u_m$ be a basis of $U$. Since $U$ is a subspace of $V$, we can extend this basis to a basis of $V$, say $u_1, \cdots u_m, w_1, \cdots w_n$. Let $W = \text{span}(w_1, \cdots w_n)$. Then, we have
+    $$V = U + W$$
+    since any vector in $V$ can be written as a linear combination of the basis vectors. \\
+    Now, we need to show that the sum is direct. Suppose that 
+    $$u + w = 0 ; u \in U, w \in W$$
+    Then, we can write
+    $$u = a_1u_1 + \cdots + a_mu_m ; a_i \in \mathbb F$$
+    $$w = b_1w_1 + \cdots + b_nw_n ; b_i \in \mathbb F$$
+    Therefore, we have
+    $$a_1u_1 + \cdots + a_mu_m + b_1w_1 + \cdots + b_nw_n = 0$$
+    Since the basis vectors are linearly independent, all coefficients must be zero.
+    Thus, $u = w = 0$, and the sum is direct.
+\end{proof}
+\begin{theorem}
+    If $V_1$ and $V_2$ are finite-dimensional subspaces of $V$,
+    then 
+    $$\text{dim}(V_1 + V_2) = \text{dim}(V_1) + \text{dim}(V_2) - \text{dim}(V_1 \cap V_2)$$
+\end{theorem}
+\begin{proof}
+    Let $u_1, \cdots u_m$ be a basis of $V_1 \cap V_2$. We can extend this basis to a basis of $V_1$, say $u_1, \cdots u_m, v_1, \cdots v_k$. Similarly, we can extend the basis of $V_1 \cap V_2$ to a basis of $V_2$, say $u_1, \cdots u_m, w_1, \cdots w_l$. We claim that the list 
+    $$u_1, \cdots u_m, v_1, \cdots v_k, w_1, \cdots w_l$$
+    is a basis of $V_1 + V_2$. \\
+    Since the dimension of $V_1$ is $m+k$ and the dimension of $V_2$ is $m+l$, the dimension of $V_1 + V_2$ is at most $m+k+l$
+    Therefore,
+    $$\dim (V_1 + V_2) = m + k + l = (m+k) + (m+l) - m = \dim(V_1) + \dim(V_2) - \dim(V_1 \cap V_2)$$
+    It remains to show that the list spans $V_1 + V_2$ and is linearly independent. \\
+    Let $v \in V_1 + V_2$. Then, we can write 
+    $$v = v_1 + v_2 ; v_1 \in V_1, v_2 \in V_2$$
+    Since $u_1, \cdots u_m, v_1, \cdots v_k$ is a basis of $V_1$, we can write
+    $$v_1 = a_1u_1 + \cdots + a_mu_m + b_1v_1 + \cdots + b_kv_k ; a_i, b_i \in \mathbb F$$
+    Similarly, we can write
+    $$v_2 = c_1u_1 + \cdots + c_mu_m + d_1v_1 + \cdots + d_kv_k ; c_i, d_i \in \mathbb F$$  
+    Therefore, we have
+    $$v = (a_1 + c_1)u_1 + \cdots + (a_m + c_m)u_m + b_1v_1 + \cdots + b_kv_k + d_1w_1 + \cdots + d_lw_l$$
+    Thus, the list spans $V_1 + V_2$. \\
+    To show that the list is linearly independent, suppose we have a linear combination
+    $$\sum_{i=1}^m \alpha_i u_i + \sum_{j=1}^k \beta_j v_j + \sum_{l=1}^l \gamma_l w_l = 0$$
+    for some scalars $\alpha_i, \beta_j, \gamma_l \in \mathbb F$. We need to show that all coefficients must be zero. \\
+    Since $u_1, \cdots u_m, v_1, \cdots v_k$ is a basis of $V_1$, we can write
+    $$v_1 = a_1u_1 + \cdots + a_mu_m + b_1v_1 + \cdots + b_kv_k ; a_i, b_i \in \mathbb F$$
+    Similarly, we can write
+    $$v_2 = c_1u_1 + \cdots + c_mu_m + d_1v_1 + \cdots + d_kv_k ; c_i, d_i \in \mathbb F$$
+    Complete ts later
+\end{proof}
+\section{Invariant subspaces}
+\begin{definition}[Invariant subspace]
+    Let $T \in \mathcal L(\V)$. A subspace $U$ of $\V$ is called invariant under $T$ if 
+    $$u \in U \implies T(u) \in U$$
+    In other words, $U$ is invariant under $T$ if $T(U) \subseteq U$.
+\end{definition}
+\begin{definition}[Eigenvalues and eigenvectors]
+    A number $\lambda \in \mathbb F$ is called an eigenvalue of $T \in \mathcal L(\V)$ if there exists a non-zero vector $v \in \V$ such that
+    $$T(v) = \lambda v$$
+    Such a vector $v$ is called an eigenvector corresponding to the eigenvalue $\lambda$.
+\end{definition}
+\begin{definition}[Polynomials of linear operators]
+    Let $m$ be a positive integer. Define $T^m$ as $T \circ T \circ \cdots \circ T$ ($m$ times). Define $T^0 = I$. Define $T^{-m} = (T^{-1})^m$ if $T$ is invertible.
+    Then, 
+    let $p(z) = a_mz^m + a_{m-1}z^{m-1} + \cdots + a_1z + a_0$ be a polynomial with coefficients in $\mathbb F$. Then, we can define the polynomial of the operator $T$ as
+    $$p(T) = a_mT^m + a_{m-1}T^{m-1} + \cdots + a_1T + a_0I$$
+\end{definition}
+\begin{lemma}
+If $p$, $q$ are polynomials and $T \in \mathcal L(\mathbf V)$, then $(pq)(T) = p(T)q(T) = q(T)p(T)$.
+\end{lemma}
+\begin{proof}
+    Let $p(z) = a_mz^m + a_{m-1}z^{m-1} + \cdots + a_1z + a_0$ and $q(z) = b_nz^n + b_{n-1}z^{n-1} + \cdots + b_1z + b_0$. Then, we have
+    $$p(T) = a_mT^m + a_{m-1}T^{m-1} + \cdots + a_1T + a_0I$$
+    $$q(T) = b_nT^n + b_{n-1}T^{n-1} + \cdots + b_1T + b_0I$$
+    Now, we can compute the product $p(T)q(T)$ as follows:
+    \begin{align*}
+        p(T)q(T) &= (a_mT^m + a_{m-1}T^{m-1} + \cdots + a_1T + a_0I)(b_nT^n + b_{n-1}T^{n-1} + \cdots + b_1T + b_0I) \\
+        &= a_mb_nT^{m+n} + (a_mb_{n-1} + a_{m-1}b_n)T^{m+n-1} + \cdots + (a_0b_0)I
+    \end{align*}
+    This is exactly the polynomial $(pq)(T)$, where $(pq)(z) = p(z)q(z)$.
+    Since multiplication of polynomials is commutative, we also have $p(T)q(T) = q(T)p(T)$.
+    \end{proof}
+    \begin{theorem}
+    Let $T \in \mathcal L(\V)$ and $p \in \mathcal P(\mathbb F)$. Then, $\text{null } p(T)$ and $\text{range } p(T)$ are invariant under $T$.
+    \end{theorem}
+    \begin{proof}
+        Let $u \in \text{null } p(T)$. Then, we have
+        $$p(T)(u) = 0$$
+        Applying $T$ to both sides, we get
+        $$p(T)(Tu) = (p(T)T)u = (Tp(T))u = T(p(T)u) = T(0) = 0$$
+        Thus, $T(u) \in \text{null } p(T)$, showing that $\text{null } p(T)$ is invariant under $T$.
+
+        Now, let $v \in \text{range } p(T)$. Then, we can write
+        $$v = p(T)(w)$$
+        for some $w \in \V$. Applying $T$, we get
+        $$T(v) = T(p(T)(w)) = p(T)(T(w))$$
+        Thus, $T(v) \in \text{range } p(T)$, showing that $\text{range } p(T)$ is invariant under $T$.
+    \end{proof}
+    \subsection{Characteristic polynomials}
+    \begin{definition}[Monic polynomial]
+        A polynomial $p \in \mathcal P(\mathbb F)$ is called monic if the leading coefficient is 1.
+    \end{definition}
+    \begin{definition}[Minimal polynomial]
+        Let $T \in \mathcal L(\V)$. A monic polynomial $p$ of smallest degree such that $p(T) = 0$ is called the minimal polynomial of $T$.
+    \end{definition}
+    \begin{theorem}
+        Let $\mathbf V$ be finite dimensional. Let $T \in \mathcal L(\mathbf V)$. Then, there is a 
+        unique monic polynomial $p$ in $\mathcal P(\mathbb F)$ of smallest degree such that $p(T) = 0$.
+        Furthermore, the degree of $\deg p \leq \dim \mathbf V$.
+    \end{theorem}
+    \begin{proof}\\\\
+        \textbf{Existence:} We will prove it by induction on the dimension of $\V$. \\\\
+        \textit{Base case:} \\ If $\dim \V = 0$, then $\V = \{0\}$. Thus, $T$ is the zero operator, and we can take $p(z) = 1$. \\\\
+        \textit{Inductive step:} \\
+        Suppose that $\dim \V > 0$ and suppose that the results is true for all operators
+        on all vector spaces of dimension strictly less than $\dim \V$. Let $u \in \V, u \neq 0$
+        The list $u, Tu, T^2u, \cdots T^nu$ must be linearly dependent for some $n \leq \dim \V$.
+        Then there exists a smallest positive integer $m$ such that
+        $T^mu$ is a linear combination of the previous $T^ku$'s. Thus, we can write
+        $$T^mu = -a_{m-1}T^{m-1}u - \cdots - a_1Tu - a_0u$$
+        for some $a_0, \cdots a_{m-1} \in \mathbb F$. Let
+        $$p_1(z) = z^m + a_{m-1}z^{m-1} + \cdots + a_1z + a_0$$
+        Then, we have $p_1(T)(u) = 0$. \\
+        Since $\text{null } p_1(T)$ is invariant under $T$, $u, Tu, T^2u, \cdots T^{m-1}u \in \text{null } p_1(T)$.
+        Note that from the definition of $m$, the list $u, Tu, T^2u, \cdots T^{m-1}u$ is linearly independent.
+        Therefore, $\dim \text{null } p_1(T) \geq m$. Then, 
+        $$\dim \text{range } p_1(T) = \dim \V - \dim \text{null } p_1(T) \leq \dim \V - m < \dim \V \leq n - m$$
+        Since $\text{range } p_1(T)$ is invariant under $T$, we can apply the inductive hypothesis to the operator
+        $T|_{\text{range } p_1(T)}$. Thus, there exists a unique monic polynomial $q \in \mathcal P(\mathbb F)$ of degree $\leq n - m$
+        such that $q(T|_{\text{range } p_1(T)}) = 0$. Then, for all $v \in \V$, we have 
+        $p_1(T) \in \text{ range}q(T)$. Thus, $q(T)(p_1(T)(v)) = 0$. Therefore, we have
+        $$(q p_1)(T)(v) = q(T)(p_1(T)(v)) = 0$$
+        for all $v \in \V$. Therefore, $(qp_1)(T) = 0$, and we can take $p = qp_1$ as our minimal polynomial.
+        
+        \textbf{Uniqueness:} Suppose $p$ and $q$ are both monic polynomials of smallest degree
+        such that $p(T) = q(T) = 0$. Then $(p-q)(T) = 0$, and since $p$ and $q$ have the
+        same degree and leading coefficient, $p-q$ has degree strictly less than $\deg p$. Note that 
+        $p-q$ is not necessarily monic. However, we can write $p-q = c r$ where $c$ is the leading coefficient of $p-q$ and $r$ is a monic polynomial. Then, we have
+        $$0 = (p-q)(T) = c r(T)$$
+        By minimality of $\deg p$, we must have $p-q = 0$, so $p = q$.
+    \end{proof}
+\end{document}
