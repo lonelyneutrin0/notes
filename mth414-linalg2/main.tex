@@ -409,4 +409,74 @@ If $p$, $q$ are polynomials and $T \in \mathcal L(\mathbf V)$, then $(pq)(T) = p
         $$0 = (p-q)(T) = c r(T)$$
         By minimality of $\deg p$, we must have $p-q = 0$, so $p = q$.
     \end{proof}
+\begin{definition}
+    Let $\V$ be finite-dimensional and $T \in \mathcal L(\V)$. Let $p(z)$ be the 
+    minimal polynomial of $T$. Then, 
+    \begin{itemize}
+        \item The zeros of $p$ are the eigenvalues of $T$.
+        \item If $\V$ is a complex vector space, then 
+        $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+        where $\lambda_1, \cdots \lambda_m$ are the eigenvalues of $T$ (possibly repeated).
+    \end{itemize}
+\end{definition}
+\begin{proof}
+    \textbf{Forward: If $\lambda$ is a zero of $p$, then $\lambda$ is an eigenvalue of $T$.} \\
+    Suppose that $p(\lambda) = 0$. Then, we can write
+    $$p(z) = (z - \lambda)q(z)$$
+    where $q(z)$ is a monic polynomial.
+    Then, we have 
+    $$p(T) = (T - \lambda I)q(T) = 0$$
+    For some $v \in \V$ such that $q(T)v \neq 0$, we have 
+    $$(T - \lambda I)(q(T)v) = 0$$
+    Since $\deg{q} = \deg{p} - 1 < \deg{p}$, such a $v$ exists.
+    Thus, $T(q(T)v) = \lambda (q(T)v)$, and $q(T)v$ is an eigenvector corresponding to the eigenvalue $\lambda$. \\\\
+    \textbf{Reverse: If $\lambda$ is an eigenvalue of $T$, then $\lambda$ is a zero of $p$.} \\
+    Suppose that $\lambda$ is an eigenvalue of $T$. Then, there exists a non-zero vector $v \in \V$ such that
+    $$T(v) = \lambda v$$
+    Then, we have
+    $$T(Tv) = T(\lambda v) = \lambda T(v) = \lambda^2 v$$
+    Continuing this way, we can show that
+    $$T^k(v) = \lambda^k v$$
+    for all non-negative integers $k$. Then, we have
+    $$p(T)(v) = (T^m + a_{m-1}T^{m-1} + \cdots + a_1T + a_0I)(v) = ( \lambda^m + a_{m-1}\lambda^{m-1} + \cdots + a_1\lambda + a_0)v = p(\lambda)v$$
+    Since $p(T) = 0$, we have $p(\lambda)v = 0$. Since $v \neq 0$, we must have $p(\lambda) = 0$.
+
+    By the fundamental theorem of algebra, if $\V$ is a complex vector space, then $p(z)$ can be factored into linear factors. Since the zeros of $p$ are the eigenvalues of $T$, we can write
+    $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    where $\lambda_1, \cdots \lambda_m$ are the eigenvalues of $T$ (possibly repeated).
+\end{proof}
+\begin{corollary}
+    Let $\V$ be a nonzero, finite-dimensional, complex vector space and $T \in \mathcal L(\V)$.
+    Then, $T$ has an eigenvalue.
+\end{corollary}
+Note: The theorem is not true for infinite-dimensional vector spaces.
+For example, consider the vector space $\mathbb C^{\infty}$ and the right shift operator $T$ defined as
+$$T(x_1, x_2, x_3, \cdots) = (0, x_1, x_2, x_3, \cdots)$$
+Then, $T$ has no eigenvalues. To see this, suppose that $\lambda$ is an eigenvalue of $T$. Then, there exists a non-zero vector $v = (x_1, x_2, x_3, \cdots)$ such that
+$$T(v) = \lambda v$$
+This gives us the equation
+$$(0, x_1, x_2, x_3, \cdots) = \lambda (x_1, x_2, x_3, \cdots)$$
+Equating components, we find that
+$$0 = \lambda x_1$$
+$$x_1 = \lambda x_2$$
+$$x_2 = \lambda x_3$$
+$$\vdots$$
+If $\lambda \neq 0$, this implies that $x_1 = x_2 = x_3 = \cdots = 0$, contradicting the assumption that $v$ is non-zero. Therefore, we must have $\lambda = 0$. However, if $\lambda = 0$, then we have
+$$T(v) = (0, x_1, x_2, x_3, \cdots) = 0$$
+which again implies that $v = 0$. Thus, we conclude that $T$ has no eigenvalues. \\\\ 
+Recall that $q(z)$ divides $p(z)$ if there exists a polynomial $r(z)$ such that $p(z) = q(z)r(z)$.
+\begin{theorem}
+    Let $\V$ be finite-dimensional and $T \in \mathcal L(\V)$.
+    Let $p(z)$ be the minimal polynomial of $T$.
+    Let $q(z) \in \mathcal P(\mathbb F)$.  Then, $q(T) = 0$ if and only if $p(z)$ divides $q(z)$.
+\end{theorem}
+\begin{proof}
+    If $q = ps$ for some $s \in \mathcal P(\mathbb F)$, then
+    $q(T) = p(T)s(T) = 0$, $s(T) = 0$. \\
+    Conversely, suppose that $q(T) = 0$. Using polynomial long division, we can write
+    $$q(z) = p(z)s(z) + r(z)$$
+    where $\deg r < \deg p$. Then, we have
+    $$r(T) = q(T) - p(T)s(T) = 0 - 0 = 0$$
+    Since $\deg r < \deg p$, we must have $r(z) = 0$. Thus, we conclude that $p(z)$ divides $q(z)$.
+\end{proof}
 \end{document}
