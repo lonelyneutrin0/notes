@@ -479,4 +479,99 @@ Recall that $q(z)$ divides $p(z)$ if there exists a polynomial $r(z)$ such that 
     $$r(T) = q(T) - p(T)s(T) = 0 - 0 = 0$$
     Since $\deg r < \deg p$, we must have $r(z) = 0$. Thus, we conclude that $p(z)$ divides $q(z)$.
 \end{proof}
+\begin{corollary}
+    Let $\V$ be finite-dimensional and $T \in \mathcal L(\V)$.
+    and let $U \subseteq \V$ be invariant under $T$.
+    Let $T_U$ be the restriction of $T$ to $U$.
+    Thus, the minimal polynomial of $T_U$ divides the minimal polynomial of $T$.
+\end{corollary}
+
+\begin{theorem}
+    Let $\V$ be finite dimensional and $T \in \mathcal L(\V)$.
+    Then, $T$ is not invertible if and only if the minimal polynomial of $T$ does not have a constant term.
+\end{theorem}
+\begin{proof}
+    Let $p$ be the minimal polynomial of $T$.
+    Suppose that $T$ is not invertible. Then,
+    $\text {null }{T} \neq \{0\}$. Then, 0 is an eigenvalue of T.
+    Thus, $p(0) = 0$, so $p$ does not have a constant term.
+    Conversely, suppose that $p$ does not have a constant term.
+    Then, 0 is an eigenvalue of $T$, so $\text {null }{T} \neq \{0\}$.
+    Thus, $T$ is not invertible.
+\end{proof}
+\begin{theorem}
+    Every operator on an odd-dimensional real vector space has an eigenvalue.
+\end{theorem}
+\begin{proof} 
+    later
+\end{proof}
+\subsection{Upper-triangular matrices}
+When discussing operators on $\V$, we'll fix a basis for $\V$.
+Then, we can represent the operator as a matrix.
+\begin{definition}[Upper triangular matrix]
+    Let $T \in \mathcal L(\V)$, where $\V$ is finite-dimensional. The matrix of $T$
+    with respect to a basis $v_1, \cdots v_n$ of $\V$ is called upper-triangular if
+    $$Tv_j \in \text{span}(v_1, \cdots v_j)$$
+    for all $j = 1, \cdots n$. In other words, the matrix of $T$ has all entries below the main diagonal equal to zero. 
+\end{definition}
+\begin{theorem}
+    Let $T \in \mathcal{L}(\V)$, where $\V$ is finite dimensional.
+    Let $v_1, \cdots v_n$ be a basis of $\V$.
+    Then, the following are equivalent:
+    \begin{enumerate}
+    \item The matrix of $T$ with respect to $v_1, \cdots v_n$ is upper-triangular. 
+    \item $span(v_1, \cdots v_j)$ is invariant under $T$ for $j = 1, \cdots n$.
+    \item $Tv_j \in \text{span}(v_1, \cdots v_{j-1})$ for $j = 1, \cdots n$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    $(1) \implies (2)$: \\ 
+    Suppose $k \in \{1, \cdots n\}$ and let $j \in \{1, \cdots k\}$. Then, we can write
+    $$Tv_j = a_1v_1 + \cdots + a_jv_j$$
+    for some $a_1, \cdots a_j \in \mathbb F$.
+    Therefore, $Tv_j \in \text{span}(v_1, \cdots v_k)$.
+    Since $j$ was arbitrary, we conclude that $\text{span}(v_1, \cdots v_k)$ is invariant under $T$. \\\\
+    $(2) \implies (3)$: \\
+    From the definition of $\text{span}(v_1, \cdots v_j)$ being invariant under $T$, we have
+    $$Tv_k \in \text{span}(v_1, \cdots v_k)$$
+    $(3) \implies (1)$: \\
+    Suppose $k \in \{1, \cdots n\}$ and let $j \in \{1, \cdots k\}$. Then, we can write
+    $$Tv_j = a_1v_1 + \cdots + a_jv_j$$
+    for some $a_1, \cdots a_j \in \mathbb F$.
+    Therefore, $Tv_j \in \text{span}(v_1, \cdots v_k)$.
+    Since $j$ was arbitrary, we conclude that $\text{span}(v_1, \cdots v_k)$ is invariant under $T$. \\
+\end{proof}
+\begin{theorem}
+    Let $T \in \mathcal{L}(\V)$, 
+    where $\V$ is finite dimensional.
+    If $\mathcal{M}(T)$ is upper-triangular with respect to some basis of $\V$,
+    and $\lambda_1, \cdots \lambda_n$ are the entries on the main diagonal of $\mathcal{M}(T)$,
+    then 
+    $$(T - \lambda_1 I)(T - \lambda_2 I) \cdots (T - \lambda_n I) = 0$$
+\end{theorem}
+\begin{proof}
+    Let $p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_n)$.
+    It suffices to show that $(T- \lambda_1 I)(T - \lambda_2 I) \cdots (T - \lambda_n I)$ vanishes
+    on $\text{span} (v_1, \cdots v_k)$ for all $k= 1, \cdots n$. For $k=1$, 
+    this is true since $Tv_1 = \lambda_1 v_1$. \\
+    Now note $(T - \lambda_2 I) \in \text{span}(v_1)$, so 
+    $(T - \lambda_1 I)(T - \lambda_2 I)v_2 = 0$.
+    Continuing this way, we can show that
+    $$(T - \lambda_1 I)(T - \lambda_2 I) \cdots (T - \lambda_k I)v_k = 0$$
+    for all $k = 1, \cdots n$. Thus, we conclude that
+    $$(T - \lambda_1 I)(T - \lambda_2 I) \cdots (T - \lambda_n I) = 0$$
+\end{proof}
+\begin{theorem}
+    Let $T \in \mathcal L(\V)$, where $\V$ is finite-dimensional.
+   Then, the eigenvalues are precisely the entries on the main diagonal of any upper-triangular matrix representing $T$.
+\end{theorem}
+\begin{proof}
+    Let $p(z)$ be the minimal polynomial of $T$.
+    Let $q(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_n)$,
+    where $\lambda_1, \cdots \lambda_n$ are the entries on the main diagonal of the upper-triangular matrix representing $T$.
+    Then, $q(T) = 0$. Thus, $p$ divides $q$. Then,
+    $p(z)$ must be of the form 
+    $$p(z) = (z - \lambda_{i_1})(z - \lambda_{i_2}) \cdots (z - \lambda_{i_m})$$
+    where $i_1, i_2, \cdots i_m$ are some indices in $\{1, 2, \cdots n\}$.
+\end{proof}
 \end{document}
