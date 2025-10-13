@@ -573,5 +573,69 @@ Then, we can represent the operator as a matrix.
     $p(z)$ must be of the form 
     $$p(z) = (z - \lambda_{i_1})(z - \lambda_{i_2}) \cdots (z - \lambda_{i_m})$$
     where $i_1, i_2, \cdots i_m$ are some indices in $\{1, 2, \cdots n\}$.
+    \\ 
+    Let $j \in I = \{1, 2, \cdots n\}$ be arbitrary. Since the $j$th 
+    diagonal of a product of upper-triangular matrix is the 
+    product of the $j$th diagonals of the matrices, the $j$th
+    element of $p(T)$ is $$\prod_{i\in I} (\lambda_j - \lambda_i) = 0$$
+    Thus, there exists $i \in I$ such that $\lambda_j - \lambda_i = 0$, or $\lambda_j = \lambda_i$.
+    Therefore, $\lambda_j$ is an eigenvalue of $T$.
+\end{proof}
+\begin{theorem}
+    Let $\V$ be a finite-dimensional vector space and $T \in \mathcal{L}(\V)$.
+    Then, $T$ has an upper-triangular matrix with respect to 
+    some basis of $\V$ if and only if 
+    the minimal polynomial of $T$ has the form 
+    $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_n)$$
+    where $\lambda_1, \cdots \lambda_n$ are in $\mathbb F$ (not necessarily distinct).
+\end{theorem}
+Note: This is always true for $\mathbb C$, it becomes an issue for 
+$\mathbb R$.
+\begin{proof}
+    First, suppose that the matrix of $T$ is upper-triangular
+    with respect to some basis $\mathcal{B} = \{v_1, \cdots v_n \}$.
+    Let $\alpha_1, \cdots \alpha_n$ be the 
+    diagonal entries of the matrix of $T$ and
+    $q(z) = (z - \alpha_1)(z - \alpha_2) \cdots (z - \alpha_n)$.
+    Then, we have $q(T) = 0$. Let $p(z)$ be the minimal polynomial of $T$.
+    Then, $p$ divides $q$, so $p(z)$ must be of the form
+    $$p(z) = (z - \alpha_1)(z - \alpha_2) \cdots (z - \alpha_n).$$
+    Conversely, suppose that the minimal polynomial of $T$ has the form
+    $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    where $\lambda_1, \cdots \lambda_m$ are in $\mathbb F$.
+    We prove the result by induction on $m = \deg p$. \\\\
+    Base case: $m=1$ \\ 
+    In this case, we have $p(z) = z - \lambda_1$. Thus, $T = \lambda_1 I$.
+    Therefore, the matrix of $T$ with respect to any basis is upper-triangular. \\\\
+    Inductive step: \\
+    Suppose that the result holds for all $k < m$. Let 
+    $U = \text{range }(T - \lambda_m I)$.
+    Then, $U$ is invariant under $T$.
+    Let $T_U$ be the restriction of $T$ to $U$.
+    Then, the minimal polynomial of $T_U$ divides $p(z)/(z - \lambda_m)$.
+    Then, the minimal polynomial of $T_U$ has the form
+    $$(z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_{m-1})$$
+    By the inductive hypothesis, there exists a basis
+    $u_1, \cdots u_m$ of $U$ 
+    such that the matrix of $T_U$ 
+    is upper triangular with respect to this basis.
+    Then, for $k \in \{ 1, \cdots m\}$, we have 
+    $$Tu_k = T|_u (u_k) \in \text{span }(u_1, \cdots u_k)$$
+    Now, extend this basis of $U$ to a basis of $\V$, say
+    $u_1, \cdots u_m, v_1, \cdots v_n$
+    where $n = \dim \V - \dim U$.
+    If $k \in \{1, \cdots n\}$, then we have
+    $$Tv_k = (T - \lambda_m I)v_k + \lambda_m v_k \in \text{span }
+    (u_1, \cdots u_m, v_1, \cdots v_k)$$
+    Therefore, $T$ is upper-triangular with respect to the basis
+    $u_1, \cdots u_m, v_1, \cdots v_n$.
+\end{proof}
+\begin{corollary}
+    Let $\V$ be a finite dimensional complex vector space 
+    and $T \in \mathcal{L}(\V)$.
+    Then, $T$ has an upper-triangular matrix with respect to some basis of $\V$.
+\end{corollary}
+\begin{proof}
+    It follows from the fundamental theorem of algebra.
 \end{proof}
 \end{document}
