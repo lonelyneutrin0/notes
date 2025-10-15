@@ -638,4 +638,117 @@ $\mathbb R$.
 \begin{proof}
     It follows from the fundamental theorem of algebra.
 \end{proof}
+
+\begin{definition}[Diagonalizable]
+Let $\V$ be finite dimensional and $T \in \mathcal{L}(\V)$.
+We say that $T$ is diagonalizable if 
+$T$ has a diagonal matrix with respect to some basis of $\V$. 
+\end{definition}
+\begin{example}
+    Define $T \in \mathcal{L}(\mathbb R^2)$ by
+    $$T\pmqty{x, y} = \pmqty{41x + 7y, -20x + 74y}$$
+    Then, the matrix of $T$ wrt the standard basis is
+    $$\mathcal{M}(T) = \pmqty{41 & 7 \\ -20 & 74}$$
+    With respect to the basis $v_1 = \pmqty{1 \\ 4}, v_2 = \pmqty{7 \\ 5}$,
+    the matrix of $T$ is
+    $$\mathcal{M}(T) = \pmqty{69 & 0 \\ 0 & 46}$$
+    Therefore, $T$ is diagonalizable.
+\end{example}
+
+It is convenient to give a name to the set of all eigenvectors (and $\0$).
+\begin{definition}[Eigenspace]
+    Let $\V$ be finite dimensional and $T \in \mathcal{L}(\V)$.
+    Let $\lambda$ be an eigenvalue of $T$.
+    The eigenspace corresponding to $\lambda$ is defined as
+    $$E(\lambda, T) = \text{null }(T - \lambda I)$$
+\end{definition}
+Note that $T$ restricted to $E(\lambda, T)$ is just multiplication by $\lambda$.
+\begin{theorem}
+    If $\lambda_1, \cdots \lambda_m$ are distinct eigenvalues of $T \in \mathcal{L}(\V)$,
+    then then the sum of the corresponding eigenspaces is a direct sum, and
+    $\dim E(\lambda_1, T) + \cdots + \dim E(\lambda_m, T) \leq \dim \V$.
+\end{theorem}
+\begin{proof}
+    Suppose $v_1, \cdots v_m = 0$, where 
+    $v_k \in E(\lambda_k, T)$ for $k = 1, \cdots m$.
+    We proved before that eigenvectors 
+    corresponding to distinct eigenvalues are linearly
+    independent. Thus, $v_1 = \cdots = v_m = 0$.
+    Therefore, the sum is direct.
+    The dimension inequality follows 
+    from the properties of direct sums.
+\end{proof}
+We will be developing a criterion for diagonalizability.
+\begin{theorem}
+    Let $\V$ be finite dimensional and $T \in \mathcal{L}(\V)$.
+    Let $\lambda_1, \cdots \lambda_m$ be the distinct eigenvalues of $T$.
+    Then, the following are equivalent:
+    \begin{enumerate}
+        \item $T$ is diagonalizable.
+        \item $\V$ has a basis consisting of eigenvectors of $T$.
+        \item $\V = E(\lambda_1, T) \oplus E(\lambda_2, T) \oplus \cdots \oplus E(\lambda_m, T)$
+        \item $\dim E(\lambda_1, T) + \dim E(\lambda_2, T) + \cdots + \dim E(\lambda_m, T) = \dim \V$
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+    $(1) \iff (2)$: \\ 
+    Note that $T$ has a diagonal matrix
+    with respect to some basis $(v_1, \cdots v_n)$
+    if and only if 
+    $$Tv_j = \lambda_j v_j$$
+    This means that the basis consists
+    of eigenvectors of $T$. \\\\
+    $(2) \iff (3)$: \\
+    Since $\V$ has a basis of eigenvectors of $T$,
+    every vector in $\V$ can be written
+    as a linear combination of these eigenvectors.
+    $v = v_1, \cdots v_n$ where
+    $v_k \in E(\lambda_{i_k}, T)$ for some $i_k \in \{1, \cdots m\}$.
+    Thus, $$\V = E(\lambda_1, T) + E(\lambda_2, T) + \cdots + E(\lambda_m, T)$$.
+    $$\V = E(\lambda_1, T) \oplus E(\lambda_2, T) \oplus \cdots \oplus E(\lambda_m, T)$$ 
+    $(3) \iff (4)$: \\
+    This follows from the dimension formula for direct sums. \\\\
+    $(4) \implies (2)$: \\
+    Let $u_1, \cdots u_k$ be a basis of $E(\lambda_1, T)$,
+    $v_1, \cdots v_l$ be a basis of $E(\lambda_2, T)$,
+    and so on. Then, we claim that the list
+    $$u_1, \cdots u_k, v_1, \cdots v_l, \cdots$$
+    is linearly independent.
+    Suppose that
+    $$a_1 u_1 + \cdots + a_k u_k + b_1 v_1 + \cdots + b_l v_l = 0$$
+    Then, we have
+    $$a_1 u_1 + \cdots + a_k u_k = -b_1 v_1 - \cdots - b_l v_l$$
+    Since $u_1, \cdots u_k$ are linearly independent,
+    we must have $a_1 = \cdots = a_k = 0$.
+    Similarly, since $v_1, \cdots v_l$ are linearly independent,
+    we must have $b_1 = \cdots = b_l = 0$.
+    Therefore, the list is linearly independent.
+\end{proof}
+\begin{theorem}
+    If $T$ has $\dim \V$ distinct eigenvalues,
+    then $T$ is diagonalizable.
+\end{theorem}
+\begin{proof}
+    Let $n = \dim \V$. and let $\lambda_1, \cdots \lambda_n$ be the distinct eigenvalues of $T$.
+    Let $v_k$ be the eigenvector corresponding to 
+    $\lambda_k$ for $k = 1, \cdots n$.
+    Then, the list $v_1, \cdots v_n$ is linearly independent.
+    Since the list has length $n$, it is a basis of $\V$.
+    Therefore, $T$ is diagonalizable.
+\end{proof}
+\begin{example}
+    Let $T \in \mathcal{L}(\mathbb R^3)$ be defined by
+    $$T\pmqty{x, y, z} = \pmqty{2x + y, 5y + 3z, 8z}$$
+    Then, the matrix of $T$ with respect to the standard basis is
+    $$\pmqty{2 & 1 & 0 \\ 0 & 5 & 3 \\ 0 & 0 & 8}$$
+    The eigenvalues of $T$ are 2, 5, and 8.
+    The corresponding eigenspaces are
+    $$E(2, T) = \text{span} \pmqty{1 \\  0 \\  0}, \quad E(5, T) = \text{span} \pmqty{1 \\ 3 \\ 0}, \quad E(8, T) = \text{span} \pmqty{1 \\ 6 \\ 0}$$
+    Since the eigenvalues are distinct, $T$ is diagonalizable.
+    A basis of $\mathbb R^3$ consisting of eigenvectors of $T$
+    is given by
+    $$\pmqty{1 \\ 0 \\ 0}, \quad \pmqty{1 \\ 3 \\ 0}, \quad \pmqty{1 \\ 6 \\ 0}$$
+    With respect to this basis, the matrix of $T$ is
+    $$\pmqty{2 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 8}$$
+\end{example}
 \end{document}
