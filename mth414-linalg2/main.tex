@@ -318,7 +318,8 @@ However, intersections of subspaces are generally subspaces.
     $$v_2 = c_1u_1 + \cdots + c_mu_m + d_1v_1 + \cdots + d_kv_k ; c_i, d_i \in \mathbb F$$
     Complete ts later
 \end{proof}
-\section{Invariant subspaces}
+\section{Eigenvectors and eigenvalues}
+\subsection{Invariant subspaces}
 \begin{definition}[Invariant subspace]
     Let $T \in \mathcal L(\V)$. A subspace $U$ of $\V$ is called invariant under $T$ if 
     $$u \in U \implies T(u) \in U$$
@@ -751,4 +752,90 @@ We will be developing a criterion for diagonalizability.
     With respect to this basis, the matrix of $T$ is
     $$\pmqty{2 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 8}$$
 \end{example}
+Now, we will find the necessary and sufficien condition
+for diagonalizability in terms of the minimal polynomial.
+\begin{theorem}
+    Let $\V$ be finite dimensional and $T \in \mathcal{L}(\V)$. 
+    $T$ is diagonalizable if and only if the minimal polynomial 
+    of $T$ has the form 
+    $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    where $\lambda_1, \cdots \lambda_m$ are distinct eigenvalues of $T$.
+\end{theorem}
+\begin{proof}
+    First, suppose that $T$ is diagonalizable.
+    Let $v_1, \cdots v_n$ be a basis of $\V$ consisting of eigenvectors of $T$,
+    Let $\lambda_1, \cdots \lambda_m$ be the distinct eigenvalues of $T$.
+    Then, for each $\lambda_k$ there exists a $v_j$
+    such that $Tv_j = \lambda_k v_j$.
+    It follows that 
+    $$(T - \lambda_1 I)(T - \lambda_2 I) \cdots (T - \lambda_m I)v_j = 0$$
+    for all $j = 1, \cdots n$.
+    Then, the minimal polynomial of $T$ is 
+    $$(z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    Since the minimal polynomial divides this from above, 
+    but each eigenvalues is a root of the minimal polynomial,
+    it can't have smaller degree. Therefore, 
+    the minimal polynomial has the desired form. \\\\
+    Conversely,
+    suppose the minimal polynomial of $T$ has the form
+    $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    where $\lambda_1, \cdots \lambda_m$ are distinct eigenvalues of $T$.
+    \\\\ Base Case: $m=1$ \\
+    In this case, we have $p(z) = z - \lambda_1$. Thus, $T = \lambda_1 I$.
+    Therefore, the matrix of $T$ with respect to any basis is diagonal. \\\\
+    Inductive Step: \\
+    Let $m > 1$ and suppose that the result holds 
+    for all $k < m$.
+    Let $U = \text{range }(T - \lambda_m I)$.
+    Then, $U$ is invariant under $T$.
+    Let $T_U$ be the restriction of $T$ to $U$.
+    Then, the minimal polynomial of $T_U$ divides $p(z)/(z - \lambda_m)$.
+    Then, the minimal polynomial of $T_U$ has the form
+    $$(z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_{m-1})$$
+    By the inductive hypothesis, $T_U$ is diagonalizable and so $U$ has a basis 
+    $u_1, \cdots u_m$ consistings of eigenvectors of $T_U$.
+    Now, let $u \in \range(T - \lambda_m I) \cap \text{null }(T - \lambda_m I)$ be arbitrary.
+    Then, we have
+    $Tu = \lambda_m u$ and so 
+    $$(T - \lambda_1 I)\cdots (T - \lambda_{m-1})u = 
+    (\lambda_m - \lambda_1) \cdots (\lambda_m - \lambda_{m-1})u = 0 $$
+    Since the eigenvalues are distinct, we must have $u = 0$.
+    Therefore, $\range(T - \lambda_m I) \cap \text{null }(T - \lambda_m I) = \{0\}$.
+    and $U + \text{null }(T - \lambda_m I)$ is a direct sum.
+    Let $w_1, \cdots w_n$ be a basis of $\text{null }(T - \lambda_m I)$.
+    Then,
+    $$v_1, \cdots v_m, w_1, \cdots w_n$$
+    is linearly independent. Finally, 
+    $$m + n = \dim \range(T - \lambda_m I) + \dim \text{null }(T - \lambda_m I) = \dim \V$$
+    Therefore, $\V$ has a basis of eigenvectors of $T$ and 
+    so $T$ is diagonalizable.
+\end{proof}
+\begin{theorem}
+    Suppose $T$ is diagonalizable and $U$ is a subspace 
+    of $\V$ invariant under $T$.
+    Then, the restriction of $T$ to $U$ is diagonalizable.
+\end{theorem}
+\begin{proof}
+    The minimal polynomial of $T_U$ divides the minimal polynomial of $T$.
+    Since the minimal polynomial of $T$ has the form
+    $$(z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    where $\lambda_1, \cdots \lambda_m$ are distinct eigenvalues of $T$,
+    the minimal polynomial of $T_U$ also has this form.
+    Therefore, $T_U$ is diagonalizable.
+\end{proof}
+\section{Inner Product Spaces}
+We define the norm of $x = (x_1, x_2, \cdots x_n) \in \mathbb{F}^n$ as
+$$\|x\| = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}$$
+This is called the Euclidean norm.
+We define the dot product 
+of $x = (x_1, x_2, \cdots x_n)$ and
+$y = (y_1, y_2, \cdots y_n)$ in $\mathbb{F}^n$ as
+$$x \cdot y = x_1y_1 + x_2y_2 + \cdots + x_ny_n$$
+The dot product satisfies the following properties:
+\begin{itemize}
+    \item $\| x \|^2 = x \cdot x$.
+    \item $x \cdot x \geq 0$ with equality if and only if $x = 0$.
+    \item $x \cdot y = y \cdot x$.
+    \item $(ax + by) \cdot z = a(x \cdot z) + b(y \cdot z)$ for all $a, b \in \mathbb{F}$.
+\end{itemize}
 \end{document}
