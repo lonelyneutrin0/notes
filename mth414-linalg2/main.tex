@@ -114,6 +114,7 @@
 \renewcommand{\b}[1]{\textbf{#1}}
 \newcommand{\qed}{$\square$}
 \newcommand{\range}{\text{range }}
+\newcommand{\inner}[2]{\langle #1, #2 \rangle}
 
 % endregion
 
@@ -838,4 +839,198 @@ The dot product satisfies the following properties:
     \item $x \cdot y = y \cdot x$.
     \item $(ax + by) \cdot z = a(x \cdot z) + b(y \cdot z)$ for all $a, b \in \mathbb{F}$.
 \end{itemize}
+We define the inner product on $\mathbb {C}^n$
+as 
+$$x \cdot y = x_1 \overline{y_1} + x_2 \overline{y_2} + \cdots + x_n \overline{y_n}$$
+\begin{definition}[Inner product]
+    Let $\V$ be a vector space over $\mathbb{F}$.
+    An inner product on $\V$ is a function that takes each ordered pair 
+    of vectors $u, v \in \V$ and produces a scalar in $\mathbb{F}$
+    $$\inner{\cdot}{\cdot} : \V \times \V \to \mathbb{F}$$
+    such that for all $u, v, w \in \V$ and $a \in \mathbb{F}$, the following properties hold:
+    \begin{itemize}
+        \item $\inner{u}{v} = \overline{\inner{v}{u}}$
+        \item $\inner{au + bw}{v} = a \inner{u}{v} + b \inner{w}{v}$
+        \item $\inner{v}{v} \geq 0$ with equality if and only if $v = 0$
+    \end{itemize}
+\end{definition}
+
+Note: If $\mathbb F = \mathbb R$, then 
+$\inner{u}{v} = \inner{v}{u}$, i.e conjugate symmetry 
+boils down to symmetry.
+
+\begin{example}
+    We can define an inner product on the vector space 
+    of continuous real-valued functions on 
+    $\bqty{-1, 1}$ by 
+    $$\inner{f}{g} = \int_{-1}^{1} f(x)g(x) \, dx$$
+\end{example}
+\begin{definition}[Inner product space]
+    A vector space $\V$ equipped with 
+    an inner product $\inner{\cdot}{\cdot}$ 
+    is called an inner product space.
+\end{definition}
+Throughout, we assume that 
+$\V$ and $\mathbf{W}$ are inner product spaces. 
+\begin{lemma}
+    \begin{enumerate}
+        \item For each fixed $v \in \V$, the function
+        $\V \to \mathbb F, u \mapsto \inner{u}{v}$ is linear.
+        \item $\inner{0}{v} = \inner{v}{0} = 0$ for all $v \in \V$.
+        \item $\inner{v}{0} = 0$ for all $v \in \V$.
+        \item $\inner{u}{v + w} = \inner{u}{v} + \inner{u}{w}$ for all $u, v, w \in \V$.
+        \item $\inner{u}{av} = \overline{a} \inner{u}{v}$ for all $u, v \in \V$ and $a \in \mathbb F$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item This follows from the definitions of
+        linearity and homogeneity of the inner product.
+        \item Since any linear map takes 0 to 0,
+        we have $\inner{0}{v} = 0$.
+        \item This follows from conjugate symmetry
+        and part (2).
+        \item This follows from linearity in the
+        first argument.
+        \item This follows from conjugate symmetry.
+    \end{enumerate}
+\end{proof}
+Each inner product determines the norm of a vector. 
+\begin{definition}[Norm]
+    For a vector $v \in \V$, the norm of $v$ is defined as
+    $$\norm{v} = \sqrt{\inner{v}{v}}$$
+\end{definition}
+\begin{lemma}
+    Let $v \in \V$. 
+    \begin{enumerate}
+        \item $\norm{v} = 0$ iff $v = 0$.
+        \item $\norm{av} = \abs{a} \norm{v}$ for all $a \in \mathbb F$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item This follows from the properties of inner products.
+        \item We have
+        $$\norm{av} = \sqrt{\inner{av}{av}} = \sqrt{a \overline{a} \inner{v}{v}} = \sqrt{\abs{a}^2 \inner{v}{v}} = \abs{a} \norm{v}$$
+    \end{enumerate}
+\end{proof}
+\begin{definition}
+    Two vectors $u, v \in \V$ are said to be orthogonal
+    if $\inner{u}{v} = 0$.
+\end{definition}
+Note that $\inner{u}{v} = 0$ iff $\inner{v}{u} = 0$, so 
+the order doesn't matter here. 
+For $u, v \in \mathbb R^2$, 
+the inner product 
+$$\inner{u}{v} = \|u\| \|v\| \cos \theta$$
+where $\theta$ is the angle between $u$ and $v$.
+This also holds more generally in $\mathbb R^n$.
+With the usual Euclidean inner product, we have 
+$$\inner{u}{v} = 0 \iff \cos \theta = 0 \iff \theta = \pm\frac{\pi}{2}$$
+Thus, orthogonal vectors are perpendicular to each other.
+
+\begin{definition}[Orthonormal list]
+    A list of vectors $v_1, \cdots v_n$ in $\V$ is called orthonormal
+    if $\norm{v_j} = 1$ for all $j = 1, \cdots n$ and 
+    $\inner{v_j}{v_k} = 0$ for all $j \neq k$.
+\end{definition}
+\begin{theorem}
+    Suppose $e_1, \cdots e_n$ is an orthonormal list in $\V$.
+    Then, 
+    $$\norm{a_1 e_1 + a_2 e_2 + \cdots + a_n e_n}^2 =
+    \abs{a_1}^2 + \abs{a_2}^2 + \cdots + \abs{a_n}^2$$
+    for all $a_1, a_2, \cdots a_n$ in $\mathbb F$.
+\end{theorem}
+\begin{proof}
+    Since each $e_k$ has norm 1, this is immediate 
+    from the Pythagorean theorem applied repeatedly.
+\end{proof}
+\begin{theorem}
+    Every orthonormal list of vectors in $\V$
+    is linearly independent.
+\end{theorem}
+\begin{proof}
+    Suppose $a_1, a_2, \cdots a_n$ in $\mathbb F$ such that
+    $$a_1 e_1 + a_2 e_2 + \cdots + a_n e_n = 0$$
+    Then, we have
+    $$0 = \norm{a_1 e_1 + a_2 e_2 + \cdots + a_n e_n}^2 =
+    \abs{a_1}^2 + \abs{a_2}^2 + \cdots + \abs{a_n}^2$$
+    Therefore, $a_1 = a_2 = \cdots = a_n = 0$.
+    Thus, the list is linearly independent.
+\end{proof}
+\newpage
+\begin{theorem}[Bessel's Inequality]
+    Suppose $e_1, \cdots e_n$ is an orthonormal list in $\V$.
+    Then, for every $v \in \V$, we have
+    $$\sum_{j=1}^n \abs{\inner{v}{e_j}}^2 \leq \norm{v}^2$$
+\end{theorem}
+\begin{proof}
+    Let $v \in \V$. We breakup $v$ into a component
+    in $\text{span}(e_1, \cdots e_n)$
+    and a component orthogonal to this subspace.
+    Write 
+    $$v = \inner{v}{e_1} e_1 + \inner{v}{e_2} e_2 + \cdots + \inner{v}{e_n} e_n +w$$ 
+    Let $u$ be the first part of this sum.
+    Then, we have
+    $$\inner{w, e_k} = \inner{v, e_k} - \inner{v, e_k}\inner{e_k, e_k} = 0$$
+    for all $k = 1, \cdots n$.
+    This implies $\inner{u}{w} = 0$.
+    Therefore, by the Pythagorean theorem, we have
+    $$\norm{v}^2 = \norm{u}^2 + \norm{w}^2 \geq \norm{u}^2$$
+\end{proof}
+\begin{definition}[Orthonormal basis]
+    A basis of $\V$ that is an orthonormal list is called an orthonormal basis.
+\end{definition}
+\begin{theorem}
+    Let $\V$ be a finite-dimensional inner product space.
+    Then, every orthonormal list of vectors in $\V$ of length
+    equal to $\dim \V$ isan orthonormal basis of $\V$.
+\end{theorem}
+\begin{proof}
+    Every orthonormal list is linearly independent. 
+    Since the list has the right number of elements, 
+    it's a basis for $\V$.
+\end{proof}
+\begin{theorem}[Parseval's Identity]
+    Let $e_1, \cdots e_n$ be an orthonormal basis of $\V$.
+    Then, for every $v, u \in \V$, we have
+    \begin{enumerate}
+        \item $v = \sum_{j=1}^n \inner{v}{e_j} e_j$
+        \item $\norm{v}^2 = \sum_{j=1}^n \abs{\inner{v}{e_j}}^2$
+        \item $\inner{u}{v} = \sum_{j=1}^n \inner{u}{e_j} \overline{\inner{v}{e_j}}$
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item Since $e_1, \cdots e_n$ is a basis of $\V$,
+        we can write $v$ as a linear combination of these vectors.
+        $$v = a_1 e_1 + a_2 e_2 + \cdots + a_n e_n$$
+        for some scalars $a_1, a_2, \cdots a_n$ in $\mathbb F$.
+        Since the basis is orthonormal, we have
+        $$\inner{v}{e_k} = a_k$$
+        for all $k = 1, \cdots n$.
+        Therefore, we have
+        $$v = \sum_{j=1}^n \inner{v}{e_j} e_j$$
+        \item This follows from part (1) and the previous theorem.
+        \item Using part (1), we have
+            $$\inner{u}{v} = \sum_{j=1}^n \inner{u}{e_j} \overline{\inner{v}{e_j}}$$    
+    \end{enumerate}
+\end{proof}
+\begin{definition}[Gram-Schmidt Procedure]
+    Let $\V$ be an inner product space.
+    The Gram-Schmidt Procedure is a method for
+    converting a linearly independent list of vectors
+    $v_1, \cdots v_n$ in $\V$ into an orthonormal list
+    $e_1, \cdots e_n$ such that 
+    $$\text{span}(v_1, \cdots v_k) = \text{span}(e_1, \cdots e_k)$$
+    for each $k = 1, \cdots n$.
+    The procedure is as follows:
+    \begin{enumerate}
+        \item Let $e_1 = \frac{v_1}{\norm{v_1}}$.
+        \item For $k = 2, \cdots n$, let
+        $$w_k = v_k - \sum_{j=1}^{k-1} \inner{v_k}{e_j} e_j$$
+        and let 
+        $$e_k = \frac{w_k}{\norm{w_k}}$$
+    \end{enumerate}
+\end{definition}
 \end{document}
