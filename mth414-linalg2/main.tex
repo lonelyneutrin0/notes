@@ -1033,4 +1033,191 @@ Thus, orthogonal vectors are perpendicular to each other.
         $$e_k = \frac{w_k}{\norm{w_k}}$$
     \end{enumerate}
 \end{definition}
+\begin{proof}
+    Wem prove this by induction on $k$.
+    Base Case: $k=1$ \\
+    In this case, we have
+    $$\text{span}(v_1) = \text{span}(e_1)$$
+    Inductive Step: \\
+    Suppose that for some $2 \leq k < n$, we have
+    and $e_1, \cdots e_{k-1}$ is an orthonormal list
+    such that $\text{span}(v_1, \cdots v_{k-1}) = \text{span}(e_1, \cdots e_{k-1})$.
+    Since $v_1, \cdots v_n$ is linearly independent,
+    we have $v_k \notin \text{span}(v_1, \cdots v_{k-1})$.
+    Thus, $w_k \neq 0$. Then, we can divide by 
+    $\norm{w_k}$ to get $e_k$.
+    Now, we have
+    $$\text{span}(v_1, \cdots v_k) = \text{span}(e_1, \cdots e_k)$$
+    Let $j \in \{1, \cdots k-1\}$.
+    To check that 
+    $e_k$ is orthogonal to $e_j$
+    it suffices to check that $w_k$ is orthogonal to $w_j$.
+    We have
+    $$\inner{w_k}{w_j} = \inner{v_k - \sum_{i=1}^{k-1} \inner{v_k}{w_i} w_i}{w_j} =
+    \inner{v_k}{w_j} - \sum_{i=1}^{k-1} \inner{v_k}{w_i} \inner{w_i}{w_j} = 0$$
+    Therefore, $e_1, \cdots e_k$ is an orthonormal list.
+\end{proof}
+\begin{theorem}
+    Every finite dimensional inner product space $\V$ has an orthonormal basis.
+\end{theorem}
+\begin{proof}
+    Let $v_1, \cdots v_n$ be a basis of $\V$.
+    Since the basis is linearly independent,
+    we can apply the Gram-Schmidt procedure
+    to get an orthonormal basis $e_1, \cdots e_n$ of $\V$.
+\end{proof}
+
+\begin{theorem}
+    Let $\V$ be a finite dimensional inner product space. 
+    Then, every orthonormal list of vectors in $\V$
+    can be extended to an orthonormal basis of $\V$.
+\end{theorem}
+\begin{proof}
+    Every list of independent vectors can be extended to a basis.
+    Then, the basis can be converted to an orthonormal basis
+    using the Gram-Schmidt procedure.
+\end{proof}
+\newpage
+\begin{theorem}
+    Let $\V$ be a finite dimensional inner product space 
+    and $T \in \mathcal{L}(\V)$.
+    Then, $T$ has an upper-triangular matrix with respect to some orthonormal 
+    basis if and only if the minimal polynomial of $T$ has the form
+    $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    where $\lambda_1, \cdots \lambda_m$ are in $\mathbb F$.
+\end{theorem}
+\begin{proof}
+    One direction follows from earlier results.
+    Conversely, suppose the minimal polynomial of $T$ has the form
+    $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    where $\lambda_1, \cdots \lambda_m$ are in $\mathbb F$.
+    Then, T is upper triangular with respect to some basis
+    $v_1, \cdots v_n$ of $\V$, and so we have
+    $$Tv_k \in \text{span}(v_1, \cdots v_k)$$
+    for all $k = 1, \cdots n$. \\ 
+    We will apply the Gram-Schmidt procedure
+    to convert this basis into an orthonormal basis
+    $e_1, \cdots e_n$ of $\V$.  
+    Now, the span is unchanged, so we have 
+    $$Te_k \in \text{span}(e_1, \cdots e_k)$$
+    for all $k = 1, \cdots n$.
+\end{proof}
+
+\begin{theorem}[Schur's theorem]
+    Let $\V$ be a finite dimensional complex vector space 
+    and $T \in \mathcal{L}(\V)$.
+    Then, $T$ has an upper-triangular matrix with respect to some orthonormal basis of $\V$.
+\end{theorem}
+\begin{proof}
+    This follows from the previous result and the
+    fundamental theorem of algebra.
+\end{proof}
+
+\begin{definition}[Linear Functional]
+    A linear functional on $\V$ 
+    is a linear map from $\V$ to $\mathbb{F}$. 
+\end{definition}
+
+\begin{definition}[Dual Space]
+    The dual space of $\V$, denoted by $\V^*$,
+    is the set of all linear functionals on $\V$.
+\end{definition}
+
+If we take $v \in \V$ to be fixed, then the map 
+$$u \mapsto \inner{u}{v}$$
+is a linear functional on $\V$.
+
+\begin{theorem}[Riezs Representation Theorem]
+    Let $\V$ be a finite dimensional inner product space
+    and let $\varphi$ be a linear functional on $\V$.
+    Then, there exists a unique vector $v \in \V$
+    such that 
+    $$\varphi(u) = \inner{u}{v}$$
+    for all $u \in \V$.
+\end{theorem}
+\newpage
+\begin{proof}
+    Existence: Let $e_1, \cdots e_n$ be an orthonormal basis of $\V$.
+    Then, 
+    $\varphi(u) = \varphi(a_1 e_1 + \cdots a_n e_n)$ for some
+    scalars $a_1, \cdots a_n$ in $\mathbb F$.
+    Thus, we have
+    $$\varphi(u) = a_1 \varphi(e_1) + a_2 \varphi(e_2) + \cdots + a_n \varphi(e_n)$$
+    $$\varphi(u) = \inner{u}{e_1} \varphi(e_1) + \cdots \inner{u}{e_n} \varphi(e_n)$$
+    $$\varphi(u) = \inner{u}{\overline{\varphi(e_1)} e_1 + \cdots + \overline{\varphi(e_n)} e_n}$$
+    Let
+    $$v = \overline{\varphi(e_1)} e_1 + \cdots + \overline{\varphi(e_n)} e_n$$
+    Then, we have $\varphi(u) = \inner{u}{v}$ for all $u \in \V$. \\\\
+    Uniqueness: Suppose there exists $v, w \in \V$ such that
+    $$\varphi(u) = \inner{u}{v} = \inner{u}{w}$$
+    for all $u \in \V$.
+    Then, we have
+    $$\inner{u}{v - w} = 0$$
+    for all $u \in \V$.
+    In particular, taking $u = v - w$, we have
+    $$\inner{v - w}{v - w} = 0$$
+    Thus, $v - w = 0$ and so $v = w$.
+\end{proof}
+\begin{definition}[Orthogonal Complement]
+    Let $U$ be a subspace of $\V$.
+    The orthogonal complement of $U$, denoted by $U^\perp$,
+    is the set of all vectors in $\V$ that are orthogonal to every vector in $U$.
+    $$U^\perp = \{ v \in \V : \inner{u}{v} = 0 \text{ for all } u \in U \}$$
+\end{definition}
+
+\begin{lemma}
+    \begin{enumerate}
+        \item If $U$ is a subset of $\V$, then $U^\perp$ is a subspace of $\V$.
+        \item $\{0\}^\perp = V$
+        \item $\V^\perp = \{0\}$
+        \item If $U \subseteq \V$, then $U \cap U^\perp = \{0\}$,
+        or it is empty.
+        \item If $G$ and $H$ are subsets of $\V$
+        such that $G \subseteq H$, then $H^\perp \subseteq G^\perp$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $v, w \in U^\perp$ and $a, b \in \mathbb F$.
+        Then, for all $u \in U$, we have
+        $$\inner{u}{av + bw} = \overline{a} \inner{u}{v} + \overline{b} \inner{u}{w} = 0$$
+        Thus, $av + bw \in U^\perp$.
+        \item For all $v \in \V$, we have
+        $$\inner{0}{v} = 0$$
+        Thus, $\V = \{0\}^\perp$.
+        \item Let $v \in \V^\perp$. Then, we have
+        $$\inner{v}{v} = 0$$
+        Thus, $v = 0$ and so $\V^\perp = \{0\}$.
+        \item Let $v \in U \cap U^\perp$. Then, we have
+        $$\inner{v}{v} = 0$$
+        Thus, $v = 0$ and so $U \cap U^\perp = \{0\}$.
+        \item Let $v \in H^\perp$. Then, for all $u \in G$,
+        since $G \subseteq H$, we have
+        $$\inner{u}{v} = 0$$
+        Thus, $v \in G^\perp$ and so $H^\perp \subseteq G^\perp$.
+    \end{enumerate}
+\end{proof}
+\begin{theorem}
+    Let $U$ be a finite dimensional subspace of $\V$.
+    Then,
+    $$\dim U \oplus \dim U^\perp = \dim \V$$
+    and if $\V$ is finite dimensional, then
+    $$\dim U^\perp = \dim \V - \dim U$$
+\end{theorem}
+\begin{proof}
+    First show $\V = U + U^\perp$.
+    Let $v \in \V$ be arbitrary.
+    Let $e_1, \cdots e_k$ be an orthonormal basis of $U$.
+    Then, we can write
+    $$v = \inner{v}{e_1} e_1 + \cdots + \inner{v}{e_k} e_k + w$$
+    Let $u$ be the first part of this sum.
+    Then, we have
+    $$\inner{w}{e_j} = \inner{v}{e_j} - \inner{v}{e_j}\inner{e_j}{e_j} = 0$$
+    for all $j = 1, \cdots k$.
+    This implies $\inner{u}{w} = 0$ and so $w \in U^\perp$.
+    Therefore, we have $\V = U + U^\perp$.
+    Since $U \cap U^\perp = \{0\}$, this sum is direct.
+    Thus, we have
+    $$\dim \V = \dim U + \dim U^\perp$$
+\end{proof}
 \end{document}
