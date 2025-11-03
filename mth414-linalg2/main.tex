@@ -1220,4 +1220,93 @@ is a linear functional on $\V$.
     Thus, we have
     $$\dim \V = \dim U + \dim U^\perp$$
 \end{proof}
+\begin{theorem}
+    Let $U$ be a finite dimensional subspace 
+    of $\V$. Then, $(U^\perp)^\perp = U$.
+\end{theorem}
+\begin{proof}
+    Let $u \in U$. 
+    Then, for all $w \in U^\perp$, we have
+    $$\inner{u}{w} = 0$$
+    But this means that $u \in (U^\perp)^\perp$.
+    Thus, we have $U \subseteq (U^\perp)^\perp$.
+    Now, suppose $v \in (U^\perp)^\perp$.
+    We can write $v$ as
+    $$v = u + w$$
+    for some $u \in U$ and $w \in U^\perp$.
+    Then, for all $z \in U^\perp$, we have  
+    $$0 = \inner{v}{z} = \inner{u + w}{z} = \inner{u}{z} + \inner{w}{z} = \inner{w}{z}$$
+    In particular, taking $z = w$, we have
+    $$0 = \inner{w}{w}$$
+    Thus, $w = 0$ and so $v = u \in U$
+\end{proof}
+\begin{definition}[Orthogonal Projection]
+    Let $U$ be a finite-dimensional subspace of $\V$.
+    Then, the orthogonal projection
+    of $\V$ onto $U$ is the map
+    $$P_U : \V \to U$$
+    defined as follows: for each $v \in \V$,
+    write $v$ as
+    $$v = u + w$$
+    for some $u \in U$ and $w \in U^\perp$.
+    Then, define
+    $$P_U v = u$$
+\end{definition}
+\begin{theorem}
+    Suppose $U$ is a finite 
+    dimensional subspace of $\V$.
+    Then, 
+    \begin{enumerate}
+        \item $P_U \in \mathcal L(V)$
+        \item $P_U u = u$ for all $u \in U$
+        \item $P_u w = 0$ for all $w \in U^\perp$
+        \item $\text{range }P_U = U$
+        \item $\text{null }P_U = U^\perp$
+        \item $v - P_U v \in U^\perp$ for all $v \in \V$
+        \item $\norm{P_U v} \leq \norm{v}$ for all $v \in \V$
+        \item $P^2_U = P_U$
+        \item If $e_1, \cdots e_n$ is an orthonormal basis of $U$,
+        then for each $v \in \V$, we have
+        $$P_U v = \sum_{j=1}^n \inner{v}{e_j} e_j$$
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Trivial.
+\end{proof}
+\begin{theorem}
+    Suppose $U$ is a finite dimensional subspace of $\V$
+    and $v \in \V$.
+    Then, 
+    $$\norm{v - P_U v} \leq \norm{v - u}$$
+    for all $u \in U$. The inequality holds with equality
+    if and only if $u = P_U v$.
+\end{theorem}
+\begin{proof}
+    We have 
+    $$\norm{v - P_U v}^2 \leq \norm{v - P_U v}^2 + \norm{P_U v - u}^2$$
+    $$\norm{v - P_U}^2 \leq \norm{(v - P_U v) + (P_U v - u)}^2$$
+    $$\norm{v - P_U v}^2 \leq \norm{v - u}^2$$
+    Now, take square roots,
+    $$\norm{v - P_U v} \leq \norm{v - u}$$
+    The equality occurs if and only if
+    $\norm{P_U v - u} = 0$,
+    i.e. $u = P_U v$.
+\end{proof}
+\section{Operators on Inner Product Spaces}
+Throughout, we assume that $\V$ and $\mathbf{W}$ are nonzero, finite-dimensional 
+inner product spaces.
+\begin{definition}
+    Let $T \in \mathcal{L}(\V, \mathbf{W})$.
+    The adjoint of $T$ is the operator
+    $T^* \in \mathcal{L}(\mathbf{W}, \V)$
+    such that 
+    $$\inner{Tv}{w} = \inner{v}{T^* w}$$
+    for all $v \in \V$ and $w \in \mathbf{W}$.
+\end{definition}
+This is well-defined. Fix $w \in \mathbf{W}$.
+Then, $v \mapsto \inner{Tv}{w}$ is a linear functional on $\V$.
+By Riesz representation theorem, there exists a unique
+$v_w \in \V$ such that
+$$\inner{Tv}{w} = \inner{v}{v_w}$$
+then we call $T^* w = v_w$. 
 \end{document}
