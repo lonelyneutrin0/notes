@@ -1309,4 +1309,147 @@ By Riesz representation theorem, there exists a unique
 $v_w \in \V$ such that
 $$\inner{Tv}{w} = \inner{v}{v_w}$$
 then we call $T^* w = v_w$. 
+\begin{theorem}
+    \begin{enumerate}
+        \item $(S + T)^* = S^* + T^* \forall S, T \in \mathcal{L, W}$
+        \item $(aT)^* = \overline{a} T^*$ for all $a \in \mathbb F$
+        \item $(T^*)^* = T$
+        \item $(ST)^* = T^* S^*$
+        \item $I^* = I$
+        \item If $\V = \mathbf{W}$, then $T$ is invertible
+        if and only if $T^*$ is invertible. In this case,
+        $$(T^*)^{-1} = (T^{-1})^*$$
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item If $S \in \mathcal L(V, W)$ then 
+        $$\inner{(S + T)v}{w} = \inner{Sv}{w} + \inner{Tv}{w} = \inner{v}{S^* w} + \inner{v}{T^* w} = \inner{v}{(S^* + T^*) w}$$
+        \item We have
+        $$\inner{(aT)v}{w} = a \inner{Tv}{w} = a \inner{v}{T^* w} = \inner{v}{\overline{a} T^* w}$$
+        \item We have 
+        $$\inner{T^* w}{v} = \overline{\inner{v}{T^* w}} = \overline{\inner{Tv}{w}} = \inner{w}{Tv}$$
+        \item We have
+        $$\inner{(ST)v}{w} = \inner{T v}{S^* w} = \inner{v}{T^* S^* w}$$
+        \item We have
+        $$\inner{Iv}{w} = \inner{v}{Iw}$$
+        \item Suppose $T$ is invertible.
+        Then, $TT^{-1} = I$.
+        Taking the adjoint of both sides, we have
+        $$(T^{-1})^* T^* = I$$
+    \end{enumerate}
+\end{proof}
+\begin{theorem}
+    Let $T \in \mathcal{L}(\V, \mathbf{W})$.
+    Then, 
+    \begin{enumerate}
+        \item $\text{null }T^* = (\text{range }T)^\perp$
+        \item $\text{range }T^* = (\text{null }T)^\perp$
+        \item $\text{null T} = (\text{range }T^*)^\perp$
+        \item $\text{range }T = (\text{null }T^*)^\perp$
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $w \in \mathbf{W}$.
+        Then, we have
+        $$w \in \text{null }T^* \iff T^* w = 0 \iff \inner{v}{T^* w}$$
+        $$ = 0 \text{ for all } v \in \V \iff \inner{Tv}{w} = 0 \text{ for all } v \in \V \iff w \in (\text{range }T)^\perp$$
+    \end{enumerate}
+    Everything else follows from this.
+\end{proof}
+\begin{theorem}
+    Let $T \in \mathcal L (\V , \mathbf W)$.
+    Suppose that $e_1, \cdots e_n$ is an orthonormal basis of $\V$  
+    and $f_1, \cdots f_m$ is an orthonormal basis of $\mathbf W$.
+    Then, the matrix representation of $T^*$ with respect to
+    $f_1, \cdots f_m$ and $e_1, \cdots e_n$
+    is the conjugate transpose of the matrix representation of $T$.
+    In other words,
+    $$(T^*)_{jk} = \overline{T_{kj}}$$
+\end{theorem}
+\begin{proof}
+    Writing $Te_k$ is a linear combination of 
+    $f_1, \cdots f_m$, and the coefficients become the $k$-th column
+    of the matrix representation of $T$. Since $f_1, \cdots f_m$ is an orthonormal basis,
+    we have
+    $$Te_k = \inner{Te_k}{f_1} f_1 + \cdots \inner{Te_k}{f_m}f_m$$
+    Therefore, 
+    $$T_{jk} = \inner{Te_k}{f_j}$$
+    Similarly, writing $T^* f_j$ as a linear combination of
+    $e_1, \cdots e_n$, we have
+    $$T^* f_j = \inner{T^* f_j}{e_1} e_1 + \cdots + \inner{T^* f_j}{e_n} e_n$$
+    Thus,
+    $$ (T^*)_{kj} = \inner{T^* f_j}{e_k}$$
+    Now, by the definition of adjoint, we have
+    $$\inner{Te_k}{f_j} = \inner{e_k}{T^* f_j} = \overline{\inner{T^* f_j}{e_k}}$$
+    Therefore, we have
+    $$(T^*)_{kj} = \overline{T_{jk}}$$
+\end{proof}
+\begin{definition}
+    An operator $T \in \mathcal{L}(\V)$ is called 
+    self-adjoint if $T = T^*$. The matrix representation
+    of a self-adjoint operator with respect to
+    an orthonormal basis is called a Hermitian matrix.
+\end{definition}
+\begin{theorem}
+    Every eigenvalue of a self-adjoint operator is real.
+\end{theorem}
+\begin{proof}
+    Let $\lambda$ be an eigenvalue of a self-adjoint operator $T$
+    and let $v$ be a corresponding eigenvector.
+    Then, we have
+    $$\inner{Tv}{v} = \inner{\lambda v}{v} = \lambda \inner{v}{v}$$
+    Since $T$ is self-adjoint, we also have
+    $$\inner{Tv}{v} = \inner{v}{Tv} = \inner{v}{\lambda v} = \overline{\lambda} \inner{v}{v}$$
+    Therefore, we have
+    $$\lambda \inner{v}{v} = \overline{\lambda} \inner{v}{v}$$
+    Since $\inner{v}{v} > 0$, we have $\lambda = \overline{\lambda}$. 
+\end{proof}
+\begin{theorem}
+    Let $\V$ be a complex inner product space.
+    Then, 
+    $$\inner{T v}{v} = 0 \text{ for every $\V \leftrightarrow T = 0$}$$
+    This is false for real inner product spaces.
+\end{theorem}
+\begin{proof}
+    For $u, w \in \V$, we have
+    $$\inner{T(u + w)}{u + w} = \inner{Tu}{u} + \inner{Tw}{u} + \inner{Tu}{w} + \inner{Tw}{w} = 0$$
+    $$\inner{T(u + iw)}{u + iw} = \inner{Tu}{u} + i\inner{Tw}{u} - i\inner{Tu}{w} + \inner{Tw}{w} = 0$$
+    Adding these two equations, we have
+    $$2 \inner{Tu}{u} + 2 \inner{Tw}{w} = 0$$
+    Thus, we have
+    $$\inner{Tu}{u} + \inner{Tw}{w} = 0$$
+    Substituting this back into the first equation, we have
+    $$\inner{Tw}{u} + \inner{Tu}{w} = 0$$
+    Substituting this back into the second equation, we have
+    $$i\inner{Tw}{u} - i\inner{Tu}{w} = 0$$
+    Adding these two equations, we have
+    $$2 i \inner{Tw}{u} = 0$$
+    Thus, we have $\inner{Tw}{u} = 0$ for all $u, w \in \V$.
+    Therefore, $T = 0$.
+\end{proof}
+\begin{theorem}
+    Let $\V$ be a complex inner product space and let $T \in \mathcal{L}(\V)$.
+    Then, $T$ is self-adjoint if and only if
+    $$\inner{T v}{v} \in \mathbb R \text{ for every } v \in \V$$
+\end{theorem}
+\begin{proof}
+    If $T$ is self-adjoint, then for every $v \in \V$, we have
+    $$\overline{\inner{T v}{v}} = \inner{v}{T v} = \inner{T v}{v}$$
+    Thus, $\inner{T v}{v} \in \mathbb R$.
+    Conversely, suppose $\inner{T v}{v} \in \mathbb R$ for every $v \in \V$.
+    Then, we have
+    $$\inner{T v}{v} = \overline{\inner{T v}{v}} = \inner{v}{T v}$$
+    for every $v \in \V$.
+    Therefore, we have
+    $$\inner{(T - T^*) v}{v} = 0$$
+    for every $v \in \V$.
+    By the previous theorem, this implies that $T - T^* = 0$,
+    or $T = T^*$.
+\end{proof}
+\begin{definition}
+    An operator $T \in \mathcal{L}(\V)$ is called normal
+    if $TT^* = T^* T$, ie it commutes with its adjoint.
+\end{definition}
 \end{document}
