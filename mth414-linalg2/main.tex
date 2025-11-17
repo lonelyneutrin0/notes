@@ -1452,4 +1452,190 @@ then we call $T^* w = v_w$.
     An operator $T \in \mathcal{L}(\V)$ is called normal
     if $TT^* = T^* T$, ie it commutes with its adjoint.
 \end{definition}
+Note that being self-adjoint implies being normal.
+One way to characterize normal operators is as follows: 
+\begin{theorem}
+    An operator $T \in \mathcal{L}(\V)$ is normal
+    if and only if 
+    $$\norm{T v} = \norm{T^* v}$$
+    for every $v \in \V$.
+\end{theorem}
+\begin{proof}
+    Note that $T^* T - TT^*$ is self-adjoint 
+    since $(T^*)^* = T, (ST)^* = T^* S^*$, and the sum of self-adjoint operators is self-adjoint.
+    Then, $T$ is normal if and only if
+    $$\inner{(T^* T - TT^*) v}{v} = 0$$
+    for every $v \in \V$.
+    But we have
+    $$\inner{(T^* T - TT^*) v}{v} = \inner{T v}{T v} - \inner{T^* v}{T^* v} = \norm{T v}^2 - \norm{T^* v}^2$$
+    Therefore, $T$ is normal if and only if
+    $$\norm{T v}^2 = \norm{T^* v}^2$$
+    for every $v \in \V$.
+\end{proof}
+\begin{theorem}
+    Suppose $T \in \mathcal{L}(\V)$ is normal.
+    Then
+    \begin{enumerate}
+        \item $\text{null }T = \text{null }T^*$
+        \item $\text{range }T = \text{range }T^*$
+        \item $\V = \text{null }T \oplus \text{range }T$
+        \item If $p(z)$ is a polynomial, then $p(T^*) = (p(T))^*$
+        \item If $v$ is an eigenvector of $T$ corresponding to eigenvalue $\lambda$,
+        then $v$ is an eigenvector of $T^*$ corresponding to eigenvalue $\overline{\lambda}$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $v \in \text{null }T$.
+        Then, we have
+        $$\norm{T^* v} = \norm{T v} = 0$$
+        Thus, $v \in \text{null }T^*$.
+        \item This follows from part (1) and the
+        rank-nullity theorem.
+        \item This follows from part (1) and the
+        \item Follows from previous theorems.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+    Let $T \in \mathcal{L}(\V)$ be self-adjoint.
+    Then, every eigenvalue of $T$ has an eigenvector
+    orthogonal to a given eigenvector.
+\end{theorem}
+
+\begin{proof}
+    Let $\lambda$ be an eigenvalue of $T$
+    and let $v$ be a corresponding eigenvector.
+    Consider the subspace
+    $$U = \text{span}(v)$$
+    Since $T$ is self-adjoint, we have
+    $$T(U) \subseteq U$$
+    Thus, by an earlier result, we have
+    $$T(U^\perp) \subseteq U^\perp$$
+    Since $\dim U^\perp = \dim \V - 1 \geq 1$,
+    $T$ has an eigenvalue $\mu$ on $U^\perp$
+    with corresponding eigenvector $u$.
+    Since $u \in U^\perp$, we have $\inner{u}{v} = 0$.
+\end{proof}
+
+\begin{theorem}
+    If $\mathbb F = \mathbb C$,
+    then $T \in \mathcal{L}(\V)$ is normal
+    if and only if there are self-adjoint operators
+    $A, B \in \mathcal{L}(\V)$ such that
+    $$T = A + iB$$
+\end{theorem}
+
+\begin{proof}
+    Suppose $T$ is normal. Let 
+    $$A = \frac{T + T^*}{2}$$
+    and
+    $$B = \frac{T - T^*}{2i}$$
+    Then, both $A$ and $B$ are self-adjoint.
+    Also, we have
+    $$AB - BA = \frac{(T + T^*)(T - T^*) - (T - T^*)(T + T^*)}{4i} = \frac{T T^* - T^* T}{2i} = 0$$
+    Thus, $A$ and $B$ commute.
+    Conversely, suppose $T = A + iB$ for some self-adjoint operators
+    $A, B \in \mathcal{L}(\V)$ that commute.
+    Then, we have
+    $$TT^* = (A + iB)(A - iB) = A^2 + B^2 + i(BA - AB) = A^2 + B^2$$
+    and
+    $$T^* T = (A - iB)(A + iB) = A^2 + B^2 + i(AB - BA) = A^2 + B^2$$
+    Therefore, we have $TT^* = T^* T$,
+    and so $T$ is normal.
+\end{proof}
+
+\begin{lemma}
+    Let $T \in \mathcal{L}(\V)$ be self-adjoint.
+    Then the minimal polynomial of $T$ 
+    has the form
+    $$p(z) = (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m)$$
+    where $\lambda_1, \cdots \lambda_m$ are real numbers. 
+\end{lemma}
+\begin{proof}
+    Suppose $\mathbb F = \mathbb C$.
+    In this case, the roots of the minimal polynomial are 
+    precisely the eigenvalues of $T$.
+    Since every eigenvalue of a self-adjoint operator is real,
+    the result follows from the Fundamental Theorem of Algebra.
+    \\ Now, suppose $\mathbb F = \mathbb R$.
+    Then, we know that 
+    $$p(x) = (x - \lambda_1)(x - \lambda_2) \cdots (x - \lambda_m) (x^2 + 
+    b_1 x + c_1)\cdots(x^2 + b_N + c_N)$$
+    with $b_j^2 - 4 c_j < 0$ for all $j = 1, \cdots N$.
+    We will show that $N = 0$.
+    Suppose $N \geq 1$.
+    Then, there exists a quadratic factor
+    $$x^2 + b x + c$$
+    with $b^2 - 4 c < 0$.
+    Let $S = T^2 + b T + c I$.
+    Since $p(T) = 0$, we have $S$ is inverible. 
+    We can multiply $p(T)$ by the inverse of $S$ to get
+    a lower degree polynomial that annihilates $T$,
+    contradicting the minimality of $p$.
+    So, $N= 0$ and there are no quadratic factors.
+\end{proof}
+We get to a key result in linear algebra:
+\begin{theorem}[Real Spectral Theorem]
+    Suppose $\mathbb F = \mathbb R$ and $T \in \mathcal{L}(\V)$.
+    Then, the following are equivalent: 
+    \begin{enumerate}
+        \item $T$ is self-adjoint.
+        \item $\V$ has an orthonormal basis of eigenvectors of T.
+        \item $T$ has a diagonal matrix with respect to some orthonormal basis of $\V$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    $(2) \iff (3)$ is trivial. \\
+    $(1) \implies (2)$: 
+    From a previous result, $T$ has an upper triangular matrix $M$ 
+    with respect to some orthonormal basis of $\V$. Since $T$ 
+    is self-adjoint, $M = M^*$, but since $M$ is upper-triangular,
+    $M$ must be diagonal.
+    \\\\$(2) \implies (1)$:
+    $T$ has some diagonal matrix $M$ with respect to some orthonormal basis 
+    of $\V$. Since $M$ is diagonal, $M = M^*$. Thus, $T$ is self-adjoint.
+\end{proof} 
+
+\begin{theorem}[Complex Spectral Theorem]
+    Let $\V$ be a complex inner product space
+    and let $T \in \mathcal{L}(\V)$. Then, the following are equivalent:
+    \begin{enumerate}
+        \item $T$ is normal.
+        \item $\V$ has an orthonormal basis of eigenvectors of T.
+        \item $T$ has a diagonal matrix with respect to some orthonormal basis of $\V$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    $(2) \iff (3)$ is trivial. \\
+    $(1) \implies (2)$: 
+    From a previous result, $T$ has an upper triangular matrix $M$ 
+    with respect to some orthonormal basis of $\V$. 
+    Then, since $M$ is upper-triangular, 
+    $$\norm{T e_1}^2 = \abs{M_{11}}^2$$
+    $$\norm{T^* e_1}^2 = \sum_{j=1}^n \abs{M_{j1}}^2 = \abs{M_{11}}^2$$
+    Since $T$ is normal, we have $\norm{T e_1} = \norm{T^* e_1}$.
+    So, $M_{j1} = 0$ for all $j \geq 2$.
+    Note that $$\norm{T e_2}^2 = \abs{M_{12}}^2 + \abs{M_{22}}^2$$
+    $$\norm{T^* e_2}^2 = \abs{M_{22}}^2 + \sum_{j=3}^n \abs{M_{j2}}^2$$
+    Since $T$ is normal, we have $\norm{T e_2} = \norm{T^* e_2}$.
+    So, $M_{j2} = 0$ for all $j \geq 3$.
+    Continuing in this way, we see that $M$ is diagonal.
+   \\\\ $(2) \implies (1)$:
+    $T$ has some diagonal matrix $M$ with respect to some orthonormal basis
+    of $\V$. Since $M$ is diagonal, $M = M^*$. Thus, $T$ is normal.
+\end{proof}
+
+\subsection{Positive Operators}
+\begin{definition}
+    An operator $T \in \mathcal{L}(\V)$ is called positive
+    if it is self-adjoint and 
+    $$\inner{T v}{v} \geq 0$$
+    for all $v \in \V$.
+\end{definition}
+Note that if we're over the complex field, then you can 
+drop the requirement that it's self-adjoint. We showed that 
+$\inner{T v}{v}$ is real for all $v \in \V$ implies that $T$ is self-adjoint.
+
 \end{document}
